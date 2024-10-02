@@ -1,11 +1,16 @@
 import React from "react";
-import Card from "./Card";
+import AddCard from "./AddCard";
+
+function addCard() {}
+
+function handleClick() {}
 
 export default function List({ list }) {
   return (
     <div className="list">
       <div className="list-title">{list.title}</div>
-      <Card list={list} />
+      <AddCard />
+      <button onClick={handleClick}>+</button>
     </div>
   );
 }

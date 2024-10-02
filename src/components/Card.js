@@ -1,5 +1,9 @@
 import React from "react";
 
-export default function Card({ list }) {
-  return <div className="cards">{list.cards[0]}</div>;
+function Card({ list }) {
+  if (list.cards[0]) {
+    return <input type="text" />;
+  }
 }
+
+export default Card;

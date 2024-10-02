@@ -7,7 +7,7 @@
 }
 
 body {
-  background-color: rgb(60, 53, 53);
+  background-color: rgb(90, 100, 141);
   /* margin: 1rem; */
 }
 
@@ -19,11 +19,12 @@ body {
 }
 
 .auth button:hover {
-  transform: scale(1.04);
+  background-color: white;
 }
 
 img {
-  display: none;
+  width: 30px;
+  height: auto;
 }
 
 .nav-bar {
@@ -31,19 +32,24 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgb(127, 127, 236);
-  height: 10vh;
+  background-color: #0079bf;
 }
 
 .header {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: left;
   font-size: 1.5rem;
   font-weight: bolder;
+  gap: 0.5rem;
 }
 
 .auth {
-  width: 10rem;
+  width: 20%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: right;
+  gap: 0.5rem;
 }
 
 .list-board {
@@ -58,12 +64,51 @@ img {
 .list {
   width: 30%;
   border-radius: 5px;
-  background-color: rgb(130, 160, 186);
+  background-color: rgba(130, 160, 186, 0.623);
   padding: 1rem;
-  height: 20%;
+  height: fit-content;
+  box-shadow: 6px 6px 8px rgb(0, 0, 0);
 }
 
 .list-title {
-  font-size: larger;
+  width: 100%;
+  font-size: 1.5rem;
   font-weight: bold;
+  text-shadow: 2px 2px 5px black;
+  color: whitesmoke;
+}
+
+.list input {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: none;
+  background-color: white;
+  font-size: 1rem;
+  color: black;
+  width: 100%;
+}
+
+.list input:focus {
+  border: none;
+}
+
+.list button {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  background-color: rgb(29, 116, 193);
+  color: white;
+  border-radius: 5px;
+  border: none;
+  width: 30px;
+  height: 30px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.list button:hover {
+  background-color: rgb(54, 126, 189);
 }
