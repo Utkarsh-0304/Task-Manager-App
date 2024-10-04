@@ -7,7 +7,7 @@
 }
 
 body {
-  background-color: rgb(90, 100, 141);
+  background-color: rgb(54, 60, 86);
   /* margin: 1rem; */
 }
 
@@ -78,7 +78,7 @@ img {
   color: whitesmoke;
 }
 
-.list input {
+/* .list input {
   margin-top: 1rem;
   padding: 0.5rem;
   border-radius: 5px;
@@ -91,8 +91,8 @@ img {
 
 .list input:focus {
   border: none;
-}
-
+} */
+/* 
 .list button {
   margin-top: 1rem;
   padding: 0.5rem;
@@ -100,15 +100,89 @@ img {
   color: white;
   border-radius: 5px;
   border: none;
-  width: 30px;
-  height: 30px;
-  font-size: 1.5rem;
-  font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
-}
+} */
 
+/* 
 .list button:hover {
   background-color: rgb(54, 126, 189);
+} */
+
+.card {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+  background-color: rgb(221, 232, 232);
+  font-size: 1rem;
+  color: black;
+  width: 100%;
+}
+
+.openButton {
+  margin-top: 1rem;
+  background-color: rgb(29, 116, 193);
+  color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+form {
+  background-color: rgb(221, 232, 232);
+  border-radius: 3px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+textarea {
+  width: 100%;
+  border: 1px solid #dfe1e6;
+  border-radius: 3px;
+  resize: none;
+  padding: 5px;
+  font-size: 1rem;
+  color: black;
+  background-color: rgb(221, 232, 232);
+}
+
+/* buttons {
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-between;
+} */
+
+/* button {
+  margin-top: 0.5rem;
+  background-color: rgb(29, 116, 193);
+  color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 6px 12px;
+  cursor: pointer;
+} */
+
+.functions {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.functions button {
+  margin-top: 0.5rem;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.add {
+  background-color: green;
+}
+
+.cancel {
+  background-color: rgb(255, 47, 47);
 }
