@@ -1,8 +1,8 @@
 import React, { useState, useRef } from "react";
 
-function AddCard({ onAdd }) {
-  const [input, setInput] = useState("");
+export default function AddList({ onAdd }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [input, setInput] = useState("");
   const inputRef = useRef(null);
 
   const handleSubmit = (e) => {
@@ -30,13 +30,13 @@ function AddCard({ onAdd }) {
   };
 
   return isOpen ? (
-    <form onSubmit={handleSubmit} className="addCardForm">
+    <form onSubmit={handleSubmit} className="addListForm">
       <textarea
         value={input}
         ref={inputRef}
         onKeyDown={onEnterPress}
         onChange={(e) => setInput(e.target.value)}
-        placeholder="Enter a title or paste a link"
+        placeholder="Enter a title"
         onInput={handleInput}
       />
       <div className="functions">
@@ -53,10 +53,8 @@ function AddCard({ onAdd }) {
       </div>
     </form>
   ) : (
-    <button className="openButton" onClick={handleClick}>
+    <button className="addListButton" onClick={handleClick}>
       +
     </button>
   );
 }
-
-export default AddCard;

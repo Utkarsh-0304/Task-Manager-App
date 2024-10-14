@@ -8,10 +8,10 @@ export default function NavBar() {
         <img src={trelloLogo} alt="Logo" />
         Trello
       </div>
-      <div className="auth">
+      {/* <div className="auth">
         <button>Login</button>
         <button>Sign Up</button>
-      </div>
+      </div> */}
     </div>
   );
 }

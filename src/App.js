@@ -16,9 +16,9 @@ function App() {
     <div className="app">
       <NavBar />
       <div className="home">
-        {isOpen && <Sidebar />}
+        <Sidebar isOpen={isOpen} />
         <div className="op-sidebar">
-          <button onClick={handleClick} className={`isOpen ? open : ''`}>
+          <button onClick={handleClick} className={isOpen ? "open" : ""}>
             {isOpen ? <MdChevronLeft /> : <MdChevronRight />}
           </button>
         </div>
