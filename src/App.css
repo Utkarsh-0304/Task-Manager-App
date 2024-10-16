@@ -27,13 +27,17 @@ img {
 }
 
 .nav-bar {
-  width: 100%;
+  width: 100vw;
   height: 10vh;
   padding: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #0079bf;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
 }
 
 .header {
@@ -54,16 +58,16 @@ img {
 }
 
 .list-board {
-  width: 100%;
   margin: 1rem;
   display: flex;
   flex-direction: row;
+  flex-shrink: 0;
   justify-content: space-evenly;
   gap: 1rem;
 }
 
 .list {
-  width: 30%;
+  min-width: 300px;
   border-radius: 5px;
   background-color: rgba(130, 160, 186, 0.623);
   padding: 1rem;
@@ -239,8 +243,8 @@ textarea:focus {
 
 .home {
   position: relative;
-  height: 90vh;
-  width: 100%;
+  height: calc(100vh - 10vh);
+  margin-top: 10vh;
   display: flex;
   flex-direction: row;
 }

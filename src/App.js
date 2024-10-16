@@ -16,12 +16,12 @@ function App() {
     <div className="app">
       <NavBar />
       <div className="home">
-        <Sidebar isOpen={isOpen} />
+        {/* <Sidebar isOpen={isOpen} />
         <div className="op-sidebar">
           <button onClick={handleClick} className={isOpen ? "open" : ""}>
             {isOpen ? <MdChevronLeft /> : <MdChevronRight />}
           </button>
-        </div>
+        </div> */}
         <Board />
       </div>
     </div>
