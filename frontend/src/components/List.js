@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import AddCard from "./AddCard";
 import Card from "./Card";
+import { Droppable } from "react-beautiful-dnd";
 
-export default function List({ list }) {
+export default function List({ list, index }) {
   const [cards, setCards] = useState(list.cards);
 
   function addCard(cardTitle) {
@@ -21,9 +22,20 @@ export default function List({ list }) {
   return (
     <div className="list">
       <div className="list-title">{list.title}</div>
-      {cards.map((card) => {
-        return <Card card={card} onDelete={handleDelete} />;
-      })}
+      <Droppable droppableId={list.id}>
+        {(provider) => (
+          <div
+            className="card-list"
+            ref={provider.innerRef}
+            {...provider.droppableProps}
+          >
+            {cards.map((card, index) => (
+              <Card card={card} index={index} onDelete={handleDelete} />
+            ))}
+            {provider.placeholder}
+          </div>
+        )}
+      </Droppable>
       <AddCard onAdd={addCard} />
     </div>
   );

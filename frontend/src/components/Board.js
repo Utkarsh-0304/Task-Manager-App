@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import List from "./List";
 import AddList from "./AddList";
+import { DragDropContext } from "react-beautiful-dnd";
 
 function Board() {
   const [lists, setLists] = useState([
@@ -24,12 +25,14 @@ function Board() {
   }
 
   return (
-    <div className="list-board">
-      {lists.map((list) => {
-        return <List list={list} />;
-      })}
-      <AddList onAdd={addList} />
-    </div>
+    <DragDropContext>
+      <div className="list-board">
+        {lists.map((list) => {
+          return <List list={list} />;
+        })}
+        <AddList onAdd={addList} />
+      </div>
+    </DragDropContext>
   );
 }
 
