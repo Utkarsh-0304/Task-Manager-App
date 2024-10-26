@@ -1,16 +1,43 @@
 import React, { useState, useRef } from "react";
 
+async function addListToBoard(listTitle) {
+  console.log("Attempting to add a list:", listTitle);
+  const response = await fetch(`http://localhost:3001/lists`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ title: listTitle }),
+  });
+
+  const data = await response.json();
+
+  if (response.ok) {
+    console.log("List added:", data);
+    return data;
+  } else {
+    console.error("Error:", data.message);
+  }
+}
+
 export default function AddList({ onAdd }) {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
   const inputRef = useRef(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (input.trim() === "") return;
-    onAdd(input);
-    setInput("");
-    setIsOpen(false);
+    try {
+      console.log("Adding list: ", input);
+      const newList = await addListToBoard(input);
+      console.log("New list returned from backend:", newList);
+      setInput("");
+      onAdd(newList);
+      setIsOpen(false);
+    } catch (err) {
+      console.error("Failed to add a list");
+    }
   };
 
   const onEnterPress = (e) => {

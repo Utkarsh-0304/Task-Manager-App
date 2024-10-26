@@ -7,13 +7,6 @@ const listSchema = new mongoose.Schema({
     required: true,
   },
   cards: [cardSchema],
-  createdAt: {
-    type: Date,
-    default: {
-      type: Date,
-      default: Date.now(),
-    },
-  },
 });
 
 const List = mongoose.model("List", listSchema);

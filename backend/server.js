@@ -2,14 +2,17 @@ const Fastify = require("fastify");
 const List = require("./models/List");
 require("dotenv").config();
 const mongoose = require("mongoose");
-const cors = require("fastify-cors");
+const cors = require("@fastify/cors");
 
 const fastify = Fastify({ logger: true });
 
 const PORT = process.env.PORT || 3000;
 
 fastify.register(require("@fastify/formbody"));
-// fastify.register(cors, {});
+fastify.register(cors, {
+  origin: "http://localhost:3000",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+});
 
 mongoose
   .connect(process.env.MONGO_URI)
@@ -21,7 +24,7 @@ fastify.post("/lists", async (req, reply) => {
 
   try {
     const newList = new List({ title });
-    //await newList.save();
+    await newList.save();
     reply.status(201).send(newList);
   } catch (err) {
     reply.status(500).send({ error: "Failed to create list" });

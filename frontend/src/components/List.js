@@ -22,20 +22,21 @@ export default function List({ list, index }) {
   return (
     <div className="list">
       <div className="list-title">{list.title}</div>
-      <Droppable droppableId={list.id}>
+      {/* <Droppable droppableId={list.id}>
         {(provider) => (
-          <div
-            className="card-list"
-            ref={provider.innerRef}
-            {...provider.droppableProps}
-          >
-            {cards.map((card, index) => (
-              <Card card={card} index={index} onDelete={handleDelete} />
-            ))}
-            {provider.placeholder}
-          </div>
+          
         )}
-      </Droppable>
+      </Droppable> */}
+      <div
+        className="card-list"
+        // ref={provider.innerRef}
+        // {...provider.droppableProps}
+      >
+        {cards.map((card, index) => (
+          <Card card={card} index={index} onDelete={handleDelete} />
+        ))}
+        {/* {provider.placeholder} */}
+      </div>
       <AddCard onAdd={addCard} />
     </div>
   );

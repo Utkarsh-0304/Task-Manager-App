@@ -1,38 +1,42 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import List from "./List";
 import AddList from "./AddList";
 import { DragDropContext } from "react-beautiful-dnd";
 
 function Board() {
-  const [lists, setLists] = useState([
-    {
-      id: 1,
-      title: "To-Do",
-      cards: [],
-    },
-    { id: 2, title: "In-Progress", cards: [] },
-    { id: 3, title: "Done", cards: [] },
-  ]);
+  const [lists, setLists] = useState([]);
 
-  function addList(listTitle) {
-    const newList = {
-      id: Date.now(),
-      title: listTitle,
-      cards: [],
-    };
+  useEffect(() => {
+    async function fetchLists() {
+      try {
+        const response = await fetch("http://localhost:3001/lists");
+        const data = await response.json();
+        console.log(data);
+        setLists(data);
+      } catch (err) {
+        console.error("Couldn't fetch lists: ", err);
+      }
+    }
+    fetchLists();
+  }, []);
 
+  function addList(newList) {
+    if (!newList) {
+      console.error("New list is undefined or null:", newList);
+      return;
+    }
     setLists([...lists, newList]);
   }
 
   return (
-    <DragDropContext>
-      <div className="list-board">
-        {lists.map((list) => {
-          return <List list={list} />;
-        })}
-        <AddList onAdd={addList} />
-      </div>
-    </DragDropContext>
+    // <DragDropContext>
+    <div className="list-board">
+      {lists.map((list) => {
+        return <List list={list} />;
+      })}
+      <AddList onAdd={addList} />
+    </div>
+    // </DragDropContext>
   );
 }
 
