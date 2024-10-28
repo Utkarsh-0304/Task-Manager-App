@@ -6,11 +6,7 @@ import { Droppable } from "react-beautiful-dnd";
 export default function List({ list, index }) {
   const [cards, setCards] = useState(list.cards);
 
-  function addCard(cardTitle) {
-    const newCard = {
-      id: Date.now(),
-      title: cardTitle,
-    };
+  function addCard(newCard) {
     setCards([...cards, newCard]);
   }
 
@@ -37,7 +33,7 @@ export default function List({ list, index }) {
         ))}
         {/* {provider.placeholder} */}
       </div>
-      <AddCard onAdd={addCard} />
+      <AddCard onAdd={addCard} listId={list._id} />
     </div>
   );
 }

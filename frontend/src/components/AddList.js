@@ -1,7 +1,6 @@
 import React, { useState, useRef } from "react";
 
 async function addListToBoard(listTitle) {
-  console.log("Attempting to add a list:", listTitle);
   const response = await fetch(`http://localhost:3001/lists`, {
     method: "POST",
     headers: {
@@ -29,9 +28,7 @@ export default function AddList({ onAdd }) {
     e.preventDefault();
     if (input.trim() === "") return;
     try {
-      console.log("Adding list: ", input);
       const newList = await addListToBoard(input);
-      console.log("New list returned from backend:", newList);
       setInput("");
       onAdd(newList);
       setIsOpen(false);

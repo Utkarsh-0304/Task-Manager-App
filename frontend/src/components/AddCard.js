@@ -1,24 +1,25 @@
 import React, { useState, useRef } from "react";
 
-// async function addCardToList(listId, cardTitle) {
-//   const response = await fetch(`/lists/${listId}/cards`, {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify({ title: cardTitle }),
-//   });
+async function addCardToList(listId, cardTitle) {
+  const response = await fetch(`http://localhost:3001/lists/${listId}/cards`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ title: cardTitle }),
+  });
 
-//   const data = await response.json();
+  const data = await response.json();
 
-//   if (response.ok) {
-//     console.log("Card added:", data.card);
-//   } else {
-//     console.error("Error:", data.message);
-//   }
-// }
+  if (response.ok) {
+    console.log("Card added:", data.cards[data.cards.length - 1]);
+    return data.cards[data.cards.length - 1];
+  } else {
+    console.error("Error:", data.message);
+  }
+}
 
-function AddCard({ onAdd }) {
+function AddCard({ listId, onAdd }) {
   const [input, setInput] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const inputRef = useRef(null);
@@ -26,14 +27,14 @@ function AddCard({ onAdd }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (input.trim() === "") return;
-    // try {
-    // const newCard = await addCardToList(Date.now(), input);
-    onAdd(input);
-    setInput("");
-    setIsOpen(false);
-    // } catch (error) {
-    //   console.error("Failed to add a card");
-    // }
+    try {
+      const newCard = await addCardToList(listId, input);
+      setInput("");
+      onAdd(newCard);
+      setIsOpen(false);
+    } catch (error) {
+      console.error("Failed to add a card");
+    }
   };
 
   const onEnterPress = (e) => {
