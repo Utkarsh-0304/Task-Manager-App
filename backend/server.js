@@ -59,6 +59,21 @@ fastify.get("/lists", async (req, reply) => {
   }
 });
 
+fastify.delete("/lists/:listId/cards/:cardId", async (req, reply) => {
+  const { listId, cardId } = req.params;
+
+  try {
+    const list = await List.findById(listId);
+    if (!list) return reply.status(404).send({ error: "List not found" });
+
+    list.cards.pull({ _id: cardId });
+    await list.save();
+    reply.send(list);
+  } catch (err) {
+    reply.status(500).send({ error: "Failed to delete a card" });
+  }
+});
+
 const start = async () => {
   try {
     await fastify.listen({ port: PORT });
