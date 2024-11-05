@@ -28,11 +28,27 @@ function Board() {
     setLists([...lists, newList]);
   }
 
+  async function deleteListFromBoard(listId) {
+    const list = await fetch(`http://localhost:3001/lists/${listId}`, {
+      method: "DELETE",
+    });
+
+    if (list.ok) {
+      setLists((prevLists) => prevLists.filter((list) => list._id !== listId));
+    } else {
+      console.error("Failed to delete list");
+    }
+  }
+
+  async function deleteList(listId) {
+    await deleteListFromBoard(listId);
+  }
+
   return (
     // <DragDropContext>
     <div className="list-board">
       {lists.map((list) => {
-        return <List list={list} />;
+        return <List key={list._id} list={list} deleteList={deleteList} />;
       })}
       <AddList onAdd={addList} />
     </div>

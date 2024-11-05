@@ -1,7 +1,5 @@
 const Fastify = require("fastify");
-const List = require("./models/List");
-require("dotenv").config();
-const mongoose = require("mongoose");
+const connectDB = require("./connectDB");
 const cors = require("@fastify/cors");
 
 const fastify = Fastify({ logger: true });
@@ -14,65 +12,9 @@ fastify.register(cors, {
   methods: ["GET", "POST", "PUT", "DELETE"],
 });
 
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.error("Failed to connect MongoDB", err));
+connectDB();
 
-fastify.post("/lists", async (req, reply) => {
-  const { title } = req.body;
-
-  try {
-    const newList = new List({ title });
-    await newList.save();
-    reply.status(201).send(newList);
-  } catch (err) {
-    reply.status(500).send({ error: "Failed to create list" });
-  }
-});
-
-fastify.post("/lists/:id/cards", async (req, reply) => {
-  const { id } = req.params;
-  const { title } = req.body;
-
-  try {
-    const list = await List.findById(id);
-    if (!list) {
-      return reply.status(404).send({ error: "List not found" });
-    }
-    const newCard = { title };
-    list.cards.push(newCard);
-    await list.save();
-
-    reply.status(201).send(list);
-  } catch (err) {
-    reply.status(500).send({ error: "Failed to add a card" });
-  }
-});
-
-fastify.get("/lists", async (req, reply) => {
-  try {
-    const lists = await List.find();
-    reply.send(lists);
-  } catch (err) {
-    reply.status(500).send({ error: "Failed to fetch lists" });
-  }
-});
-
-fastify.delete("/lists/:listId/cards/:cardId", async (req, reply) => {
-  const { listId, cardId } = req.params;
-
-  try {
-    const list = await List.findById(listId);
-    if (!list) return reply.status(404).send({ error: "List not found" });
-
-    list.cards.pull({ _id: cardId });
-    await list.save();
-    reply.send(list);
-  } catch (err) {
-    reply.status(500).send({ error: "Failed to delete a card" });
-  }
-});
+fastify.register(require("./routes/lists"));
 
 const start = async () => {
   try {

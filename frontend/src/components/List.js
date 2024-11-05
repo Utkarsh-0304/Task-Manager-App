@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import AddCard from "./AddCard";
 import Card from "./Card";
+import Options from "./Options";
+// import { MdDelete } from "react-icons/md";
+import { BsThreeDotsVertical } from "react-icons/bs";
 import { Droppable } from "react-beautiful-dnd";
 
 async function deleteCardFromList(listId, cardId) {
@@ -20,8 +23,9 @@ async function deleteCardFromList(listId, cardId) {
   }
 }
 
-export default function List({ list, index }) {
+export default function List({ list, deleteList }) {
   const [cards, setCards] = useState(list.cards);
+  const [isActive, setIsActive] = useState(false);
 
   function addCard(newCard) {
     setCards([...cards, newCard]);
@@ -36,10 +40,21 @@ export default function List({ list, index }) {
 
   return (
     <div className="list">
-      <div className="list-title">{list.title}</div>
+      <div className="list-title">
+        {list.title}
+        <button
+          onClick={() => {
+            if (isActive) setIsActive(false);
+            else setIsActive(true);
+          }}
+          className={isActive ? "isActive" : ""}
+        >
+          <BsThreeDotsVertical />
+        </button>
+        {isActive ? <Options id={list._id} deleteList={deleteList} /> : <></>}
+      </div>
       {/* <Droppable droppableId={list.id}>
         {(provider) => (
-          
         )}
       </Droppable> */}
       <div

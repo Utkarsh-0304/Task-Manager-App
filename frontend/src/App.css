@@ -67,6 +67,7 @@ img {
 }
 
 .list {
+  /* border: 1px solid white; */
   min-width: 300px;
   border-radius: 5px;
   background-color: rgba(130, 160, 186, 0.623);
@@ -76,44 +77,34 @@ img {
 }
 
 .list-title {
+  /* border: 1px white solid; */
+  position: relative;
+  height: 2rem;
   width: 100%;
   font-size: 1.5rem;
   font-weight: bold;
   text-shadow: 2px 2px 5px black;
   color: whitesmoke;
-}
-
-/* .list input {
-  margin-top: 1rem;
-  padding: 0.5rem;
-  border-radius: 5px;
-  border: none;
-  background-color: white;
-  font-size: 1rem;
-  color: black;
-  width: 100%;
-}
-
-.list input:focus {
-  border: none;
-} */
-/* 
-.list button {
-  margin-top: 1rem;
-  padding: 0.5rem;
-  background-color: rgb(29, 116, 193);
-  color: white;
-  border-radius: 5px;
-  border: none;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+}
+
+/* .list-title button {
+  visibility: hidden;
 } */
 
-/* 
-.list button:hover {
-  background-color: rgb(54, 126, 189);
-} */
+.list-title button {
+  background-color: #657b94;
+  /* color: green; */
+  padding: 0.5rem;
+  border: none;
+  font-size: large;
+  border-radius: 5px;
+}
+
+.list-title button .isActive {
+  background-color: blue;
+}
 
 .card {
   margin-top: 1rem;
@@ -305,4 +296,21 @@ textarea:focus {
   border-radius: 3px;
   padding: 10px;
   height: max-content;
+}
+
+.opts {
+  position: absolute;
+  top: 30px;
+  right: -60px;
+  z-index: 1;
+  border-radius: 4px;
+  padding: 0.5rem;
+}
+
+.opts ul {
+  list-style: none;
+}
+
+.opts button {
+  background-color: black;
 }
