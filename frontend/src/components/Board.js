@@ -5,6 +5,7 @@ import { DragDropContext } from "react-beautiful-dnd";
 
 function Board() {
   const [lists, setLists] = useState([]);
+  const [openMenuId, setOpenMenuId] = useState(null);
 
   useEffect(() => {
     async function fetchLists() {
@@ -44,11 +45,24 @@ function Board() {
     await deleteListFromBoard(listId);
   }
 
+  const toggleMenu = (id) => {
+    setOpenMenuId(openMenuId === id ? null : id);
+  };
+
   return (
     // <DragDropContext>
     <div className="list-board">
       {lists.map((list) => {
-        return <List key={list._id} list={list} deleteList={deleteList} />;
+        return (
+          <List
+            key={list._id}
+            list={list}
+            deleteList={deleteList}
+            setOpenMenuId={setOpenMenuId}
+            openMenuId={openMenuId}
+            toggleMenu={toggleMenu}
+          />
+        );
       })}
       <AddList onAdd={addList} />
     </div>

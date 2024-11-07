@@ -6,7 +6,7 @@ export default function NavBar() {
     <div className="nav-bar">
       <div className="header">
         <img src={trelloLogo} alt="Logo" />
-        Trello
+        TaskFlow
       </div>
       {/* <div className="auth">
         <button>Login</button>

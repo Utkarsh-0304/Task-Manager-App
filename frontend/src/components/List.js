@@ -23,9 +23,9 @@ async function deleteCardFromList(listId, cardId) {
   }
 }
 
-export default function List({ list, deleteList }) {
+export default function List({ list, deleteList, openMenuId, toggleMenu }) {
   const [cards, setCards] = useState(list.cards);
-  const [isActive, setIsActive] = useState(false);
+  // const [isActive, setIsActive] = useState(false);
 
   function addCard(newCard) {
     setCards([...cards, newCard]);
@@ -44,14 +44,15 @@ export default function List({ list, deleteList }) {
         {list.title}
         <button
           onClick={() => {
-            if (isActive) setIsActive(false);
-            else setIsActive(true);
+            toggleMenu(list._id);
           }}
-          className={isActive ? "isActive" : ""}
+          className={openMenuId === list._id ? "isActive" : ""}
         >
           <BsThreeDotsVertical />
         </button>
-        {isActive ? <Options id={list._id} deleteList={deleteList} /> : <></>}
+        {openMenuId === list._id && (
+          <Options id={list._id} deleteList={deleteList} />
+        )}
       </div>
       {/* <Droppable droppableId={list.id}>
         {(provider) => (
