@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import DeleteButton from "./DeleteButton";
+import Options from "./Options";
 import { Draggable } from "react-beautiful-dnd";
 
 function Card({ card, onDelete, index }) {
