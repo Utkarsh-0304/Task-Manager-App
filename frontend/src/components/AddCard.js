@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { IoIosClose } from "react-icons/io";
 
 async function addCardToList(listId, cardTitle) {
   const response = await fetch(`http://localhost:3001/lists/${listId}/cards`, {
@@ -72,7 +73,7 @@ function AddCard({ listId, onAdd }) {
           className="cancel"
           onClick={() => setIsOpen(false)}
         >
-          X
+          <IoIosClose />
         </button>
       </div>
     </form>

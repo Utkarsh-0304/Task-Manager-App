@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { IoIosClose } from "react-icons/io";
 
 async function addListToBoard(listTitle) {
   const response = await fetch(`http://localhost:3001/lists`, {
@@ -72,7 +73,7 @@ export default function AddList({ onAdd }) {
           className="cancel"
           onClick={() => setIsOpen(false)}
         >
-          X
+          <IoIosClose />
         </button>
       </div>
     </form>

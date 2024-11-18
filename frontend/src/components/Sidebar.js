@@ -15,6 +15,20 @@ function Sidebar({ isOpen }) {
     <div className={`sidebar ${isOpen ? "sidebar-open" : ""}`}>
       <ul className="side-list">
         <li
+          onMouseEnter={() => handleMouseOver("add")}
+          onMouseLeave={handleMouseLeave}
+          className={hoveredItem === "add" ? "hovered" : ""}
+        >
+          <button className="newBoard">+ Add New Board</button>
+        </li>
+        <li
+          onMouseEnter={() => handleMouseOver("1")}
+          onMouseLeave={handleMouseLeave}
+          className={hoveredItem === "1" ? "hovered" : ""}
+        >
+          Board 1
+        </li>
+        {/* <li
           key="1"
           onMouseEnter={() => handleMouseOver("home")}
           onMouseLeave={handleMouseLeave}
@@ -37,7 +51,7 @@ function Sidebar({ isOpen }) {
           className={hoveredItem === "account" ? "hovered" : ""}
         >
           Account
-        </li>
+        </li> */}
       </ul>
     </div>
   );

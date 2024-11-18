@@ -15,6 +15,7 @@ fastify.register(cors, {
 connectDB();
 
 fastify.register(require("./routes/lists"));
+fastify.register(require("./routes/login"));
 
 const start = async () => {
   try {

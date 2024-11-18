@@ -43,9 +43,11 @@ function Login() {
             />
           </div>
           {/* <label for="remember"></label> */}
-          <button type="submit" className="loginButton">
-            <Link to="/home">Login</Link>
-          </button>
+          <Link to="/home">
+            <button type="submit" className="loginButton">
+              Login
+            </button>
+          </Link>
         </form>
       </div>
     </div>
