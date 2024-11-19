@@ -15,12 +15,12 @@ async function handleLogin(req, reply) {
   const { username, password } = req.body;
   try {
     const user = await User.findOne({ username });
-    if (!user) reply.send({ message: "Invalid username or password" });
+    if (!user) reply.status(401).send({ message: "No such user found" });
 
     if (user.password === password)
       reply.status(201).send({ message: "Login successful" });
 
-    reply.send({ message: "Invalid username or password" });
+    reply.status(401).send({ message: "Invalid username or password" });
   } catch (err) {
     reply.status(500).send({ error: "Internal Server Error" });
   }

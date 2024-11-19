@@ -86,6 +86,10 @@ img {
   background-color: rgb(255, 255, 255, 0.6);
 }
 
+.list:hover .list-title > button {
+  background-color: #afb1bb;
+}
+
 .list-title {
   /* border: 1px white solid; */
   position: relative;
@@ -104,17 +108,13 @@ img {
 } */
 
 .list-title button {
-  background-color: #657b94;
+  background-color: #9b9eab;
   /* background-color: #999696; */
   /* color: green; */
   padding: 0.5rem;
   border: none;
   font-size: large;
   border-radius: 5px;
-}
-
-.list-title button .isActive {
-  background-color: blue;
 }
 
 .card {

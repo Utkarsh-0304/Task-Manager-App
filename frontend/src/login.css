@@ -1,7 +1,3 @@
-/* body {
-  background-color: rgb(93, 91, 91);
-} */
-
 .login {
   display: flex;
 }
@@ -26,7 +22,7 @@
 }
 
 .login-form {
-  background-color: rgb(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.604);
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -35,12 +31,12 @@
   width: 90%;
   border-radius: 5px;
   /* border: 1px solid white; */
+  box-shadow: 10px 10px 10px black;
 }
 
 .login-form label {
-  font-size: larger;
+  font-size: large;
   margin-bottom: 1rem;
-  color: white;
 }
 
 .login-form input {
@@ -50,6 +46,8 @@
   font-size: medium;
   color: black;
   border: none;
+  box-shadow: 3px 3px 5px black;
+  outline: none;
 }
 
 .loginButton {
@@ -70,6 +68,16 @@
 
 .span {
   margin-left: 0.5rem;
-  background-color: rgb(70, 70, 205);
+  /* background-color: rgb(70, 70, 205); */
   font-family: "Pacifico", cursive;
+}
+
+.login-text {
+  font-weight: bolder;
+  font-size: 2rem;
+  font-family: "Pacifico", cursive;
+}
+
+.error-div {
+  color: red;
 }
