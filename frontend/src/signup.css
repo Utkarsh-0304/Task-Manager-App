@@ -1,4 +1,4 @@
-.login {
+.signup {
   display: flex;
 }
 
@@ -27,7 +27,7 @@
   justify-content: center;
 }
 
-.login-form {
+.signup-form {
   background-color: rgba(255, 255, 255, 0.906);
   display: flex;
   flex-direction: column;
@@ -39,13 +39,13 @@
   box-shadow: 10px 10px 10px black;
 }
 
-.login-form label {
+.signup-form label {
   font-weight: bold;
   font-size: large;
   color: black;
 }
 
-.login-form input {
+.signup-form input {
   background-color: rgba(255, 255, 255, 0.906);
   margin-top: 0.5rem;
   padding: 0.5rem;
@@ -58,7 +58,7 @@
   outline: none;
 }
 
-.loginButton {
+.signupButton {
   cursor: pointer;
   background-color: blue;
   margin: 16px 0;
@@ -70,11 +70,11 @@
   cursor: pointer;
 }
 
-.loginButton:hover {
+.signupButton:hover {
   opacity: 0.8;
 }
 
-.login-text {
+.signup-text {
   margin-bottom: 0.5rem;
   font-weight: bolder;
   color: rgba(0, 0, 255, 0.576);

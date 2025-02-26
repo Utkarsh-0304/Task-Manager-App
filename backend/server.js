@@ -10,12 +10,16 @@ fastify.register(require("@fastify/formbody"));
 fastify.register(cors, {
   origin: "http://localhost:3000",
   methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true, // Allow cookies
 });
+fastify.register(require("@fastify/cookie"));
 
 connectDB();
 
 fastify.register(require("./routes/lists"));
 fastify.register(require("./routes/login"));
+fastify.register(require("./routes/logout"));
+fastify.register(require("./routes/signup"));
 
 const start = async () => {
   try {
