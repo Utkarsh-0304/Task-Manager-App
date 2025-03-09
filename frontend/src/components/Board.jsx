@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import List from "./List";
 import AddList from "./AddList";
-import { DragDropContext } from "react-beautiful-dnd";
+// import { DragDropContext } from "react-beautiful-dnd";
 
 function Board() {
   const [lists, setLists] = useState([]);

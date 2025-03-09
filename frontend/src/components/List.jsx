@@ -4,7 +4,7 @@ import Card from "./Card";
 import Options from "./Options";
 // import { MdDelete } from "react-icons/md";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { Droppable } from "react-beautiful-dnd";
+// import { Droppable } from "react-beautiful-dnd";
 
 async function deleteCardFromList(listId, cardId) {
   const response = await fetch(

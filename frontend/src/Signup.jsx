@@ -2,7 +2,7 @@ import NavBar from "./components/NavBar";
 import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./signup.css";
-import Typewriter from "typewriter-effect";
+// import Typewriter from "typewriter-effect";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -42,7 +42,7 @@ const Signup = () => {
     <div className="signup">
       <NavBar />
       <div className="left">
-        <Typewriter
+        {/* <Typewriter
           onInit={(typewriter) => {
             typewriter
               .typeString("Welcome To")
@@ -51,7 +51,7 @@ const Signup = () => {
               .typeString("TaskFlow")
               .start();
           }}
-        />
+        /> */}
         <div className="punchLine">
           "Your go-to{" "}
           <span style={{ backgroundColor: "rgba(0, 0, 255, 0.576)" }}>
