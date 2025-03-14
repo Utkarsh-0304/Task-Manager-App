@@ -12,8 +12,12 @@ function Sidebar({ isOpen }) {
   };
 
   return (
-    <div className={`sidebar ${isOpen ? "sidebar-open" : ""}`}>
-      <ul className="side-list">
+    <div
+      className={`absolute bg-[#00008b99] h-full w-[0] rounded-r-[5px] rounded-b-[5px] overflow-hidden z-[1]${
+        isOpen ? "w-3/10 max-w-[300px] min-w-[200px]" : ""
+      }`}
+    >
+      <ul className="list-none text-white text-xl line-height-[2rem] w-full [&>.newBoard]:bg-transparent [&>.newBoard]:border-none [&>.newBoard]:w-full [&>.newBoard]:h-full [&>.newBoard]:text-l [&>li]:text-center [&>.hovered]:bg-[#313030]">
         <li
           onMouseEnter={() => handleMouseOver("add")}
           onMouseLeave={handleMouseLeave}

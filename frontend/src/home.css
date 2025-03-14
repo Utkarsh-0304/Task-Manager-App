@@ -1,14 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  color: white;
-  /* border: 1px solid white; */
-  font-family: "Roboto", sans-serif;
-}
-
 body {
   background-color: rgb(54, 60, 86);
   /* background-color: rgb(50, 44, 44); */
@@ -24,12 +15,12 @@ body {
 .auth button:hover {
   background-color: white;
 }
-
+/* 
 img {
   width: 30px;
   height: auto;
-}
-
+} */
+/* 
 .nav-bar {
   width: 100%;
   height: 4rem;
@@ -37,7 +28,7 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* background-color: #0079bf; */
+  --background-color: #0079bf;
   background-color: darkblue;
   position: fixed;
   top: 0;
@@ -53,7 +44,7 @@ img {
   font-size: 1.5rem;
   font-family: "Pacifico", cursive;
   gap: 0.5rem;
-}
+} */
 
 .auth {
   width: 20%;
@@ -71,11 +62,12 @@ img {
   gap: 1.5rem;
 }
 
+/* 
 .list {
-  /* border: 1px solid white; */
+  ---border: 1px solid white;
   min-width: 300px;
   border-radius: 5px;
-  /* background-color: rgba(130, 160, 186, 0.623); */
+  --background-color: rgba(130, 160, 186, 0.623);
   background-color: rgb(255, 255, 255, 0.5);
   padding: 1rem;
   height: fit-content;
@@ -88,40 +80,40 @@ img {
 
 .list:hover .list-title > button {
   background-color: #afb1bb;
-}
-
+} */
+/* 
 .list-title {
-  /* border: 1px white solid; */
+  --border: 1px white solid;
   position: relative;
   height: 2rem;
   width: 100%;
   font-size: 1.5rem;
-  /* font-weight: bold; */
+  --font-weight: bold;
   text-shadow: 2px 2px 5px black;
   color: whitesmoke;
   display: flex;
   justify-content: space-between;
-}
+} */
 
 /* .list-title button {
   visibility: hidden;
 } */
-
+/* 
 .list-title button {
   background-color: #9b9eab;
-  /* background-color: #999696; */
-  /* color: green; */
+  --background-color: #999696;
+  --color: green;
   padding: 0.5rem;
   border: none;
   font-size: large;
   border-radius: 5px;
-}
-
+} */
+/* 
 .card {
   margin-top: 1rem;
   padding: 0.5rem;
   border-radius: 5px;
-  /* background-color: rgb(221, 232, 232); */
+  --background-color: rgb(221, 232, 232);
   background-color: rgb(0, 0, 0, 0.6);
   font-size: 1rem;
   color: white;
@@ -130,30 +122,30 @@ img {
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
-}
+} */
 
-.card:hover {
+/* .card:hover {
   background-color: rgb(0, 0, 0, 0.5);
-}
-
+} */
+/* 
 .openButton {
   margin-top: 1rem;
-  /* background-color: rgb(29, 116, 193); */
+  --background-color: rgb(29, 116, 193);
   background-color: black;
   font-size: 1.2rem;
   border: none;
   border-radius: 50%;
   padding: 6px 12px;
   cursor: pointer;
-}
-
+} */
+/* 
 .addCardForm {
   background-color: rgb(0, 0, 0);
   border-radius: 3px;
   padding: 10px;
   margin-top: 10px;
-}
-
+} */
+/* 
 textarea {
   width: 100%;
   border: none;
@@ -166,11 +158,11 @@ textarea {
   color: white;
   background-color: rgb(0, 0, 0);
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
+} */
 
-textarea:focus {
+/* textarea:focus {
   outline: none;
-}
+} */
 
 /* buttons {
   margin-top: 5px;
@@ -188,57 +180,58 @@ textarea:focus {
   cursor: pointer;
 } */
 
-.functions {
+/* .functions {
   display: flex;
   justify-content: start;
   align-items: center;
   gap: 0.5rem;
-}
+} */
 
-.functions button {
+/* .functions button {
   margin-top: 0.5rem;
   color: white;
   border: none;
   border-radius: 3px;
   padding: 6px 12px;
   cursor: pointer;
-}
+} */
 
-.add {
-  background-color: rgb(66, 124, 194);
-}
+/* .add {
+  background-color: #427cc2;
+} 
 
 .add:hover {
-  background-color: rgb(67, 130, 207);
-}
+  background-color: #4382cf;
+} */
 
-.add:disabled {
+/* .add:disabled {
   opacity: 0.5;
-}
+} */
 
-.cancel {
+/* .cancel {
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: xx-large;
   width: 40px;
   height: 30px;
-  background-color: rgb(63, 63, 63);
-}
+  background-color: #3f3f3f;
+} */
 
-.cancel:hover {
-  background-color: rgb(111, 113, 124);
-}
-
+/* .cancel:hover {
+  background-color: #6f717c;
+} */
+/* 
 .delete {
   visibility: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* height: 3rem; */
-  /* width: 20%; */
-}
+  --height: 3rem; 
+  --width: 20%;
+} */
 
+/* 
 .delete button {
   padding: 0.3rem;
   display: flex;
@@ -248,77 +241,77 @@ textarea:focus {
   border-style: none;
   font-size: medium;
   background-color: #0079bf;
-}
-
+} */
+/* 
 .card:hover .delete {
   visibility: visible;
-}
+} */
 
-.home {
+/* .home {
   position: relative;
   height: calc(100vh - 10vh);
   margin-top: 10vh;
   display: flex;
   flex-direction: row;
-}
-
+} */
+/* 
 .sidebar {
   position: absolute;
-  /* background-color: rgba(84, 98, 186, 0.9); */
+  --background-color: rgba(84, 98, 186, 0.9);
   background-color: rgb(0, 0, 139, 0.6);
   height: 100%;
   width: 0;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
-  /* transition: transform 0.3s ease-in-out; */
+  --transition: transform 0.3s ease-in-out;
   overflow: hidden;
   z-index: 1;
-}
-
+} */
+/* 
 .side-list .newBoard {
   background-color: transparent;
   width: 100%;
   height: 100%;
   border: none;
   font-size: large;
-}
-
+} */
+/* 
 .side-list {
   list-style: none;
   font-size: larger;
   line-height: 2rem;
   width: 100%;
-}
-
+} */
+/* 
 .side-list li {
   text-align: center;
-}
-
+} */
+/* 
 .hovered {
-  background-color: rgb(49, 48, 48);
-}
-
+  background-color: #313030;
+  } */
+/* 
 .op-sidebar button {
   color: white;
   font-size: large;
   border: none;
   border-end-end-radius: 50%;
   border-start-end-radius: 50%;
-  background-color: darkblue;
+  background-color: #00008b;
   padding: 0.3rem;
   cursor: pointer;
   position: absolute;
   top: 0;
   left: 0;
   z-index: 2;
-}
+} */
 
 .sidebar-open {
   width: 30%;
   max-width: 300px;
   min-width: 200px;
 }
-
+/* 
 .addListButton {
   background-color: rgb(0, 0, 0, 0.5);
   width: 50px;
@@ -327,14 +320,14 @@ textarea:focus {
   font-size: 1.5rem;
   border: none;
   cursor: pointer;
-}
-
+} */
+/* 
 .addListForm {
   background-color: rgb(0, 0, 0);
   border-radius: 3px;
   padding: 10px;
   height: max-content;
-}
+} */
 
 .opts {
   position: absolute;

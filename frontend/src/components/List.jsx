@@ -39,14 +39,16 @@ export default function List({ list, deleteList, openMenuId, toggleMenu }) {
   }
 
   return (
-    <div className="list">
-      <div className="list-title">
+    <div className="p-[1rem] min-w-[300px] shadow-2xl rounded-[5px] bg-white/50 h-fit hover:bg-white/60">
+      <div className="h-[2rem] w-full text-[1.5rem] text-white flex justify-between relative">
         {list.title}
         <button
+          className={`bg-[9b9eab] p-[0.5rem] border-none text-l rounded-[5px] ${
+            openMenuId === list._id ? "isActive" : ""
+          }`}
           onClick={() => {
             toggleMenu(list._id);
           }}
-          className={openMenuId === list._id ? "isActive" : ""}
         >
           <BsThreeDotsVertical />
         </button>
@@ -59,9 +61,8 @@ export default function List({ list, deleteList, openMenuId, toggleMenu }) {
         )}
       </Droppable> */}
       <div
-        className="card-list"
-        // ref={provider.innerRef}
-        // {...provider.droppableProps}
+      // ref={provider.innerRef}
+      // {...provider.droppableProps}
       >
         {cards.map((card, index) => (
           <Card card={card} index={index} onDelete={handleDelete} />

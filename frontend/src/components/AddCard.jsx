@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { IoIosClose } from "react-icons/io";
+// import { MdClose } from "react-icons/io";
 
 async function addCardToList(listId, cardTitle) {
   const response = await fetch(`http://localhost:3001/lists/${listId}/cards`, {
@@ -55,8 +55,12 @@ function AddCard({ listId, onAdd }) {
   };
 
   return isOpen ? (
-    <form onSubmit={handleSubmit} className="addCardForm">
+    <form
+      onSubmit={handleSubmit}
+      className="bg-black rounded-[3px] p-[10px] mt-[10px]"
+    >
       <textarea
+        className="w-full border-none rounded-[3px] p-[5px] text-white text-[1rem] bg-black overflow-x-hidden resize-none whitespace-pre-wrap font-[Verdana] focus:outline-none"
         value={input}
         ref={inputRef}
         onKeyDown={onEnterPress}
@@ -64,21 +68,28 @@ function AddCard({ listId, onAdd }) {
         placeholder="Enter a title or paste a link"
         onInput={handleInput}
       />
-      <div className="functions">
-        <button type="submit" className="add" disabled={!input.trim()}>
+      <div className="flex justify-start items-center gap-[0.5rem] [&>button]:mt-[0.5rem] [&>button]:text-white [&>button]:border-none [&>button]:rounded-[3px] [&>button]:px-[6px] [&>button]:py-[12px] [&>button]:cursor-pointer">
+        <button
+          className="w-[60px] h-[40px] bg-[#427cc2] flex items-center justify-center hover:bg-[#4382cf] disabled:opacity-[0.5]"
+          type="submit"
+          disabled={!input.trim()}
+        >
           Add
         </button>
         <button
           type="button"
-          className="cancel"
+          className="flex items-center justify-center bg-[#3f3f3f] w-[40px] h-[40px] text-m hover:bg-[#6f717c]"
           onClick={() => setIsOpen(false)}
         >
-          <IoIosClose />
+          X
         </button>
       </div>
     </form>
   ) : (
-    <button className="openButton" onClick={handleClick}>
+    <button
+      className="mt-[1rem] px-4 py-2 bg-black rounded-full text-[1.2rem] border-none text-white"
+      onClick={handleClick}
+    >
       +
     </button>
   );

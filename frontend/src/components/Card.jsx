@@ -9,7 +9,7 @@ function Card({ card, onDelete, index }) {
     //   {(provided) => {
     //     return (
     <div
-      className="card"
+      class="mt-[1rem] p-[0.5rem] rounded-[5px] bg-black/60 flex items-center justify-between gap-[0.5rem] text-white w-full hover:bg-black/50 hover:[&>button]:visible"
       // {...provided.draggableProps}
       // {...provided.dragHandleProps}
       // ref={provided.innerRef}

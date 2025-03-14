@@ -55,8 +55,12 @@ export default function AddList({ onAdd }) {
   };
 
   return isOpen ? (
-    <form onSubmit={handleSubmit} className="addListForm">
+    <form
+      onSubmit={handleSubmit}
+      className="bg-black rounded-[3px] p-[10px] h-fit"
+    >
       <textarea
+        className="w-full border-none rounded-[3px] p-[5px] text-white text-[1rem] bg-black overflow-x-hidden resize-none whitespace-pre-wrap font-[Verdana] focus:outline-none"
         value={input}
         ref={inputRef}
         onKeyDown={onEnterPress}
@@ -64,13 +68,17 @@ export default function AddList({ onAdd }) {
         placeholder="Enter a title"
         onInput={handleInput}
       />
-      <div className="functions">
-        <button type="submit" className="add" disabled={!input.trim()}>
+      <div className="flex justify-start items-center gap-[0.5rem] [&>button]:mt-[0.5rem] [&>button]:text-white [&>button]:border-none [&>button]:rounded-[3px] [&>button]:px-[6px] [&>button]:py-[12px] [&>button]:cursor-pointer">
+        <button
+          type="submit"
+          className="w-[60px] h-[40px] bg-[#427cc2] flex items-center justify-center hover:bg-[#4382cf] disabled:opacity-[0.5]"
+          disabled={!input.trim()}
+        >
           Add
         </button>
         <button
           type="button"
-          className="cancel"
+          className="flex items-center justify-center bg-[#3f3f3f] w-[40px] h-[40px] text-m hover:bg-[#6f717c]"
           onClick={() => setIsOpen(false)}
         >
           <IoIosClose />
@@ -78,7 +86,10 @@ export default function AddList({ onAdd }) {
       </div>
     </form>
   ) : (
-    <button className="addListButton" onClick={handleClick}>
+    <button
+      className="text-white bg-black/50 w-[50px] h-[50px] rounded-[5px] text-[1.5rem] border-none cursor-pointer"
+      onClick={handleClick}
+    >
       +
     </button>
   );

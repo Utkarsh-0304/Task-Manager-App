@@ -1,6 +1,6 @@
 import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./login.css";
+// import "./login.css";
 import NavBar from "./components/NavBar";
 // import Typewriter from "typewriter-effect";
 
@@ -39,20 +39,21 @@ function Login() {
   }
 
   return (
-    <div className="login">
+    <div className="flex">
       <NavBar />
-      <div className="left">
+
+      <div className="w-1/2 h-screen flex justify-center items-center flex-col text-[2rem]">
         {/* <Typewriter
-          onInit={(typewriter) => {
-            typewriter
-              .typeString("Welcome To")
-              .pauseFor(1000)
-              .deleteAll()
-              .typeString("TaskFlow")
-              .start();
-          }}
-        /> */}
-        <div className="punchLine">
+            onInit={(typewriter) => {
+              typewriter
+                .typeString("Welcome To")
+                .pauseFor(1000)
+                .deleteAll()
+                .typeString("TaskFlow")
+                .start();
+            }}
+          /> */}
+        <div className="text-white">
           "Your go-to{" "}
           <span style={{ backgroundColor: "rgba(0, 0, 255, 0.576)" }}>
             task management tool
@@ -60,13 +61,21 @@ function Login() {
           "
         </div>
       </div>
-      <div className="right">
-        <form className="login-form" onSubmit={handleSubmit}>
-          <div className="login-text">Login</div>
+      <div className="w-1/2 h-screen flex justify-center items-center">
+        <form
+          className="bg-white/80 flex flex-col items-center justify-evenly h-auto w-4/5 shadow-2xl rounded-md"
+          onSubmit={handleSubmit}
+        >
+          <div className="font-(family-name: Pacifico) text-3xl font-bold text-sky-800">
+            Login
+          </div>
           <div>
-            <label htmlFor="uname">Username </label>
+            <label htmlFor="uname" className="font-bold text-md">
+              Username{" "}
+            </label>
             <br />
             <input
+              className="bg-white/25 border-none p-[0.5rem] mt-[0.5rem] outline-none rounded-l"
               value={username}
               type="text"
               placeholder="Enter username"
@@ -76,9 +85,12 @@ function Login() {
           </div>
           <br />
           <div>
-            <label htmlFor="pass">Password </label>
+            <label htmlFor="pass" className="font-bold text-md">
+              Password{" "}
+            </label>
             <br />
             <input
+              className="bg-white/25 border-none p-[0.5rem] mt-[0.5rem] outline-none rounded-l"
               value={password}
               type="password"
               placeholder="Enter password"
@@ -86,8 +98,11 @@ function Login() {
               onChange={(e) => setPassInput(e.target.value)}
             />
           </div>
-          {error && <div className="error-div">{error}</div>}
-          <button type="submit" className="loginButton">
+          {error && <div className="text-red-500 m-[1rem]">{error}</div>}
+          <button
+            type="submit"
+            className="m-[0.5rem] p-[0.5rem] text-white bg-blue-500 rounded-s"
+          >
             Login
           </button>
           <div
@@ -98,7 +113,7 @@ function Login() {
               paddingBottom: "5px",
             }}
           >
-            New User?{" "}
+            Don't have an account?{" "}
             <button
               style={{
                 fontFamily: "inherit",
