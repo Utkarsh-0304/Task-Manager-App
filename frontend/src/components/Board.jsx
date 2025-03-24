@@ -51,7 +51,7 @@ function Board() {
 
   return (
     // <DragDropContext>
-    <div className="list-board">
+    <div className="m-[1rem] flex flex-row shrink-0 justify-evenly gap-[1.5rem] ">
       {lists.map((list) => {
         return (
           <List

@@ -13,11 +13,11 @@ function Sidebar({ isOpen }) {
 
   return (
     <div
-      className={`absolute bg-[#00008b99] h-full w-[0] rounded-r-[5px] rounded-b-[5px] overflow-hidden z-[1]${
-        isOpen ? "w-3/10 max-w-[300px] min-w-[200px]" : ""
+      className={`absolute bg-white/80 h-full w-[0] rounded-r-[5px] rounded-b-[5px] overflow-hidden z-2 ${
+        isOpen ? "w-full max-w-[300px] min-w-[200px]" : ""
       }`}
     >
-      <ul className="list-none text-white text-xl line-height-[2rem] w-full [&>.newBoard]:bg-transparent [&>.newBoard]:border-none [&>.newBoard]:w-full [&>.newBoard]:h-full [&>.newBoard]:text-l [&>li]:text-center [&>.hovered]:bg-[#313030]">
+      <ul className="list-none text-black text-xl line-height-[2rem] w-full [&>.newBoard]:bg-transparent [&>.newBoard]:border-none [&>.newBoard]:w-full [&>.newBoard]:h-full [&>.newBoard]:text-l [&>li]:text-center [&>.hovered]:bg-white">
         <li
           onMouseEnter={() => handleMouseOver("add")}
           onMouseLeave={handleMouseLeave}

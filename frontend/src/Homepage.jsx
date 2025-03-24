@@ -15,7 +15,7 @@ function Homepage() {
   return (
     <div className="app">
       <NavBar />
-      <div className="relative h-[calc(100vh-10vh)] mt-[10vh] flex flex-row">
+      <div className="relative h-[calc(100vh-10vh)] mt-[10vh] flex flex-row ">
         <Sidebar isOpen={isOpen} />
         <div className="[&>button]:text-white [&>button]:text-xl [&>button]:border-none [&>button]:rounded-e-[50%] [&>button]:bg-[#00008b] [&>button]:p-[0.3rem] [&>button]:cursor-pointer [&>button]:absolute [&>button]:top-0 [&>button]:left-0 [&>button]:z-2">
           <button onClick={handleClick} className={isOpen ? "open" : ""}>
