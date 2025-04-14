@@ -2,6 +2,12 @@
 
 A collaborative task management application designed to help teams and individuals organize projects efficiently. This application allows users to create boards, manage task lists, and organize tasks using a clean and intuitive interface.
 
+![image](https://github.com/user-attachments/assets/698d0f85-89d9-4a67-b9ed-884ee4ec4af8)
+
+![image](https://github.com/user-attachments/assets/d114b8db-3c1e-4767-9bca-56be1ce8ae6d)
+
+![image](https://github.com/user-attachments/assets/b0165fea-f9f2-4797-bec3-4ba9bd35a78e)
+
 ## 🚀 Features
 
 - Create, update, and delete task lists and cards
