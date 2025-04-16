@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Sidebar({ isOpen }) {
+function Sidebar({ isOpen, sidebarRef }) {
   const [hoveredItem, setHoveredItem] = useState(null);
 
   const handleMouseOver = (item) => {
@@ -13,6 +13,7 @@ function Sidebar({ isOpen }) {
 
   return (
     <div
+      ref={sidebarRef}
       className={`absolute bg-white/80 h-full w-[0] rounded-r-[5px] rounded-b-[5px] overflow-hidden z-2 ${
         isOpen ? "w-full max-w-[300px] min-w-[200px]" : ""
       }`}

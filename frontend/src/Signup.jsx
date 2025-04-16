@@ -39,40 +39,29 @@ const Signup = () => {
     }
   }
   return (
-    <div className="flex">
+    <div className="flex min-h-screen bg-gradient-to-r from-blue-900 to-gray-800">
       <NavBar />
-      <div className="w-1/2 h-screen flex justify-center items-center flex-col text-[2rem]">
-        {/* <Typewriter
-          onInit={(typewriter) => {
-            typewriter
-              .typeString("Welcome To")
-              .pauseFor(1000)
-              .deleteAll()
-              .typeString("TaskFlow")
-              .start();
-          }}
-        /> */}
-        <div className="text-white">
+      <div className="w-1/2 flex flex-col justify-center items-center text-white text-[2rem] px-10">
+        <div>
           "Your go-to{" "}
-          <span style={{ backgroundColor: "rgba(0, 0, 255, 0.576)" }}>
+          <span className="bg-blue-500/70 px-2 py-1 rounded-md">
             task management tool
           </span>
           "
         </div>
       </div>
-      <div className="w-1/2 h-screen flex justify-center items-center">
+      <div className="w-1/2 flex justify-center items-center">
         <form
-          className="bg-white/80 flex flex-col items-center justify-evenly h-auto w-4/5 shadow-2xl rounded-md"
+          className="bg-white/90 flex flex-col items-center justify-center w-4/5 max-w-md shadow-2xl rounded-lg p-8"
           onSubmit={handleSubmit}
         >
-          <div className="text-3xl font-bold text-sky-800">Signup</div>
-          <div>
-            <label htmlFor="uname" className="font-bold text-md mt-[2rem]">
+          <div className="text-4xl font-bold text-sky-800 mb-6">Signup</div>
+          <div className="w-full mb-6">
+            <label htmlFor="uname" className="block text-md font-semibold mb-2">
               Username{" "}
             </label>
-            <br />
             <input
-              className="bg-white/25 border-none p-[0.5rem] mt-[0.5rem] outline-none rounded-l"
+              className="w-full bg-gray-100 border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition "
               value={username}
               type="text"
               placeholder="Enter username"
@@ -80,14 +69,12 @@ const Signup = () => {
               onChange={(e) => setUserInput(e.target.value)}
             />
           </div>
-          <br />
-          <div>
-            <label htmlFor="pass" className="font-bold text-md">
+          <div className="w-full mb-6">
+            <label htmlFor="pass" className="block text-md font-semibold mb-2">
               Password{" "}
             </label>
-            <br />
             <input
-              className="bg-white/25 border-none p-[0.5rem] mt-[0.5rem] outline-none rounded-l"
+              className="w-full bg-gray-100 border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500 transition"
               value={password}
               type="password"
               placeholder="Enter password"
@@ -95,36 +82,22 @@ const Signup = () => {
               onChange={(e) => setPassInput(e.target.value)}
             />
           </div>
-          {error && <div className="text-red-500 m-[1rem]">{error}</div>}
+
+          {error && <div className="text-red-500 mb-4">{error}</div>}
+
           <button
             type="submit"
-            className="m-[0.5rem] p-[0.5rem] text-white bg-blue-500 rounded-s"
+            className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-md transition duration-300"
           >
             Signup
           </button>
-          <div
-            style={{
-              color: "blue",
-              marginTop: "5px",
-              marginBottom: "5px",
-              paddingBottom: "5px",
-            }}
-          >
+          <div className="text-center text-gray-500 mt-6">
             Already have an account?{" "}
             <button
-              style={{
-                fontFamily: "inherit",
-                fontSize: "inherit",
-                backgroundColor: "transparent",
-                color: "blue",
-                border: "none",
-                cursor: "pointer",
-                paddingLeft: "5px",
-                textDecoration: "underline",
-              }}
+              className="text-blue-500 hover:underline transition"
               onClick={() => navigate("/login")}
             >
-              login
+              Login
             </button>{" "}
             here
           </div>

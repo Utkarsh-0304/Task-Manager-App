@@ -1,8 +1,6 @@
 import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import "./login.css";
 import NavBar from "./components/NavBar";
-// import Typewriter from "typewriter-effect";
 
 function Login() {
   const navigate = useNavigate();
@@ -41,18 +39,7 @@ function Login() {
   return (
     <div className="flex min-h-screen bg-gradient-to-r from-blue-900 to-gray-800">
       <NavBar />
-      {/* Left Column */}
       <div className="w-1/2 flex flex-col justify-center items-center text-white text-[2rem] px-10">
-        {/* <Typewriter
-          onInit={(typewriter) => {
-            typewriter
-              .typeString("Welcome To")
-              .pauseFor(1000)
-              .deleteAll()
-              .typeString("TaskFlow")
-              .start();
-          }}
-        /> */}
         <div>
           "Your go-to{" "}
           <span className="bg-blue-500/70 px-2 py-1 rounded-md">
@@ -62,7 +49,6 @@ function Login() {
         </div>
       </div>
 
-      {/* Right Column with Form */}
       <div className="w-1/2 flex justify-center items-center">
         <form
           className="bg-white/90 flex flex-col items-center justify-center w-4/5 max-w-md shadow-2xl rounded-lg p-8"
