@@ -8,7 +8,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 
 async function deleteCardFromList(listId, cardId) {
   const response = await fetch(
-    `http://localhost:3001/lists/${listId}/cards/${cardId}`,
+    `${import.meta.env.VITE_API_URL}/lists/${listId}/cards/${cardId}`,
     {
       method: "DELETE",
     }

@@ -8,7 +8,7 @@ export default function NavBar() {
 
   async function handleClick() {
     try {
-      const response = await fetch("http://localhost:3001/logout", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/logout`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

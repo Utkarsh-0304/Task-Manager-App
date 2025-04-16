@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { IoIosClose } from "react-icons/io";
 
 async function addListToBoard(listTitle) {
-  const response = await fetch(`http://localhost:3001/lists`, {
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/lists`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

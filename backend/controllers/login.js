@@ -11,10 +11,10 @@ async function handleLogin(req, reply) {
     const token = setUser(user);
     reply.setCookie("uid", token, {
       path: "/", // Cookie is accessible on all routes
-      httpOnly: false, // Prevents client-side access
-      secure: false, // Set to `true` if using HTTPS
+      httpOnly: true, // Prevents client-side access
+      secure: process.env.NODE_ENV === "production", // Set to `true` if using HTTPS
       maxAge: 3600, // Cookie expires in 1 hour
-      sameSite: "Strict", // Prevents CSRF attacks
+      sameSite: "None", // Prevents CSRF attacks
     });
 
     if (user.password === password) {

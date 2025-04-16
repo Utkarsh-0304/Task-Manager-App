@@ -2,13 +2,16 @@ import React, { useState, useRef } from "react";
 // import { MdClose } from "react-icons/io";
 
 async function addCardToList(listId, cardTitle) {
-  const response = await fetch(`http://localhost:3001/lists/${listId}/cards`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ title: cardTitle }),
-  });
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/lists/${listId}/cards`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ title: cardTitle }),
+    }
+  );
 
   const data = await response.json();
 

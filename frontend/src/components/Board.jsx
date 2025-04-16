@@ -10,7 +10,7 @@ function Board() {
   useEffect(() => {
     async function fetchLists() {
       try {
-        const response = await fetch("http://localhost:3001/lists");
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/lists`);
         const data = await response.json();
         console.log(data);
         setLists(data);
@@ -30,9 +30,12 @@ function Board() {
   }
 
   async function deleteListFromBoard(listId) {
-    const list = await fetch(`http://localhost:3001/lists/${listId}`, {
-      method: "DELETE",
-    });
+    const list = await fetch(
+      `${import.meta.env.VITE_API_URL}/lists/${listId}`,
+      {
+        method: "DELETE",
+      }
+    );
 
     if (list.ok) {
       setLists((prevLists) => prevLists.filter((list) => list._id !== listId));
