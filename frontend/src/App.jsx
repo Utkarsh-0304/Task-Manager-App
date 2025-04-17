@@ -11,8 +11,10 @@ import {
 import Signup from "./Signup";
 
 const PrivateRoute = () => {
-  const hasSessionId = document.cookie;
-  return hasSessionId ? <Outlet /> : <Navigate to="/login" replace />;
+  const hasSessionId = document.cookie
+    .split("; ")
+    .find((row) => row.startsWith("uid="));
+  return hasSessionId ? <Outlet /> : <Navigate to="/" replace />;
 };
 function App() {
   return (
