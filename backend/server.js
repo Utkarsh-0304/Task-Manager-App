@@ -7,15 +7,16 @@ const fastify = Fastify({ logger: true });
 const PORT = process.env.PORT || 3000;
 
 fastify.register(require("@fastify/formbody"));
-fastify.register(require("@fastify/cookie"), {
-  secret: "supersecret",
-  hook: "onRequest",
-  parseOptions: {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: false, // IMPORTANT: false for localhost testing
-  },
-});
+// fastify.register(require("@fastify/cookie"));
+// {
+//   secret: "supersecret",
+//   hook: "onRequest",
+//   parseOptions: {
+//     httpOnly: true,
+//     sameSite: "lax",
+//     secure: false, // IMPORTANT: false for localhost testing
+//   },
+// }
 fastify.register(cors, {
   origin: "http://localhost:3000",
   methods: ["GET", "POST", "PUT", "DELETE"],

@@ -8,14 +8,14 @@ async function handleLogin(req, reply) {
     const user = await User.findOne({ username });
     if (!user) return reply.status(401).send({ message: "No such user found" });
 
-    const token = setUser(user);
-    reply.setCookie("uid", token, {
-      path: "/", // Cookie is accessible on all routes
-      httpOnly: true, // Prevents client-side access
-      secure: process.env.NODE_ENV === "production", // Set to `true` if using HTTPS
-      maxAge: 3600, // Cookie expires in 1 hour
-      sameSite: "None", // Prevents CSRF attacks
-    });
+    // const token = setUser(user);
+    // reply.setCookie("uid", token, {
+    //   path: "/", // Cookie is accessible on all routes
+    //   httpOnly: true, // Prevents client-side access
+    //   secure: process.env.NODE_ENV === "production", // Set to `true` if using HTTPS
+    //   maxAge: 3600, // Cookie expires in 1 hour
+    //   sameSite: "None", // Prevents CSRF attacks
+    // });
 
     if (user.password === password) {
       return reply.status(201).send({ message: "Login successful" });
