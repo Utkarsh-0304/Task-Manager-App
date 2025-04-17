@@ -11,7 +11,7 @@ async function handleLogin(req, reply) {
     const token = setUser(user);
     reply.setCookie("uid", token, {
       path: "/", // Cookie is accessible on all routes
-      httpOnly: true, // Prevents client-side access
+      httpOnly: false, // Prevents client-side access
       secure: false, // Set to `true` if using HTTPS
       maxAge: 3600, // Cookie expires in 1 hour
       sameSite: "None", // Prevents CSRF attacks
