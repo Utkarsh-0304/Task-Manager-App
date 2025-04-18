@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 export default function NavBar() {
   const navigate = useNavigate();
-  let url = window.location.href.substring(21);
+  let url = window.location.href;
+  url = url.substring(url.lastIndexOf("/"), url.length);
 
   async function handleClick() {
     try {
