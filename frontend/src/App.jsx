@@ -1,6 +1,7 @@
 import React from "react";
 import Login from "./Login";
 import Homepage from "./Homepage";
+import Signup from "./Signup";
 import {
   BrowserRouter,
   Routes,
@@ -8,12 +9,10 @@ import {
   Navigate,
   Outlet,
 } from "react-router-dom";
-import Signup from "./Signup";
 
 const PrivateRoute = () => {
-  const hasSessionId = document.cookie
-    .split("; ")
-    .find((row) => row.startsWith("uid="));
+  const hasSessionId = document.cookie;
+  console.log("hasSessionId", hasSessionId);
   return hasSessionId ? <Outlet /> : <Navigate to="/" replace />;
 };
 function App() {
