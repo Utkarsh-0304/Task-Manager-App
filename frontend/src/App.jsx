@@ -27,7 +27,7 @@ const PrivateRoute = () => {
       .catch(() => setVerified(false));
   }, []);
 
-  if (isVerified === null) return <div>Loading...</div>;
+  if (isVerified === null) return;
   return isVerified ? <Outlet /> : <Navigate to="/" replace />;
 };
 

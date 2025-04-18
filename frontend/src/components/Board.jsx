@@ -12,7 +12,6 @@ function Board() {
       try {
         const response = await fetch(`${import.meta.env.VITE_API_URL}/lists`);
         const data = await response.json();
-        console.log(data);
         setLists(data);
       } catch (err) {
         console.error("Couldn't fetch lists: ", err);
