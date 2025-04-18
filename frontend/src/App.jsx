@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Login from "./Login";
 import Homepage from "./Homepage";
 import Signup from "./Signup";
@@ -11,10 +11,26 @@ import {
 } from "react-router-dom";
 
 const PrivateRoute = () => {
-  const hasSessionId = document.cookie;
-  console.log("hasSessionId", hasSessionId);
-  return hasSessionId ? <Outlet /> : <Navigate to="/" replace />;
+  const [isVerified, setVerified] = useState(null);
+
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/verify`, {
+      credentials: "include",
+    })
+      .then((res) => {
+        if (res.ok) {
+          setVerified(true);
+        } else {
+          setVerified(false);
+        }
+      })
+      .catch(() => setVerified(false));
+  }, []);
+
+  if (isVerified === null) return <div>Loading...</div>;
+  return isVerified ? <Outlet /> : <Navigate to="/" replace />;
 };
+
 function App() {
   return (
     <BrowserRouter>
