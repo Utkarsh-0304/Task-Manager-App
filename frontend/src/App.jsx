@@ -32,6 +32,12 @@ const PrivateRoute = () => {
 };
 
 function App() {
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/ping`)
+      .then((res) => console.log("Backend pinged:", res.status))
+      .catch((err) => console.log("Error pinging backend: ", err));
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>

@@ -7,13 +7,14 @@ function Login() {
   const [username, setUserInput] = useState("");
   const [password, setPassInput] = useState("");
   const [error, setError] = useState("");
-
+  const [loading, setLoading] = useState(false);
   async function handleSubmit(e) {
     e.preventDefault();
     if (!username.trim() || !password.trim()) {
       setError("username or password fields cannot be empty");
       return;
     }
+    setLoading(true);
     try {
       const response = await fetch(
         "https://task-manager-application-5wry.onrender.com/login",
@@ -36,6 +37,8 @@ function Login() {
       }
     } catch (err) {
       console.log("Error occured", err);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -92,8 +95,9 @@ function Login() {
           <button
             type="submit"
             className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-md transition duration-300"
+            disabled={loading}
           >
-            Login
+            {loading ? "Logging in..." : "Login"}
           </button>
 
           <div className="text-center text-gray-500 mt-6">

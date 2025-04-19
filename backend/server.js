@@ -25,6 +25,7 @@ fastify.register(cors, {
   credentials: true, // Allow cookies
 });
 
+fastify.register(require("./routes/ping"));
 fastify.register(require("./routes/verify"));
 fastify.register(require("./routes/lists"));
 fastify.register(require("./routes/login"));
