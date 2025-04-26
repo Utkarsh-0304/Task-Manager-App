@@ -2,7 +2,7 @@ const Fastify = require("fastify");
 const connectDB = require("./connectDB");
 const cors = require("@fastify/cors");
 
-const fastify = Fastify({ logger: true });
+const fastify = Fastify();
 
 const PORT = process.env.PORT || 3000;
 

@@ -3,7 +3,6 @@ const { getUser } = require("../service/auth");
 const verifyRoute = (fastify, opts, done) => {
   fastify.get("/verify", async function (req, reply) {
     const token = req.cookies.uid;
-    console.log(token);
     const user = getUser(token);
 
     if (!user) {
