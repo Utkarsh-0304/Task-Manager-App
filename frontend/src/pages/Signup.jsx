@@ -1,22 +1,23 @@
+import NavBar from "../components/NavBar";
 import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import NavBar from "./components/NavBar";
+// import "./signup.css";
+// import Typewriter from "typewriter-effect";
 
-function Login() {
+const Signup = () => {
   const navigate = useNavigate();
   const [username, setUserInput] = useState("");
   const [password, setPassInput] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+
   async function handleSubmit(e) {
     e.preventDefault();
     if (!username.trim() || !password.trim()) {
       setError("username or password fields cannot be empty");
       return;
     }
-    setLoading(true);
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/login`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -26,19 +27,17 @@ function Login() {
       });
 
       const data = await response.json();
+      console.log(data.message);
 
       if (response.ok) {
-        navigate("/home");
+        navigate("/login");
       } else {
-        setError("Invalid username or password");
+        setError(data.message);
       }
     } catch (err) {
       console.log("Error occured", err);
-    } finally {
-      setLoading(false);
     }
   }
-
   return (
     <div className="flex min-h-screen bg-gradient-to-r from-blue-900 to-gray-800">
       <NavBar />
@@ -51,17 +50,15 @@ function Login() {
           "
         </div>
       </div>
-
       <div className="w-1/2 flex justify-center items-center">
         <form
           className="bg-white/90 flex flex-col items-center justify-center w-4/5 max-w-md shadow-2xl rounded-lg p-8"
           onSubmit={handleSubmit}
         >
-          <h2 className="text-4xl font-bold text-sky-800 mb-6">Login</h2>
-
+          <div className="text-4xl font-bold text-sky-800 mb-6">Signup</div>
           <div className="w-full mb-6">
             <label htmlFor="uname" className="block text-md font-semibold mb-2">
-              Username
+              Username{" "}
             </label>
             <input
               className="w-full bg-gray-100 border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition "
@@ -72,10 +69,9 @@ function Login() {
               onChange={(e) => setUserInput(e.target.value)}
             />
           </div>
-
           <div className="w-full mb-6">
             <label htmlFor="pass" className="block text-md font-semibold mb-2">
-              Password
+              Password{" "}
             </label>
             <input
               className="w-full bg-gray-100 border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500 transition"
@@ -92,18 +88,16 @@ function Login() {
           <button
             type="submit"
             className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-md transition duration-300"
-            disabled={loading}
           >
-            {loading ? "Logging in..." : "Login"}
+            Signup
           </button>
-
           <div className="text-center text-gray-500 mt-6">
-            Don't have an account?{" "}
+            Already have an account?{" "}
             <button
               className="text-blue-500 hover:underline transition"
-              onClick={() => navigate("/signup")}
+              onClick={() => navigate("/login")}
             >
-              Signup
+              Login
             </button>{" "}
             here
           </div>
@@ -111,6 +105,6 @@ function Login() {
       </div>
     </div>
   );
-}
+};
 
-export default Login;
+export default Signup;

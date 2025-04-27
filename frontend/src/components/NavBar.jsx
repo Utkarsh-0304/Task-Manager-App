@@ -28,7 +28,7 @@ export default function NavBar() {
         <img src={trelloLogo} alt="Logo" className="h-auto w-[30px]" />
         TaskFlow
       </div>
-      {url === "/home" && (
+      {url === "/board" && (
         <div className="text-white text-lg w-20 flex justify-right gap-[0.5rem]">
           <button onClick={handleClick}>Logout</button>
         </div>

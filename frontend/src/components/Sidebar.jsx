@@ -11,6 +11,8 @@ function Sidebar({ isOpen, sidebarRef }) {
     setHoveredItem(null);
   };
 
+  const addBoard = () => {};
+
   return (
     <div
       ref={sidebarRef}
@@ -24,7 +26,9 @@ function Sidebar({ isOpen, sidebarRef }) {
           onMouseLeave={handleMouseLeave}
           className={hoveredItem === "add" ? "hovered" : ""}
         >
-          <button className="newBoard">+ Add New Board</button>
+          <button className="newBoard" onClick={addBoard}>
+            Add New Board
+          </button>
         </li>
         <li
           onMouseEnter={() => handleMouseOver("1")}
@@ -33,30 +37,6 @@ function Sidebar({ isOpen, sidebarRef }) {
         >
           Board 1
         </li>
-        {/* <li
-          key="1"
-          onMouseEnter={() => handleMouseOver("home")}
-          onMouseLeave={handleMouseLeave}
-          className={hoveredItem === "home" ? "hovered" : ""}
-        >
-          Home
-        </li>
-        <li
-          key="2"
-          onMouseEnter={() => handleMouseOver("board")}
-          onMouseLeave={handleMouseLeave}
-          className={hoveredItem === "board" ? "hovered" : ""}
-        >
-          Boards
-        </li>
-        <li
-          key="3"
-          onMouseEnter={() => handleMouseOver("account")}
-          onMouseLeave={handleMouseLeave}
-          className={hoveredItem === "account" ? "hovered" : ""}
-        >
-          Account
-        </li> */}
       </ul>
     </div>
   );

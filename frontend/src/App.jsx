@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Login from "./Login";
-import Homepage from "./Homepage";
-import Signup from "./Signup";
+import Login from "./pages/Login";
+import Homepage from "./pages/Homepage";
+import Board from "./components/Board";
+import Signup from "./pages/Signup";
 import {
   BrowserRouter,
   Routes,
@@ -34,7 +35,7 @@ const PrivateRoute = () => {
 function App() {
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/ping`)
-      .then((res) => console.log("Backend pinged:", res.status))
+      .then((res) => console.log("Backend pinged"))
       .catch((err) => console.log("Error pinging backend: ", err));
   }, []);
 
@@ -44,6 +45,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route element={<PrivateRoute />}>
           <Route path="/home" element={<Homepage />} />
+          <Route path="/board" element={<Board />} />
         </Route>
         <Route path="/signup" element={<Signup />} />
         <Route path="*" element={<Navigate to="/" />} />

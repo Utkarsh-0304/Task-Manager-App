@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import AddCard from "./AddCard";
 import Card from "./Card";
 import Options from "./Options";
-// import { MdDelete } from "react-icons/md";
 import { BsThreeDotsVertical } from "react-icons/bs";
-// import { Droppable } from "react-beautiful-dnd";
 
 async function deleteCardFromList(listId, cardId) {
   const response = await fetch(
@@ -23,9 +21,14 @@ async function deleteCardFromList(listId, cardId) {
   }
 }
 
-export default function List({ list, deleteList, openMenuId, toggleMenu }) {
-  const [cards, setCards] = useState(list.cards);
-  // const [isActive, setIsActive] = useState(false);
+export default function List({
+  list,
+  card,
+  deleteList,
+  openMenuId,
+  toggleMenu,
+}) {
+  const [cards, setCards] = useState(card);
 
   function addCard(newCard) {
     setCards([...cards, newCard]);
@@ -56,18 +59,11 @@ export default function List({ list, deleteList, openMenuId, toggleMenu }) {
           <Options id={list._id} deleteList={deleteList} />
         )}
       </div>
-      {/* <Droppable droppableId={list.id}>
-        {(provider) => (
-        )}
-      </Droppable> */}
-      <div
-      // ref={provider.innerRef}
-      // {...provider.droppableProps}
-      >
-        {cards.map((card, index) => (
-          <Card card={card} index={index} onDelete={handleDelete} />
+
+      <div>
+        {cards.map((card) => (
+          <Card key={card._id} card={card} onDelete={handleDelete} />
         ))}
-        {/* {provider.placeholder} */}
       </div>
       <AddCard onAdd={addCard} listId={list._id} />
     </div>
