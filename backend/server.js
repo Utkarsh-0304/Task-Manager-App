@@ -29,6 +29,7 @@ fastify.register(require("./routes/ping"));
 fastify.register(require("./routes/verify"));
 fastify.register(require("./routes/boards"));
 fastify.register(require("./routes/lists"));
+fastify.register(require("./routes/cards"));
 fastify.register(require("./routes/login"));
 fastify.register(require("./routes/logout"));
 fastify.register(require("./routes/signup"));

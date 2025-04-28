@@ -1,4 +1,5 @@
 const List = require("../models/List");
+const Board = require("../models/Board");
 
 async function deleteCard(req, reply) {
   const { listId, cardId } = req.params;
@@ -16,9 +17,12 @@ async function deleteCard(req, reply) {
 }
 
 async function getLists(req, reply) {
+  const { id } = req.params;
+
   try {
-    const lists = await List.find();
-    reply.send(lists);
+    const board = await Board.findById(id).populate("lists");
+    // console.log(board.lists);
+    reply.send(board.lists);
   } catch (err) {
     reply.status(500).send({ error: "Failed to fetch lists" });
   }
@@ -59,11 +63,18 @@ async function postCard(req, reply) {
 }
 
 async function postList(req, reply) {
+  const { id } = req.params;
   const { title } = req.body;
 
   try {
+    const board = await Board.findById(id);
+
     const newList = new List({ title });
     await newList.save();
+
+    board.lists.push(newList._id);
+    await board.save();
+
     reply.status(201).send(newList);
   } catch (err) {
     reply.status(500).send({ error: "Failed to create list" });

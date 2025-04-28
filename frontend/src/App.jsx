@@ -45,7 +45,6 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route element={<PrivateRoute />}>
           <Route path="/home" element={<Homepage />} />
-          <Route path="/board" element={<Board />} />
         </Route>
         <Route path="/signup" element={<Signup />} />
         <Route path="*" element={<Navigate to="/" />} />

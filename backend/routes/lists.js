@@ -7,11 +7,11 @@ const {
 } = require("../controllers/lists");
 
 function listRoutes(fastify, opts, done) {
-  fastify.post("/lists", postList);
+  fastify.get("/lists/:id", getLists);
+
+  fastify.post("/lists/:id", postList);
 
   fastify.post("/lists/:id/cards", postCard);
-
-  fastify.get("/lists", getLists);
 
   fastify.delete("/lists/:listId/cards/:cardId", deleteCard);
 

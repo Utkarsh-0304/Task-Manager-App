@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddCard from "./AddCard";
 import Card from "./Card";
 import Options from "./Options";
@@ -21,14 +21,8 @@ async function deleteCardFromList(listId, cardId) {
   }
 }
 
-export default function List({
-  list,
-  card,
-  deleteList,
-  openMenuId,
-  toggleMenu,
-}) {
-  const [cards, setCards] = useState(card);
+export default function List({ list, deleteList, openMenuId, toggleMenu }) {
+  const [cards, setCards] = useState([]);
 
   function addCard(newCard) {
     setCards([...cards, newCard]);

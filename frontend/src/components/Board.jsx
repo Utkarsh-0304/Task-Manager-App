@@ -4,17 +4,14 @@ import AddList from "./AddList";
 import NavBar from "./NavBar";
 import Sidebar from "./Sidebar";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
-// import {
-//   arrayMove,
-//   SortableContext,
-//   verticalListSortingStrategy,
-// } from "@dnd-kit/sortable";
+import { useNavigate } from "react-router-dom";
 
-function Board() {
-  const [lists, setLists] = useState([]);
+function Board({ board, setSelectedBoard }) {
+  const [lists, setLists] = useState(board?.lists || []);
   const [openMenuId, setOpenMenuId] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const sidebarRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleClick = () => {
     setIsOpen(!isOpen);
@@ -29,7 +26,10 @@ function Board() {
   useEffect(() => {
     async function fetchLists() {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/lists`);
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/lists/${board._id}`
+        );
+
         const data = await response.json();
         setLists(data);
       } catch (err) {
@@ -77,63 +77,35 @@ function Board() {
     setOpenMenuId(openMenuId === id ? null : id);
   };
 
-  // const getListPosition = (id) =>
-  //   lists.findIndex((list) => list.cards.findIndex((c_id) => c_id === id));
-
-  // function handleDragEnd(event) {
-  //   const { active, over } = event;
-
-  //   if (!over || active.id === over.id) return;
-
-  //   setLists((prevLists) => {
-  //     const originalPos = getListPosition(active.id);
-
-  //     const newPos = getListPosition(over.id);
-
-  //     if (originalPos === -1 || newPos === -1) {
-  //       console.error("Invalid positions for drag-and-drop:", {
-  //         originalPos,
-  //         newPos,
-  //       });
-  //       return prevLists;
-  //     }
-
-  //     return arrayMove([...prevLists], originalPos, newPos);
-  //   });
-  // }
-
   return (
-    // <DndContext collisionDetection={closestCorners} onDragEnd={handleDragEnd}>
-    <div className="flex flex-row shrink-0 justify-evenly gap-[1.5rem]">
+    <div className="flex flex-col shrink-0 justify-evenly gap-[1.5rem]">
       <NavBar />
+
       <div className="w-full relative h-[calc(100vh-10vh)] mt-[10vh] flex flex-row ">
-        <Sidebar isOpen={isOpen} sidebarRef={sidebarRef} />
-        <div className="[&>button]:text-white [&>button]:text-xl [&>button]:border-none [&>button]:rounded-e-[50%] [&>button]:bg-[#00008b] [&>button]:p-[0.3rem] [&>button]:cursor-pointer [&>button]:absolute [&>button]:top-0 [&>button]:left-0 [&>button]:z-2">
-          <button onClick={handleClick} className={isOpen ? "open" : ""}>
+        {/* <Sidebar isOpen={isOpen} sidebarRef={sidebarRef} /> */}
+        <div className="[&>button]:text-white [&>button]:text-2xl [&>button]:border-none [&>button]:rounded-e-[50%] [&>button]:bg-[#00008b] [&>button]:p-[0.3rem] [&>button]:cursor-pointer [&>button]:absolute [&>button]:top-0 [&>button]:left-0 [&>button]:z-2">
+          {/* <button onClick={handleClick} className={isOpen ? "open" : ""}>
             {isOpen ? <MdChevronLeft /> : <MdChevronRight />}
+          </button> */}
+          <button onClick={() => setSelectedBoard(null)}>
+            <MdChevronLeft />
           </button>
         </div>
         <div className="m-[1rem] flex flex-row gap-[1.5rem] ">
           {lists.map((list) => (
-            // <SortableContext
-            //   key={list._id}
-            //   items={list.cards.map((card) => card._id)}
-            //   strategy={verticalListSortingStrategy}
-            // >
             <List
+              key={list._id}
               list={list}
-              card={list.cards}
               deleteList={deleteList}
               setOpenMenuId={setOpenMenuId}
               openMenuId={openMenuId}
               toggleMenu={toggleMenu}
             />
           ))}
-          <AddList onAdd={addList} />
+          <AddList boardId={board._id} onAdd={addList} />
         </div>
       </div>
     </div>
-    // </DndContext>
   );
 }
 

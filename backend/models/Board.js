@@ -2,15 +2,18 @@ const mongoose = require("mongoose");
 const { listSchema } = require("./List");
 
 const boardSchema = new mongoose.Schema({
-  id: {
-    type: Number,
-    required: true,
-  },
   title: {
     type: String,
     required: true,
+    minlength: 1,
+    maxlength: 20,
   },
-  // lists: [listSchema],
+  lists: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "List",
+    },
+  ],
 });
 
 const Board = mongoose.model("Board", boardSchema);

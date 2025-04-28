@@ -1,8 +1,8 @@
 import React, { useState, useRef } from "react";
 import { IoIosClose } from "react-icons/io";
 
-async function addListToBoard(listTitle) {
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/lists`, {
+async function addListToBoard(id, listTitle) {
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/lists/${id}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -20,7 +20,7 @@ async function addListToBoard(listTitle) {
   }
 }
 
-export default function AddList({ onAdd }) {
+export default function AddList({ boardId, onAdd }) {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
   const inputRef = useRef(null);
@@ -29,7 +29,7 @@ export default function AddList({ onAdd }) {
     e.preventDefault();
     if (input.trim() === "") return;
     try {
-      const newList = await addListToBoard(input);
+      const newList = await addListToBoard(boardId, input);
       setInput("");
       onAdd(newList);
       setIsOpen(false);
