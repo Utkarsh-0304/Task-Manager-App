@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { listSchema } = require("./List");
 
 const boardSchema = new mongoose.Schema({
   title: {

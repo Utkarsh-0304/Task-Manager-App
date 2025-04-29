@@ -29,14 +29,30 @@ async function getLists(req, reply) {
 }
 
 async function deleteList(req, reply) {
-  const { listId } = req.params;
+  const { boardId, listId } = req.params;
 
   try {
-    const list = await List.findByIdAndDelete(listId);
-    if (!list) {
+    const board = await Board.findByIdAndUpdate(
+      boardId,
+      {
+        $pull: { lists: listId },
+      },
+      { new: true }
+    );
+
+    if (!board) {
+      return reply.status(404).send({ error: "Board not found" });
+    }
+
+    const deletedList = await List.findByIdAndDelete(listId);
+
+    if (!deletedList) {
       return reply.status(404).send({ error: "List not found" });
     }
-    reply.status(200).send({ list });
+
+    const updatedBoard = await Board.findById(boardId).populate("lists");
+
+    reply.status(200).send(updatedBoard.lists);
   } catch (err) {
     console.error("Error deleting list:", err);
     reply.status(500).send({ error: "Failed to delete a list" });

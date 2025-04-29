@@ -7,6 +7,9 @@ import { useNavigate } from "react-router-dom";
 function Homepage() {
   const [boards, setBoards] = useState([]);
   const [selectedBoard, setSelectedBoard] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [inputText, setInputText] = useState("");
+
   useEffect(() => {
     const fetchBoards = async () => {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/boards`);
@@ -29,13 +32,19 @@ function Homepage() {
     setBoards([...boards, newBoard]);
   };
 
+  const handleSubmit = () => {
+    if (inputText.trim() === "") return;
+    addBoard(inputText);
+    setIsOpen(false);
+  };
+
   return (
     <div className="app">
       <NavBar />
       {selectedBoard ? (
         <Board board={selectedBoard} setSelectedBoard={setSelectedBoard} />
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 m-[calc(10vh)]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 m-[calc(10vh)] ">
           {boards.map((board) => (
             <div
               key={board._id}
@@ -49,15 +58,45 @@ function Homepage() {
               </button>
             </div>
           ))}
-          <div className="h-[10rem] text-white bg-black/40 flex flex-row justify-center items-center rounded-md hover:bg-black/60">
-            <button
-              onClick={() => addBoard("sample board")}
-              className="w-full h-full"
-            >
-              <div className="font-semibold mb-[0.5rem] text-2xl">+</div>
-              <p className="font-semibold">Create New Board</p>
-            </button>
-          </div>
+          {isOpen ? (
+            <div className="h-[10rem] text-black bg-white/80 flex flex-col justify-center items-center rounded-md ">
+              <div className="h-[50%] flex flex-col justify-center ">
+                <input
+                  value={inputText}
+                  onChange={(e) => setInputText(e.target.value)}
+                  className="w-[80%] mb-[1rem] text-xl outline-none  border-black/40"
+                  autofocus
+                  placeholder="Enter board title"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleSubmit();
+                    }
+                  }}
+                />
+              </div>
+              <div className="w-[80%] flex flex-row gap-[1rem]">
+                <button
+                  onClick={handleSubmit}
+                  className="rounded-md p-[0.5rem] ring-2 ring-blue-500 bg-blue-500/40 hover:bg-blue-500/60 text-white"
+                >
+                  Create
+                </button>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="rounded-md p-[0.5rem] ring-2 ring-red-500 bg-red-500/20 hover:bg-red-500/40 text-white"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="h-[10rem] text-white bg-black/40 flex flex-row justify-center items-center rounded-md hover:bg-black/60">
+              <button onClick={() => setIsOpen(true)} className="w-full h-full">
+                <div className="font-semibold mb-[0.5rem] text-2xl">+</div>
+                <p className="font-semibold">Create New Board</p>
+              </button>
+            </div>
+          )}
         </div>
       )}
     </div>

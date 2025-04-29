@@ -21,7 +21,13 @@ async function deleteCardFromList(listId, cardId) {
   }
 }
 
-export default function List({ list, deleteList, openMenuId, toggleMenu }) {
+export default function List({
+  boardId,
+  list,
+  deleteList,
+  openMenuId,
+  toggleMenu,
+}) {
   const [cards, setCards] = useState([]);
 
   function addCard(newCard) {
@@ -50,7 +56,11 @@ export default function List({ list, deleteList, openMenuId, toggleMenu }) {
           <BsThreeDotsVertical />
         </button>
         {openMenuId === list._id && (
-          <Options id={list._id} deleteList={deleteList} />
+          <Options
+            board_id={boardId}
+            list_id={list._id}
+            deleteList={deleteList}
+          />
         )}
       </div>
 

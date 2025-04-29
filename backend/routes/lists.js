@@ -15,7 +15,7 @@ function listRoutes(fastify, opts, done) {
 
   fastify.delete("/lists/:listId/cards/:cardId", deleteCard);
 
-  fastify.delete("/lists/:listId", deleteList);
+  fastify.delete("/lists/:boardId/:listId", deleteList);
 
   done();
 }

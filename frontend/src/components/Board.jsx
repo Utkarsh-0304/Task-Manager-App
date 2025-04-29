@@ -54,23 +54,24 @@ function Board({ board, setSelectedBoard }) {
     setLists([...lists, newList]);
   }
 
-  async function deleteListFromBoard(listId) {
-    const list = await fetch(
-      `${import.meta.env.VITE_API_URL}/lists/${listId}`,
+  async function deleteListFromBoard(boardId, listId) {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/lists/${boardId}/${listId}`,
       {
         method: "DELETE",
       }
     );
 
-    if (list.ok) {
-      setLists((prevLists) => prevLists.filter((list) => list._id !== listId));
+    if (response.ok) {
+      const updatedLists = await response.json();
+      setLists(updatedLists);
     } else {
       console.error("Failed to delete list");
     }
   }
 
-  async function deleteList(listId) {
-    await deleteListFromBoard(listId);
+  async function deleteList(boardId, listId) {
+    await deleteListFromBoard(boardId, listId);
   }
 
   const toggleMenu = (id) => {
@@ -94,6 +95,7 @@ function Board({ board, setSelectedBoard }) {
         <div className="m-[1rem] flex flex-row gap-[1.5rem] ">
           {lists.map((list) => (
             <List
+              boardId={board._id}
               key={list._id}
               list={list}
               deleteList={deleteList}
