@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import List from "./List";
 import AddList from "./AddList";
 import NavBar from "./NavBar";
-import Sidebar from "./Sidebar";
+import { SkelatonList } from "./SkelatonList";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
@@ -10,6 +10,7 @@ function Board({ board, setSelectedBoard }) {
   const [lists, setLists] = useState(board?.lists || []);
   const [openMenuId, setOpenMenuId] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const sidebarRef = useRef(null);
   const navigate = useNavigate();
 
@@ -31,9 +32,12 @@ function Board({ board, setSelectedBoard }) {
         );
 
         const data = await response.json();
+
         setLists(data);
+        setIsLoading(false);
       } catch (err) {
         console.error("Couldn't fetch lists: ", err);
+        setIsLoading(false);
       }
     }
     fetchLists();
@@ -81,29 +85,28 @@ function Board({ board, setSelectedBoard }) {
   return (
     <div className="flex flex-col shrink-0 justify-evenly gap-[1.5rem]">
       <NavBar />
-
       <div className="w-full relative h-[calc(100vh-10vh)] mt-[10vh] flex flex-row ">
-        {/* <Sidebar isOpen={isOpen} sidebarRef={sidebarRef} /> */}
         <div className="[&>button]:text-white [&>button]:text-2xl [&>button]:border-none [&>button]:rounded-e-[50%] [&>button]:bg-[#00008b] [&>button]:p-[0.3rem] [&>button]:cursor-pointer [&>button]:absolute [&>button]:top-0 [&>button]:left-0 [&>button]:z-2">
-          {/* <button onClick={handleClick} className={isOpen ? "open" : ""}>
-            {isOpen ? <MdChevronLeft /> : <MdChevronRight />}
-          </button> */}
           <button onClick={() => setSelectedBoard(null)}>
             <MdChevronLeft />
           </button>
         </div>
-        <div className="m-[1rem] flex flex-row gap-[1.5rem] ">
-          {lists.map((list) => (
-            <List
-              boardId={board._id}
-              key={list._id}
-              list={list}
-              deleteList={deleteList}
-              setOpenMenuId={setOpenMenuId}
-              openMenuId={openMenuId}
-              toggleMenu={toggleMenu}
-            />
-          ))}
+        <div className="m-[1rem] flex flex-row gap-[1.5rem]">
+          {isLoading ? (
+            <SkelatonList />
+          ) : (
+            lists.map((list) => (
+              <List
+                boardId={board._id}
+                key={list._id}
+                list={list}
+                deleteList={deleteList}
+                setOpenMenuId={setOpenMenuId}
+                openMenuId={openMenuId}
+                toggleMenu={toggleMenu}
+              />
+            ))
+          )}
           <AddList boardId={board._id} onAdd={addList} />
         </div>
       </div>

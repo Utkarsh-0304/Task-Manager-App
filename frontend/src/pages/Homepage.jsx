@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from "react";
 import NavBar from "../components/NavBar";
 import Board from "../components/Board";
+import { SkelatonBoard } from "../components/SkelatonBoard";
 import "./home.css";
 import { useNavigate } from "react-router-dom";
 
@@ -8,6 +9,7 @@ function Homepage() {
   const [boards, setBoards] = useState([]);
   const [selectedBoard, setSelectedBoard] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [inputText, setInputText] = useState("");
 
   useEffect(() => {
@@ -15,6 +17,7 @@ function Homepage() {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/boards`);
       const data = await response.json();
       setBoards(data);
+      setIsLoading(false);
     };
     fetchBoards();
   }, []);
@@ -44,28 +47,33 @@ function Homepage() {
       {selectedBoard ? (
         <Board board={selectedBoard} setSelectedBoard={setSelectedBoard} />
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 m-[calc(10vh)] ">
-          {boards.map((board) => (
-            <div
-              key={board._id}
-              className="h-[10rem] text-white bg-blue-400/40 flex flex-row justify-center items-center rounded-md shadow-2xl hover:bg-blue-400/60"
-            >
-              <button
-                onClick={() => setSelectedBoard(board)}
-                className="w-full h-full"
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 m-[calc(10vh)]">
+          {isLoading ? (
+            <SkelatonBoard />
+          ) : (
+            boards.map((board) => (
+              <div
+                key={board._id}
+                className="h-[10rem] text-white bg-blue-400/40 flex flex-row justify-center items-center rounded-md shadow-2xl hover:bg-blue-400/60"
               >
-                {board.title}
-              </button>
-            </div>
-          ))}
+                <button
+                  onClick={() => setSelectedBoard(board)}
+                  className="w-full h-full text-xl"
+                >
+                  {board.title}
+                </button>
+              </div>
+            ))
+          )}
+
           {isOpen ? (
-            <div className="h-[10rem] text-black bg-white/80 flex flex-col justify-center items-center rounded-md ">
-              <div className="h-[50%] flex flex-col justify-center ">
+            <div className="h-[10rem] text-black bg-white/80 flex flex-col justify-center items-center rounded-md">
+              <div className="h-[50%] flex flex-col justify-center">
                 <input
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
-                  className="w-[80%] mb-[1rem] text-xl outline-none  border-black/40"
-                  autofocus
+                  className="w-[80%] mb-[1rem] text-xl outline-none border-black/40"
+                  autoFocus
                   placeholder="Enter board title"
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
@@ -82,7 +90,10 @@ function Homepage() {
                   Create
                 </button>
                 <button
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => {
+                    setIsOpen(false);
+                    setInputText(""); // Clear the input field on cancel
+                  }}
                   className="rounded-md p-[0.5rem] ring-2 ring-red-500 bg-red-500/20 hover:bg-red-500/40 text-white"
                 >
                   Cancel
