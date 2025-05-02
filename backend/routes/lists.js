@@ -4,6 +4,7 @@ const {
   deleteList,
   postCard,
   postList,
+  getCards,
 } = require("../controllers/lists");
 
 function listRoutes(fastify, opts, done) {
@@ -16,6 +17,8 @@ function listRoutes(fastify, opts, done) {
   fastify.delete("/lists/:listId/cards/:cardId", deleteCard);
 
   fastify.delete("/lists/:boardId/:listId", deleteList);
+
+  fastify.get("/lists/:listId/:cardId", getCards);
 
   done();
 }

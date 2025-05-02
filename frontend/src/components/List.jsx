@@ -5,19 +5,20 @@ import Options from "./Options";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
 async function deleteCardFromList(listId, cardId) {
-  const response = await fetch(
-    `${import.meta.env.VITE_API_URL}/lists/${listId}/cards/${cardId}`,
-    {
-      method: "DELETE",
-    }
-  );
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/lists/${listId}/cards/${cardId}`,
+      {
+        method: "DELETE",
+      }
+    );
 
-  if (response.ok) {
-    const data = await response.json();
-    return data;
-  } else {
-    const errorData = await response.json();
-    console.error("Error: ", errorData.message);
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    }
+  } catch (err) {
+    console.log(err);
   }
 }
 
@@ -30,14 +31,27 @@ export default function List({
 }) {
   const [cards, setCards] = useState([]);
 
+  useEffect(() => {
+    async function fetchCards() {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/cards/${list._id}`
+      );
+      const data = await response.json();
+      setCards(data);
+    }
+    fetchCards();
+  }, []);
+
   function addCard(newCard) {
     setCards([...cards, newCard]);
   }
 
   async function handleDelete(id) {
-    const updatedList = await deleteCardFromList(list._id, id);
-    if (updatedList) {
-      setCards(updatedList.cards);
+    try {
+      const updatedCards = await deleteCardFromList(list._id, id);
+      setCards(updatedCards);
+    } catch (err) {
+      console.error("Failed to delete a card", err.message);
     }
   }
 

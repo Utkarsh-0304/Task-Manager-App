@@ -29,7 +29,7 @@ export default function NavBar() {
         TaskFlow
       </div>
       {url === "/home" && (
-        <div className="text-white text-lg w-20 flex justify-right gap-[0.5rem]">
+        <div className="p-[0.5rem] text-white text-lg w-20 flex justify-center align-center gap-[0.5rem] hover:ring-2 hover:rounded-md">
           <button onClick={handleClick}>Logout</button>
         </div>
       )}

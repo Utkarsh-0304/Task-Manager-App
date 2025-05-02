@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Login from "./pages/Login";
 import Homepage from "./pages/Homepage";
-import Board from "./components/Board";
 import Signup from "./pages/Signup";
+import ShadCn from "./pages/MUI";
 import {
   BrowserRouter,
   Routes,

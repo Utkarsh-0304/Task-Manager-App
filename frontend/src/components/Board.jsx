@@ -34,6 +34,7 @@ function Board({ board, setSelectedBoard }) {
         const data = await response.json();
 
         setLists(data);
+
         setIsLoading(false);
       } catch (err) {
         console.error("Couldn't fetch lists: ", err);

@@ -3,7 +3,7 @@ import React, { useState, useRef } from "react";
 
 async function addCardToList(listId, cardTitle) {
   const response = await fetch(
-    `${import.meta.env.VITE_API_URL}/lists/${listId}/cards`,
+    `${import.meta.env.VITE_API_URL}/cards/${listId}`,
     {
       method: "POST",
       headers: {
@@ -16,8 +16,7 @@ async function addCardToList(listId, cardTitle) {
   const data = await response.json();
 
   if (response.ok) {
-    console.log("Card added:", data.cards[data.cards.length - 1]);
-    return data.cards[data.cards.length - 1];
+    return data;
   } else {
     console.error("Error:", data.message);
   }
