@@ -4,6 +4,7 @@ import Board from "../components/Board";
 import { SkelatonBoard } from "../components/SkelatonBoard";
 import "./home.css";
 import { useNavigate } from "react-router-dom";
+import { MdOutlineDelete } from "react-icons/md";
 
 function Homepage() {
   const [boards, setBoards] = useState([]);
@@ -38,7 +39,31 @@ function Homepage() {
   const handleSubmit = () => {
     if (inputText.trim() === "") return;
     addBoard(inputText);
+    setInputText("");
     setIsOpen(false);
+  };
+
+  const handleDelete = async (boardId) => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/boards/${boardId}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete board");
+      }
+
+      const data = await response.json();
+
+      setBoards((prevBoards) =>
+        prevBoards.filter((board) => board._id !== boardId)
+      );
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -54,13 +79,19 @@ function Homepage() {
             boards.map((board) => (
               <div
                 key={board._id}
-                className="h-[10rem] text-white bg-blue-400/40 flex flex-row justify-center items-center rounded-md shadow-2xl hover:bg-blue-400/60"
+                className="group last:hover:inline-block h-[10rem] text-white bg-blue-400/40 flex flex-row justify-center items-center rounded-md shadow-2xl hover:bg-blue-400/60 relative"
               >
                 <button
                   onClick={() => setSelectedBoard(board)}
                   className="w-full h-full text-xl"
                 >
                   {board.title}
+                </button>
+                <button
+                  onClick={() => handleDelete(board._id)}
+                  className="group-hover:flex hidden text-2xl items-center justify-center absolute top-[80%] left-[90%] bottom-[0]"
+                >
+                  <MdOutlineDelete color="white" />
                 </button>
               </div>
             ))

@@ -1,4 +1,5 @@
 const Board = require("../models/Board");
+const { deleteList } = require("./lists.js");
 
 const getBoards = async (req, reply) => {
   try {
@@ -21,4 +22,21 @@ const addBoard = async (req, reply) => {
   }
 };
 
-module.exports = { getBoards, addBoard };
+const deleteBoard = async (req, reply) => {
+  const { boardId } = req.params;
+
+  const board = await Board.findById(boardId);
+  if (!board) {
+    reply.send("Board not found");
+  }
+
+  for (const listId of board.lists) {
+    await deleteList({ params: { boardId, listId } }, reply);
+  }
+
+  const deletedBoard = await Board.findByIdAndDelete(boardId);
+
+  reply.status(200).send(deletedBoard);
+};
+
+module.exports = { getBoards, addBoard, deleteBoard };
