@@ -1,9 +1,8 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import List from "./List";
 import AddList from "./AddList";
-import NavBar from "./NavBar";
-import { SkelatonList } from "./SkelatonList";
-import { MdChevronLeft, MdChevronRight } from "react-icons/md";
+import { SkeletonList } from "./SkeletonList";
+import { MdChevronLeft } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
 function Board({ board, setSelectedBoard }) {
@@ -85,16 +84,15 @@ function Board({ board, setSelectedBoard }) {
 
   return (
     <div className="flex flex-col shrink-0 justify-evenly gap-[1.5rem]">
-      <NavBar />
-      <div className="w-full relative h-[calc(100vh-10vh)] mt-[10vh] flex flex-row ">
-        <div className="[&>button]:text-white [&>button]:text-2xl [&>button]:border-none [&>button]:rounded-e-[50%] [&>button]:bg-[#00008b] [&>button]:p-[0.3rem] [&>button]:cursor-pointer [&>button]:absolute [&>button]:top-0 [&>button]:left-0 [&>button]:z-2">
+      <div className="w-full relative h-[calc(100vh-10vh)] flex flex-row ">
+        <div className="[&>button]: [&>button]:text-2xl [&>button]:border-none [&>button]:rounded-e-[50%] [&>button]:bg-[#000000] [&>button]:p-[0.3rem] [&>button]:cursor-pointer [&>button]:absolute [&>button]:top-0 [&>button]:left-0 [&>button]:z-2">
           <button onClick={() => setSelectedBoard(null)}>
-            <MdChevronLeft />
+            <MdChevronLeft color="white" />
           </button>
         </div>
         <div className="m-[1rem] flex flex-row gap-[1.5rem]">
           {isLoading ? (
-            <SkelatonList />
+            <SkeletonList />
           ) : (
             lists.map((list) => (
               <List

@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-// import { MdClose } from "react-icons/io";
+import { FaPlus } from "react-icons/fa";
 
 async function addCardToList(listId, cardTitle) {
   const response = await fetch(
@@ -62,7 +62,7 @@ function AddCard({ listId, onAdd }) {
       className="bg-black rounded-[3px] p-[10px] mt-[10px]"
     >
       <textarea
-        className="w-full border-none rounded-[3px] p-[5px] text-white text-[1rem] bg-black overflow-x-hidden resize-none whitespace-pre-wrap font-[Verdana] focus:outline-none"
+        className="w-full border-none rounded-[3px] p-[5px]  text-[1rem] bg-black overflow-x-hidden resize-none whitespace-pre-wrap font-[Verdana] focus:outline-none"
         value={input}
         ref={inputRef}
         onKeyDown={onEnterPress}
@@ -70,7 +70,7 @@ function AddCard({ listId, onAdd }) {
         placeholder="Enter a title or paste a link"
         onInput={handleInput}
       />
-      <div className="flex justify-start items-center gap-[0.5rem] [&>button]:mt-[0.5rem] [&>button]:text-white [&>button]:border-none [&>button]:rounded-[3px] [&>button]:px-[6px] [&>button]:py-[12px] [&>button]:cursor-pointer">
+      <div className="flex justify-start items-center gap-[0.5rem] [&>button]:mt-[0.5rem] [&>button]: [&>button]:border-none [&>button]:rounded-[3px] [&>button]:px-[6px] [&>button]:py-[12px] [&>button]:cursor-pointer">
         <button
           className="w-[60px] h-[40px] bg-[#427cc2] flex items-center justify-center hover:bg-[#4382cf] disabled:opacity-[0.5]"
           type="submit"
@@ -89,10 +89,10 @@ function AddCard({ listId, onAdd }) {
     </form>
   ) : (
     <button
-      className="mt-[1rem] px-4 py-2 bg-black rounded-full text-[1.2rem] border-none text-white"
+      className="mt-[1rem] w-[3rem] h-[3rem]  flex justify-center items-center bg-black rounded-full text-md border-none text-white"
       onClick={handleClick}
     >
-      +
+      <FaPlus color="white" />
     </button>
   );
 }

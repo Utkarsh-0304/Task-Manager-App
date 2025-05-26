@@ -57,7 +57,7 @@ export default function List({
 
   return (
     <div className="p-[1rem] min-w-[300px] shadow-2xl rounded-[5px] bg-white/50 h-fit hover:bg-white/60">
-      <div className="h-[2rem] w-full text-[1.5rem] text-white flex justify-between relative">
+      <div className="h-[2rem] w-full text-[1.5rem]  flex justify-between relative">
         {list.title}
         <button
           className={`bg-[9b9eab] p-[0.5rem] border-none text-l rounded-[5px] ${

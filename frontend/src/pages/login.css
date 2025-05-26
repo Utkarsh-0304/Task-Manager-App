@@ -1,4 +1,4 @@
-.login {
+/*.login {
   display: flex;
 }
 
@@ -11,7 +11,7 @@
   flex-direction: column;
   font-size: 2rem;
   color: white;
-  /* border-right: 1px solid blue; */
+  //border-right: 1px solid blue; 
 }
 
 .left .punchLine {
@@ -86,3 +86,4 @@
   margin: 1rem;
   color: red;
 }
+*/

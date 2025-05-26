@@ -20,7 +20,7 @@ function Sidebar({ isOpen, sidebarRef }) {
         isOpen ? "w-full max-w-[300px] min-w-[200px]" : ""
       }`}
     >
-      <ul className="list-none text-black text-xl line-height-[2rem] w-full [&>.newBoard]:bg-transparent [&>.newBoard]:border-none [&>.newBoard]:w-full [&>.newBoard]:h-full [&>.newBoard]:text-l [&>li]:text-center [&>.hovered]:bg-white">
+      <ul className="list-none  text-xl line-height-[2rem] w-full [&>.newBoard]:bg-transparent [&>.newBoard]:border-none [&>.newBoard]:w-full [&>.newBoard]:h-full [&>.newBoard]:text-l [&>li]:text-center [&>.hovered]:bg-white">
         <li
           onMouseEnter={() => handleMouseOver("add")}
           onMouseLeave={handleMouseLeave}

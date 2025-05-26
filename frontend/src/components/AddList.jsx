@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { FaPlus } from "react-icons/fa";
 import { IoIosClose } from "react-icons/io";
 
 async function addListToBoard(id, listTitle) {
@@ -60,7 +61,7 @@ export default function AddList({ boardId, onAdd }) {
       className="bg-black rounded-[3px] p-[10px] h-fit"
     >
       <textarea
-        className="w-full border-none rounded-[3px] p-[5px] text-white text-[1rem] bg-black overflow-x-hidden resize-none whitespace-pre-wrap font-[Verdana] focus:outline-none"
+        className="w-full text-white border-none rounded-[3px] p-[5px]  text-[1rem] bg-black overflow-x-hidden resize-none whitespace-pre-wrap font-[Verdana] focus:outline-none"
         value={input}
         ref={inputRef}
         onKeyDown={onEnterPress}
@@ -68,7 +69,7 @@ export default function AddList({ boardId, onAdd }) {
         placeholder="Enter a title"
         onInput={handleInput}
       />
-      <div className="flex justify-start items-center gap-[0.5rem] [&>button]:mt-[0.5rem] [&>button]:text-white [&>button]:border-none [&>button]:rounded-[3px] [&>button]:px-[6px] [&>button]:py-[12px] [&>button]:cursor-pointer">
+      <div className="text-white flex justify-start items-center gap-[0.5rem] [&>button]:mt-[0.5rem] [&>button]: [&>button]:border-none [&>button]:rounded-[3px] [&>button]:px-[6px] [&>button]:py-[12px] [&>button]:cursor-pointer">
         <button
           type="submit"
           className="w-[60px] h-[40px] bg-[#427cc2] flex items-center justify-center hover:bg-[#4382cf] disabled:opacity-[0.5]"
@@ -78,7 +79,7 @@ export default function AddList({ boardId, onAdd }) {
         </button>
         <button
           type="button"
-          className="flex items-center justify-center bg-[#3f3f3f] w-[40px] h-[40px] text-m hover:bg-[#6f717c]"
+          className="flex items-center justify-center bg-[#3f3f3f] w-[40px] h-[40px] text-xl hover:bg-[#6f717c]"
           onClick={() => setIsOpen(false)}
         >
           <IoIosClose />
@@ -87,10 +88,10 @@ export default function AddList({ boardId, onAdd }) {
     </form>
   ) : (
     <button
-      className="text-white bg-black/50 w-[50px] h-[50px] rounded-[5px] text-[1.5rem] border-none cursor-pointer"
+      className=" bg-black w-[50px] h-[50px] rounded-[5px] text-lg border-none cursor-pointer flex justify-center items-center"
       onClick={handleClick}
     >
-      +
+      <FaPlus color="white" />
     </button>
   );
 }
