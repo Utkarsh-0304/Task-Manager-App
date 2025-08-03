@@ -73,7 +73,7 @@ function Homepage() {
         <Board board={selectedBoard} setSelectedBoard={setSelectedBoard} />
       ) : (
         <div className="flex flex-col m-[1rem] gap-[1rem] ">
-          <div className="text-2xl border-b">Boards</div>
+          <div className="text-2xl border-b font-semibold">Boards</div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {isLoading ? (
               <SkeletonBoard />

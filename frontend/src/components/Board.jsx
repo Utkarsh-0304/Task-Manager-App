@@ -10,6 +10,7 @@ function Board({ board, setSelectedBoard }) {
   const [openMenuId, setOpenMenuId] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [openCardListId, setOpenCardListId] = useState(null);
   const sidebarRef = useRef(null);
   const navigate = useNavigate();
 
@@ -23,23 +24,24 @@ function Board({ board, setSelectedBoard }) {
     }
   };
 
-  useEffect(() => {
-    async function fetchLists() {
-      try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/lists/${board._id}`
-        );
+  async function fetchLists() {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/lists/${board._id}`
+      );
 
-        const data = await response.json();
+      const data = await response.json();
 
-        setLists(data);
+      setLists(data);
 
-        setIsLoading(false);
-      } catch (err) {
-        console.error("Couldn't fetch lists: ", err);
-        setIsLoading(false);
-      }
+      setIsLoading(false);
+    } catch (err) {
+      console.error("Couldn't fetch lists: ", err);
+      setIsLoading(false);
     }
+  }
+
+  useEffect(() => {
     fetchLists();
   }, []);
 
@@ -103,6 +105,8 @@ function Board({ board, setSelectedBoard }) {
                 setOpenMenuId={setOpenMenuId}
                 openMenuId={openMenuId}
                 toggleMenu={toggleMenu}
+                openCardListId={openCardListId}
+                setOpenCardListId={setOpenCardListId}
               />
             ))
           )}

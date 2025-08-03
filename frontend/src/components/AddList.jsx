@@ -58,10 +58,10 @@ export default function AddList({ boardId, onAdd }) {
   return isOpen ? (
     <form
       onSubmit={handleSubmit}
-      className="bg-black rounded-[3px] p-[10px] h-fit"
+      className="rounded-[3px] p-[10px] h-fit border-2 border-[#EFF2F5] bg-[#EFF2F5]"
     >
       <textarea
-        className="w-full text-white border-none rounded-[3px] p-[5px]  text-[1rem] bg-black overflow-x-hidden resize-none whitespace-pre-wrap font-[Verdana] focus:outline-none"
+        className="w-full text-black border-none rounded-[3px] p-[5px]  text-[1rem] overflow-x-hidden resize-none whitespace-pre-wrap font-[Verdana] focus:outline-none"
         value={input}
         ref={inputRef}
         onKeyDown={onEnterPress}
