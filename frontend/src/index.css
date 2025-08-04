@@ -5,3 +5,17 @@
 body {
   background-color: #f8f9fa;
 }
+
+.arrow-icon {
+  display: inline-block;
+  transition: transform 0.4s, opacity 0.3s;
+  opacity: 1;
+}
+.arrow-icon.down {
+  transform: rotate(0deg);
+  opacity: 1;
+}
+.arrow-icon.up {
+  transform: rotate(180deg);
+  opacity: 1;
+}

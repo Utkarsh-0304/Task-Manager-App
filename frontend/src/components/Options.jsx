@@ -1,11 +1,17 @@
-export default function Options({ board_id, list_id, deleteList }) {
+import React from "react";
+
+const Options = React.forwardRef(function Options(props, ref) {
+  const { board_id, list_id, deleteList } = props;
   return (
-    <div className=" absolute top-[40px] -right-[60px] z-[10] rounded-[4px] p-[0.5rem] text-white bg-black shadow-md">
+    <div
+      ref={ref}
+      className="absolute top-[40px] -right-[60px] z-[10] rounded-[4px] p-[0.5rem] text-white bg-black shadow-md"
+    >
       <ul>
         <li>
           <button
             onClick={() => deleteList(board_id, list_id)}
-            className="w-full  rounded  hover:bg-red-500 transition-all"
+            className="w-full rounded hover:bg-red-500 transition-all"
           >
             Delete
           </button>
@@ -13,4 +19,6 @@ export default function Options({ board_id, list_id, deleteList }) {
       </ul>
     </div>
   );
-}
+});
+
+export default Options;

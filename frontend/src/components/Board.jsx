@@ -85,16 +85,22 @@ function Board({ board, setSelectedBoard }) {
   };
 
   return (
-    <div className="flex flex-col shrink-0 justify-evenly gap-[1.5rem]">
-      <div className="w-full relative h-[calc(100vh-10vh)] flex flex-row ">
-        <div className="[&>button]: [&>button]:text-2xl [&>button]:border-none [&>button]:rounded-e-[50%] [&>button]:bg-[#000000] [&>button]:p-[0.3rem] [&>button]:cursor-pointer [&>button]:absolute [&>button]:top-0 [&>button]:left-0 [&>button]:z-2">
-          <button onClick={() => setSelectedBoard(null)}>
-            <MdChevronLeft color="white" />
-          </button>
-        </div>
+    <div className="flex flex-col shrink-0 justify-evenly">
+      <div
+        className="flex flex-row justify-left items-center w-60 text-[#ccc] cursor-pointer underline underline-offset-2"
+        onClick={() => setSelectedBoard(null)}
+      >
+        <MdChevronLeft color="gray" />
+        Back to Boards
+      </div>
+      <div className="w-full relative h-[calc(100vh-10vh)] flex flex-row">
         <div className="m-[1rem] flex flex-row gap-[1.5rem]">
           {isLoading ? (
             <SkeletonList />
+          ) : lists.length == 0 ? (
+            <div className="italic text-[#bbb]">
+              Click here to add some lists
+            </div>
           ) : (
             lists.map((list) => (
               <List

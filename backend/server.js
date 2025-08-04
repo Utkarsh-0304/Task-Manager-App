@@ -1,6 +1,7 @@
 const Fastify = require("fastify");
 const connectDB = require("./connectDB");
 const cors = require("@fastify/cors");
+require("dotenv").config();
 
 const fastify = Fastify();
 
@@ -8,7 +9,7 @@ const PORT = process.env.PORT || 3000;
 
 fastify.register(require("@fastify/formbody"));
 fastify.register(require("@fastify/cookie"), {
-  secret: "supersecret",
+  secret: process.env.JWT_SECRET,
   hook: "onRequest",
   parseOptions: {
     httpOnly: true,

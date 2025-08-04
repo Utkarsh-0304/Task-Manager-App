@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AddCard from "./AddCard";
 import Card from "./Card";
 import Options from "./Options";
@@ -27,11 +27,13 @@ export default function List({
   list,
   deleteList,
   openMenuId,
+  setOpenMenuId,
   toggleMenu,
   openCardListId,
   setOpenCardListId,
 }) {
   const [cards, setCards] = useState([]);
+  const delRef = useRef(null);
 
   useEffect(() => {
     async function fetchCards() {
@@ -43,6 +45,18 @@ export default function List({
     }
     fetchCards();
   }, []);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (delRef.current && !delRef.current.contains(event.target)) {
+        setOpenMenuId(null);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [openMenuId]);
 
   function addCard(newCard) {
     setCards([...cards, newCard]);
@@ -76,6 +90,7 @@ export default function List({
             board_id={boardId}
             list_id={list._id}
             deleteList={deleteList}
+            ref={delRef}
           />
         )}
       </div>
