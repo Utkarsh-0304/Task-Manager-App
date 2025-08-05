@@ -40,14 +40,16 @@ const Signup = () => {
   }
   return (
     <>
-      <div className="flex flex-col md:flex-row min-h-screen">
-        <div className="w-full md:w-1/2 flex flex-col justify-center items-center text-[2rem] px-10 py-8">
+      <div className="flex flex-col md:flex-row h-screen">
+        <div className="w-full md:w-1/2 flex flex-col gap-[3rem] justify-center items-center text-[2rem] px-10 py-8">
+          <div className="flex flex-cols gap-[1rem] justify-evenly items-center">
+            <img src="../../public/trello-logo.svg" className="w-[5rem]" />
+            <div className="text-[5rem] font-[pacifico]">TaskFlow</div>
+          </div>
+
           <div>
-            "Your go-to{" "}
-            <span className="bg-black text-white px-2 py-1 rounded-md">
-              task management tool
-            </span>
-            "
+            Your go-to{" "}
+            <span className="text-blue-500">task management tool</span>
           </div>
         </div>
         <div className="w-full md:w-1/2 flex justify-center items-center py-8">
@@ -55,7 +57,7 @@ const Signup = () => {
             className="bg-white/90 flex flex-col items-center justify-center w-4/5 max-w-md shadow-2xl rounded-lg p-8"
             onSubmit={handleSubmit}
           >
-            <div className="text-4xl font-bold mb-6">Signup</div>
+            <h2 className="text-4xl font-bold text-blue-600 mb-6">Signup</h2>
             <div className="w-full mb-6">
               <label
                 htmlFor="uname"
@@ -64,10 +66,9 @@ const Signup = () => {
                 Username
               </label>
               <input
-                className="w-full bg-gray-100 border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition "
+                className="w-full bg-gray-100 border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
                 value={username}
                 type="text"
-                placeholder="Enter username"
                 name="uname"
                 onChange={(e) => setUserInput(e.target.value)}
               />
@@ -83,7 +84,6 @@ const Signup = () => {
                 className="w-full bg-gray-100 border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500 transition"
                 value={password}
                 type="password"
-                placeholder="Enter password"
                 name="pass"
                 onChange={(e) => setPassInput(e.target.value)}
               />
@@ -93,14 +93,14 @@ const Signup = () => {
 
             <button
               type="submit"
-              className="w-full bg-black text-white hover:bg-black/90 py-2 rounded-md"
+              className="w-full bg-blue-500 hover:bg-blue-400 text-white py-2 rounded-md cursor-pointer"
             >
               Signup
             </button>
             <div className="text-center text-gray-500 mt-6">
               Already have an account?{" "}
               <button
-                className="text-black hover:underline"
+                className="text-blue-400 hover:underline transition cursor-pointer"
                 type="button"
                 onClick={() => navigate("/login")}
               >

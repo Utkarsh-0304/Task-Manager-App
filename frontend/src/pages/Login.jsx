@@ -41,7 +41,12 @@ function Login() {
   return (
     <>
       <div className="flex flex-col md:flex-row h-screen">
-        <div className="w-full md:w-1/2 flex flex-col justify-center items-center text-[2rem] px-10 py-8">
+        <div className="w-full md:w-1/2 flex flex-col gap-[3rem] justify-center items-center text-[2rem] px-10 py-8">
+          <div className="flex flex-cols gap-[1rem] justify-evenly items-center">
+            <img src="../../public/trello-logo.svg" className="w-[5rem]" />
+            <div className="text-[5rem] font-[pacifico]">TaskFlow</div>
+          </div>
+
           <div>
             Your go-to{" "}
             <span className="text-blue-500">task management tool</span>

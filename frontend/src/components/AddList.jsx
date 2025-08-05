@@ -87,11 +87,12 @@ export default function AddList({ boardId, onAdd }) {
       </div>
     </form>
   ) : (
-    <button
-      className=" bg-black w-[50px] h-[50px] rounded-[5px] text-lg border-none cursor-pointer flex justify-center items-center"
+    <div
+      className="bg-blue-900/50 w-[10rem] h-[50px] rounded-[5px] text-lg border-none cursor-pointer flex justify-evenly items-center text-white"
       onClick={handleClick}
     >
-      <FaPlus color="white" />
-    </button>
+      <FaPlus color="white" size={15} />
+      Add a list
+    </div>
   );
 }
