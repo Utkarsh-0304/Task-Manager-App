@@ -20,7 +20,7 @@ fastify.register(require("@fastify/cookie"), {
 fastify.register(cors, {
   origin: [
     "http://localhost:3000",
-    "https://task-manager-app-nu4y.onrender.com/login",
+    "https://task-manager-app-nu4y.onrender.com",
   ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true, // Allow cookies
