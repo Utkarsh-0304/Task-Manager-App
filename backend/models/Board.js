@@ -13,6 +13,11 @@ const boardSchema = new mongoose.Schema({
       ref: "List",
     },
   ],
+  created_by: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
 });
 
 const Board = mongoose.model("Board", boardSchema);

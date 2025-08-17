@@ -2,8 +2,10 @@ const Board = require("../models/Board");
 const { deleteList } = require("./lists.js");
 
 const getBoards = async (req, reply) => {
+  const { userId } = req.params;
+
   try {
-    const boards = await Board.find();
+    const boards = await Board.find({ created_by: String(userId) });
     reply.send(boards);
   } catch (err) {
     reply.send("Unable to get boards");
@@ -11,14 +13,21 @@ const getBoards = async (req, reply) => {
 };
 
 const addBoard = async (req, reply) => {
-  const { title } = req.body;
+  const { title, userId } = req.body;
 
   try {
-    const newBoard = await Board({ id: Date.now(), title });
+    const newBoard = await Board({
+      title,
+      created_by: String(userId),
+    });
     await newBoard.save();
     reply.status(201).send(newBoard);
   } catch (err) {
-    reply.status(401).send("Unable to add board");
+    console.error("ERROR ADDING BOARD:", err);
+
+    reply
+      .status(500)
+      .send({ message: "Unable to add board", error: err.message });
   }
 };
 

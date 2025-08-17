@@ -10,6 +10,8 @@ import {
   Navigate,
   Outlet,
 } from "react-router-dom";
+import { AuthProvider } from "./context/AuthProvider";
+import LandingPage from "./pages/LandingPage";
 
 const PrivateRoute = () => {
   const [isVerified, setVerified] = useState(null);
@@ -41,16 +43,17 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        {/* <Route path="/" element={<Navigate to={"/login"} />} /> */}
-        {/* <Route path="/login" element={<Login />} /> */}
-        <Route element={<PrivateRoute />}>
-          <Route path="/home" element={<Homepage />} />
-        </Route>
-        <Route path="/signup" element={<Signup />} />
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/home" element={<Homepage />} />
+          </Route>
+          <Route path="/signup" element={<Signup />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </AuthProvider>
     </BrowserRouter>
   );
 }

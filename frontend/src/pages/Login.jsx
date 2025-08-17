@@ -1,8 +1,11 @@
+import { useContext } from "react";
 import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext, useAuth } from "../context/AuthProvider";
 
 function Login() {
   const navigate = useNavigate();
+  const auth = useAuth();
   const [username, setUserInput] = useState("");
   const [password, setPassInput] = useState("");
   const [error, setError] = useState("");
@@ -14,28 +17,7 @@ function Login() {
       return;
     }
     setLoading(true);
-    try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }),
-        credentials: "include",
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        navigate("/home");
-      } else {
-        setError("Invalid username or password");
-      }
-    } catch (err) {
-      console.log("Error occured", err);
-    } finally {
-      setLoading(false);
-    }
+    auth.loginAction({ username, password });
   }
 
   return (

@@ -1,10 +1,10 @@
-import { React, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import NavBar from "../components/NavBar";
 import Board from "../components/Board";
 import { SkeletonBoard } from "../components/SkeletonBoard";
 import "./home.css";
-import { useNavigate } from "react-router-dom";
 import { MdOutlineDelete } from "react-icons/md";
+import { useAuth } from "../context/AuthProvider";
 
 function Homepage() {
   const [boards, setBoards] = useState([]);
@@ -12,10 +12,13 @@ function Homepage() {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [inputText, setInputText] = useState("");
+  const auth = useAuth();
 
   useEffect(() => {
     const fetchBoards = async () => {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/boards`);
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/boards/${auth.user.userId}`
+      );
       const data = await response.json();
       setBoards(data);
       setIsLoading(false);
@@ -29,7 +32,7 @@ function Homepage() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ title }),
+      body: JSON.stringify({ title, userId: auth.user.userId }),
     });
 
     const newBoard = await response.json();
