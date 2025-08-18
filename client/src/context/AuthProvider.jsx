@@ -34,20 +34,18 @@ export function AuthProvider({ children }) {
         setUser({ username: res.username, userId: res.userId });
         setIsLoggedIn(true);
         navigate("/home");
-        return;
+        return true;
       } else {
-        return new Error("Invalid username or password");
+        return res?.message || "Invalid username or password";
       }
     } catch (err) {
-      console.log("Error occured", err);
-    } finally {
-      return new Error("Cannot Login");
+      return "Network error: " + String(err);
     }
   };
 
   const logOut = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/logout`, {
+      await fetch(`${import.meta.env.VITE_API_URL}/logout`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -58,14 +56,14 @@ export function AuthProvider({ children }) {
       console.log("Error occured", err);
     }
     setUser(null);
-    setIsLoggedIn(true);
+    setIsLoggedIn(false);
     navigate("/login");
   };
 
   return (
-    <AuthContext value={{ isLoggedIn, user, loginAction, logOut }}>
+    <AuthContext.Provider value={{ isLoggedIn, user, loginAction, logOut }}>
       {children}
-    </AuthContext>
+    </AuthContext.Provider>
   );
 }
 

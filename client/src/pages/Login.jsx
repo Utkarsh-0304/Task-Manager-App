@@ -17,24 +17,16 @@ function Login() {
       return;
     }
     setLoading(true);
-    auth.loginAction({ username, password });
+    const state = await auth.loginAction({ username, password });
+    if (state !== true) {
+      setLoading(false);
+      setError(state);
+    }
   }
 
   return (
     <>
-      <div className="flex flex-col md:flex-row h-screen">
-        <div className="w-full md:w-1/2 flex flex-col gap-[3rem] justify-center items-center text-[2rem] px-10 py-8">
-          <div className="flex flex-cols gap-[1rem] justify-evenly items-center">
-            <img src="../../trello-logo.svg" className="w-[5rem]" />
-            <div className="text-[5rem] font-[pacifico]">TaskFlow</div>
-          </div>
-
-          <div>
-            Your go-to{" "}
-            <span className="text-blue-500">task management tool</span>
-          </div>
-        </div>
-
+      <div className="flex items-center justify-center h-screen">
         <div className="w-full md:w-1/2 flex justify-center items-center py-8">
           <form
             className="bg-white/90 flex flex-col items-center justify-center w-4/5 max-w-md shadow-2xl rounded-lg p-8"

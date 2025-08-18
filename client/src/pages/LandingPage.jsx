@@ -69,7 +69,7 @@ function LandingPage() {
 
                   <div>
                     <div className="mt-[1rem] p-[0.5rem] rounded-[5px] bg-[#EFF2F5] flex items-center justify-between gap-[0.5rem]  w-full hover:bg-[#E6F2FF] hover:[&>button]:visible">
-                      Sample
+                      Implement Pagination
                     </div>
                   </div>
                   <div className="rounded-[3px] p-[10px] mt-[10px] border-1 border-[#DFE1E6] bg-[#EFF2F5]">
@@ -99,7 +99,7 @@ function LandingPage() {
 
                   <div>
                     <div className="mt-[1rem] p-[0.5rem] rounded-[5px] bg-[#EFF2F5] flex items-center justify-between gap-[0.5rem]  w-full hover:bg-[#E6F2FF] hover:[&>button]:visible">
-                      Sample
+                      Landing Page
                     </div>
                   </div>
                   <div className="mt-[1rem] gap-[2px] w-[50%] p-[0.5rem] cursor-pointer flex justify-evenly items-center bg-[#007BFF]/80 rounded-full text-md border-none text-white">
@@ -119,7 +119,7 @@ function LandingPage() {
 
                   <div>
                     <div className="mt-[1rem] p-[0.5rem] rounded-[5px] bg-[#EFF2F5] flex items-center justify-between gap-[0.5rem]  w-full hover:bg-[#E6F2FF] hover:[&>button]:visible">
-                      Sample
+                      Personalised Boards
                     </div>
                   </div>
                   <div className="mt-[1rem] gap-[2px] w-[50%] p-[0.5rem] cursor-pointer flex justify-evenly items-center bg-[#007BFF]/80 rounded-full text-md border-none text-white">

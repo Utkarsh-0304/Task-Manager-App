@@ -41,7 +41,9 @@ function Homepage() {
 
   const handleSubmit = () => {
     if (inputText.trim() === "") return;
+    setIsLoading(true);
     addBoard(inputText);
+    setIsLoading(false);
     setInputText("");
     setIsOpen(false);
   };
@@ -103,8 +105,8 @@ function Homepage() {
             )}
 
             {isOpen ? (
-              <div className="h-[10rem]  border border-black bg-white flex flex-col justify-center items-center rounded-md">
-                <div className="h-[50%] flex flex-col justify-center">
+              <div className="h-[10rem]  border border-black bg-white flex flex-col justify-center items-start pl-6 rounded-md">
+                <div className="h-[50%] flex justify-left">
                   <input
                     value={inputText}
                     onChange={(e) => setInputText(e.target.value)}
