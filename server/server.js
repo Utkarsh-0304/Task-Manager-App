@@ -34,6 +34,7 @@ fastify.register(require("./routes/cards"));
 fastify.register(require("./routes/login"));
 fastify.register(require("./routes/logout"));
 fastify.register(require("./routes/signup"));
+fastify.register(require("./routes/generateContent"));
 
 const start = async () => {
   try {

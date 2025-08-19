@@ -2,8 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import List from "./List";
 import AddList from "./AddList";
 import { SkeletonList } from "./SkeletonList";
-import { MdCancel, MdChevronLeft } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { MdChevronLeft } from "react-icons/md";
 import { RxCross1 } from "react-icons/rx";
 import { motion, AnimatePresence } from "framer-motion";
 import { BsSend } from "react-icons/bs";
@@ -17,7 +16,6 @@ function Board({ board, setSelectedBoard }) {
   const [message, setMessage] = useState("");
   const [showInput, setShowInput] = useState(false);
   const textareaRef = useRef(null);
-  const navigate = useNavigate();
 
   async function fetchLists() {
     try {
@@ -46,6 +44,22 @@ function Board({ board, setSelectedBoard }) {
   //     document.removeEventListener("mousedown", handleClickOutside);
   //   };
   // }, []);
+
+  async function handleAPIRequest(message) {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/generate_content`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ message }),
+      }
+    );
+    console.log(response);
+    const res = await response.json();
+    console.log(res);
+  }
 
   function addList(newList) {
     if (!newList) {
@@ -88,7 +102,7 @@ function Board({ board, setSelectedBoard }) {
   }, [message]);
 
   return (
-    <div className="flex flex-col shrink-0 justify-evenly overflow-hidden">
+    <div className="flex flex-col shrink-0 justify-evenly overflow-y-hidden h-[90vh]">
       <div
         className="flex flex-row justify-left items-center w-60 text-[#ccc] cursor-pointer underline underline-offset-2"
         onClick={() => setSelectedBoard(null)}
@@ -96,7 +110,7 @@ function Board({ board, setSelectedBoard }) {
         <MdChevronLeft color="gray" />
         Back to Boards
       </div>
-      <div className="w-full relative h-[calc(100vh-10vh)] flex flex-row">
+      <div className="w-full relative h-[90vh] flex flex-row">
         <div className="m-[1rem] flex flex-row gap-[1.5rem]">
           {isLoading ? (
             <SkeletonList />
@@ -122,39 +136,6 @@ function Board({ board, setSelectedBoard }) {
           <AddList boardId={board._id} onAdd={addList} />
         </div>
       </div>
-      {/* Chat box
-      <div
-        className={`absolute right-10 bottom-0 w-[20vw] bg-blue-400/80 h-[60vh] flex flex-col rounded-lg transition-all duration-300 ${
-          showChat
-            ? "translate-y-0 opacity-100"
-            : "translate-y-full opacity-0 pointer-events-none"
-        }`}
-        style={{ willChange: "transform" }}
-      >
-        <div
-          className="h-[10%] w-full p-[1rem] text-white cursor-pointer"
-          onClick={() => setShowChat(false)}
-        >
-          <SlArrowDown />
-        </div>
-        <div className="h-[80%] "></div>
-        <div className="flex flex-row justify-evenly items-center p-[0.2rem] gap-[5px]">
-          <textarea
-            ref={textareaRef}
-            className="mb-[1rem] chat-input border-none w-[90%] h-auto bg-white m-auto rounded-md outline-none p-[1rem] resize-none overflow-x-hidden overflow-y-hidden"
-            placeholder="Type your message..."
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            rows={1}
-          />
-          <button className="bg-black text-white h-[2rem] p-[0.5rem] rounded flex items-center justify-center">
-            Send
-          </button>
-        </div>
-      </div>
-      {!showChat && (
-        
-      )}*/}
       <AnimatePresence>
         {showInput && (
           <motion.div
@@ -171,7 +152,7 @@ function Board({ board, setSelectedBoard }) {
             />
             <div
               className="bg-white w-[2rem] h-[2rem] rounded-full flex justify-center items-center p-[0.5rem] cursor-pointer"
-              onClick={() => console.log("Send")}
+              onClick={() => handleAPIRequest(message)}
             >
               <BsSend size={20} color="black" />
             </div>

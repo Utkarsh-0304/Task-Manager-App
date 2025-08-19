@@ -34,9 +34,8 @@ function AddCard({ listId, onAdd, openCardListId, setOpenCardListId }) {
       const newCard = await addCardToList(listId, input);
       setInput("");
       onAdd(newCard);
-      setIsOpen(false);
     } catch (error) {
-      console.error("Failed to add a card");
+      console.error(error);
     }
   };
 

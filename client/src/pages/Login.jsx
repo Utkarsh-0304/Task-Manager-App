@@ -1,7 +1,6 @@
-import { useContext } from "react";
-import { React, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext, useAuth } from "../context/AuthProvider";
+import { useAuth } from "../context/AuthProvider";
 
 function Login() {
   const navigate = useNavigate();
@@ -45,7 +44,6 @@ function Login() {
                 className="w-full bg-gray-100 border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition "
                 value={username}
                 type="text"
-                // placeholder="Enter username"
                 name="uname"
                 onChange={(e) => setUserInput(e.target.value)}
               />
@@ -62,7 +60,6 @@ function Login() {
                 className="w-full bg-gray-100 border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500 transition"
                 value={password}
                 type="password"
-                // placeholder="Enter password"
                 name="pass"
                 onChange={(e) => setPassInput(e.target.value)}
               />

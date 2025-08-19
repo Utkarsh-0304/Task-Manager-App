@@ -1,0 +1,51 @@
+import { GoogleGenAI } from "@google/genai";
+
+export async function generateContent(req, reply) {
+  const { message } = req.body;
+
+  const ai = new GoogleGenAI({
+    apiKey: `${process.env.GEMINI_API_KEY}`,
+  });
+
+  const response = await ai.models.generateContent({
+    model: "gemini-2.5-flash",
+    contents: `${message}`,
+    config: {
+      systemInstruction: `
+    You are an expert project manager. Your task is to break down the following user message into a structured set of lists and task cards suitable for a Kanban board.
+
+    Analyze the message and generate a JSON object that contains an array of lists.
+    The standard lists should be 'To Do', 'In Progress', and 'Done'.
+    Populate the 'To Do' list with actionable tasks required to achieve the message. The other lists should be empty.
+
+    You MUST respond with only a valid JSON object and nothing else. Do not include any explanations, introductory text, or markdown formatting like \`\`\`json.
+
+    The JSON structure must follow this exact format:
+    {
+      'lists': [
+        {
+          'title': 'To Do',
+          'cards': [
+            { 'title': 'First actionable task' },
+            { 'title': 'Second actionable task' }
+          ]
+        },
+        {
+          'title': 'In Progress',
+          'cards': []
+        },
+        {
+          'title': 'Done',
+          'cards': []
+        }
+      ]
+    }
+
+
+    Also add a 'title' property which defines the summary of the message.
+    `,
+    },
+  });
+
+  return response.text;
+}

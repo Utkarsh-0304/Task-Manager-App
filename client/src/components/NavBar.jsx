@@ -30,7 +30,7 @@ export default function NavBar() {
   }, [isOpen]);
 
   return (
-    <div className="w-full h-[4rem] p-[1rem] flex justify-between items-center ">
+    <div className="w-full h-[10vh] p-[1rem] flex justify-between items-center ">
       <div className="w-80 font-bold flex items-center justify-left gap-[0.5rem] text-[1.5rem] ">
         <img src={trelloLogo} alt="Logo" className="h-auto w-[30px]" />
         TaskFlow
