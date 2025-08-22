@@ -88,7 +88,7 @@ function AddCard({ listId, onAdd, openCardListId, setOpenCardListId }) {
     </form>
   ) : (
     <div
-      className="mt-[1rem] gap-[2px] w-[50%] p-[0.5rem] cursor-pointer flex justify-evenly items-center bg-[#007BFF]/80 rounded-full text-md border-none text-white"
+      className="mt-[1rem] gap-[2px] max-w-36 w-[50%] p-[0.5rem] cursor-pointer flex justify-evenly items-center bg-[#007BFF]/80 rounded-full text-md border-none text-white"
       onClick={handleClick}
     >
       <FaPlus color="white" size={13} />

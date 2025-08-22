@@ -1,10 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import NavBar from "../components/NavBar";
 import Board from "../components/Board";
 import { SkeletonBoard } from "../components/SkeletonBoard";
 import "./home.css";
 import { MdOutlineDelete } from "react-icons/md";
 import { useAuth } from "../context/AuthProvider";
+import { RxCross1 } from "react-icons/rx";
+import { motion, AnimatePresence } from "framer-motion";
+import { BsSend } from "react-icons/bs";
 
 function Homepage() {
   const [boards, setBoards] = useState([]);
@@ -12,19 +15,55 @@ function Homepage() {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [inputText, setInputText] = useState("");
+  const [message, setMessage] = useState("");
+  const [showInput, setShowInput] = useState(false);
   const auth = useAuth();
+  const textareaRef = useRef(null);
 
   useEffect(() => {
-    const fetchBoards = async () => {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/boards/${auth.user.userId}`
-      );
-      const data = await response.json();
-      setBoards(data);
-      setIsLoading(false);
-    };
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height =
+        textareaRef.current.scrollHeight + "px";
+    }
+  }, [message]);
+
+  const fetchBoards = async () => {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/boards/${auth.user.userId}`
+    );
+    const data = await response.json();
+    setBoards(data);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
     fetchBoards();
   }, []);
+
+  async function handleAPIRequest(message, userId) {
+    setShowInput(false);
+    setIsLoading(true);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/generate_content`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ message, userId }),
+        }
+      );
+
+      if (response.ok) {
+        fetchBoards();
+        setIsLoading(false);
+      }
+    } catch (err) {
+      setIsLoading(false);
+    }
+  }
 
   const addBoard = async (title) => {
     const response = await fetch(`${import.meta.env.VITE_API_URL}/boards`, {
@@ -150,6 +189,46 @@ function Homepage() {
               </div>
             )}
           </div>
+          <AnimatePresence>
+            {showInput && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: 40 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 40 }}
+                transition={{ duration: 0.1 }}
+                className="text-white flex justify-between items-center absolute bg-blue-400 right-10 bottom-10 w-[35vw] p-[1rem] rounded-full z-10 gap-[0.5rem]"
+              >
+                <textarea
+                  onChange={(e) => setMessage(e.target.value)}
+                  ref={textareaRef}
+                  className="relative flex items-center justify-center bg-white/90 w-[90%] rounded-full text-lg text-black outline-none p-[0.8rem] resize-none"
+                />
+                <div
+                  className="bg-white w-[2rem] h-[2rem] rounded-full flex justify-center items-center p-[0.5rem] cursor-pointer"
+                  onClick={() => handleAPIRequest(message, auth.user.userId)}
+                >
+                  <BsSend size={20} color="black" />
+                </div>
+                <div
+                  className="flex text-black items-center justify-center rounded-full bg-white w-[2rem] h-[2rem] cursor-pointer"
+                  onClick={() => {
+                    setShowInput(false);
+                    setMessage("");
+                  }}
+                >
+                  <RxCross1 />
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+          {!showInput && (
+            <button
+              className="absolute right-10 bottom-10 bg-blue-400 text-white rounded-full p-3 shadow-lg transition-all duration-300 cursor-pointer"
+              onClick={() => setShowInput(true)}
+            >
+              What's on your mind?
+            </button>
+          )}
         </div>
       )}
     </div>

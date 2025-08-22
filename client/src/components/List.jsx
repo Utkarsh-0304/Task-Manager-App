@@ -3,48 +3,26 @@ import AddCard from "./AddCard";
 import Card from "./Card";
 import Options from "./Options";
 import { BsThreeDotsVertical } from "react-icons/bs";
-
-async function deleteCardFromList(listId, cardId) {
-  try {
-    const response = await fetch(
-      `${import.meta.env.VITE_API_URL}/lists/${listId}/cards/${cardId}`,
-      {
-        method: "DELETE",
-      }
-    );
-
-    if (response.ok) {
-      const data = await response.json();
-      return data;
-    }
-  } catch (err) {
-    console.log(err);
-  }
-}
+import { useDroppable } from "@dnd-kit/core";
 
 export default function List({
   boardId,
   list,
+  cards,
   deleteList,
-  openMenuId,
-  setOpenMenuId,
-  toggleMenu,
+  setLists,
   openCardListId,
   setOpenCardListId,
 }) {
-  const [cards, setCards] = useState([]);
+  const [openMenuId, setOpenMenuId] = useState(null);
   const delRef = useRef(null);
+  const { setNodeRef } = useDroppable({
+    id: list._id,
+  });
 
-  useEffect(() => {
-    async function fetchCards() {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/cards/${list._id}`
-      );
-      const data = await response.json();
-      setCards(data);
-    }
-    fetchCards();
-  }, []);
+  const toggleMenu = (id) => {
+    setOpenMenuId(openMenuId === id ? null : id);
+  };
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -52,37 +30,46 @@ export default function List({
         setOpenMenuId(null);
       }
     }
-
     document.addEventListener("mousedown", handleClickOutside);
-
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [openMenuId]);
 
   function addCard(newCard) {
-    setCards([...cards, newCard]);
+    setLists((prevLists) =>
+      prevLists.map((l) =>
+        l._id === list._id ? { ...l, cards: [...l.cards, newCard] } : l
+      )
+    );
   }
 
-  async function handleDelete(id) {
+  async function handleDelete(cardId) {
+    console.log("Delete Card");
+    setLists((prevLists) =>
+      prevLists.map((l) =>
+        l._id === list._id
+          ? { ...l, cards: l.cards.filter((c) => c._id !== cardId) }
+          : l
+      )
+    );
+
     try {
-      const updatedCards = await deleteCardFromList(list._id, id);
-      setCards(updatedCards);
+      await fetch(
+        `${import.meta.env.VITE_API_URL}/lists/${list._id}/cards/${cardId}`,
+        { method: "DELETE" }
+      );
     } catch (err) {
-      console.error("Failed to delete a card", err.message);
+      console.error("Failed to delete card:", err);
     }
   }
 
   return (
-    <div className="p-[1rem] min-w-[300px] shadow-2xl rounded-[5px] bg-white h-fit hover:bg-white/60">
+    <div
+      ref={setNodeRef}
+      className="p-[1rem] min-w-[300px] shadow-2xl rounded-[5px] bg-white h-fit"
+    >
       <div className="h-[2rem] w-full text-[1.5rem] text-[#343A40] font-semibold flex justify-between relative">
         {list.title}
-        <button
-          className={`bg-[9b9eab] p-[0.5rem] border-none text-l rounded-[5px] ${
-            openMenuId === list._id ? "isActive" : ""
-          }`}
-          onClick={() => {
-            toggleMenu(list._id);
-          }}
-        >
+        <button onClick={() => toggleMenu(list._id)}>
           <BsThreeDotsVertical color="#ADB5BD" />
         </button>
         {openMenuId === list._id && (
@@ -95,16 +82,21 @@ export default function List({
         )}
       </div>
 
-      <div>
+      <div className="mt-4">
         {cards.map((card) => (
-          <Card key={card._id} card={card} onDelete={handleDelete} />
+          <Card
+            key={card._id}
+            card={card}
+            onDelete={handleDelete}
+            listId={list._id}
+          />
         ))}
       </div>
       <AddCard
         onAdd={addCard}
         listId={list._id}
-        openCardListId={openCardListId}
         setOpenCardListId={setOpenCardListId}
+        openCardListId={openCardListId}
       />
     </div>
   );

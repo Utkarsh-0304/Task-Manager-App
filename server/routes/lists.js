@@ -5,6 +5,7 @@ const {
   postCard,
   postList,
   getCards,
+  putCard,
 } = require("../controllers/lists");
 
 function listRoutes(fastify, opts, done) {
@@ -19,6 +20,8 @@ function listRoutes(fastify, opts, done) {
   fastify.delete("/lists/:boardId/:listId", deleteList);
 
   fastify.get("/lists/:listId/:cardId", getCards);
+
+  fastify.post("/drag_and_drop", putCard);
 
   done();
 }

@@ -119,6 +119,19 @@ const getCards = async (req, reply) => {
   reply.send(cards);
 };
 
+const putCard = async (req, reply) => {
+  const { destinationListId, sourceListId, cardId } = req.body;
+
+  await List.findByIdAndUpdate(sourceListId, {
+    $pull: { cards: cardId },
+  });
+
+  const destList = await List.findById(destinationListId);
+  const card = await Card.findById(cardId);
+  destList.cards.push(card._id);
+  await destList.save();
+};
+
 module.exports = {
   deleteCard,
   getLists,
@@ -126,4 +139,5 @@ module.exports = {
   postCard,
   postList,
   getCards,
+  putCard,
 };
