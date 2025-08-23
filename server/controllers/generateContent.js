@@ -51,7 +51,7 @@ export async function generateContent(req, reply) {
       },
     });
   } catch (err) {
-    console.error(err);
+    reply.send("Error: ", err);
   }
 
   const AiGeneratedData = JSON.parse(response.text);
@@ -76,6 +76,6 @@ export async function generateContent(req, reply) {
 
     await newBoard.save();
   } catch (err) {
-    console.error(err);
+    reply.send("Error: ", err);
   }
 }

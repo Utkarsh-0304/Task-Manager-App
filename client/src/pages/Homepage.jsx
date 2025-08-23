@@ -61,6 +61,7 @@ function Homepage() {
         setIsLoading(false);
       }
     } catch (err) {
+      console.log(response);
       setIsLoading(false);
     }
   }
