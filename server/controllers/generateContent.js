@@ -10,11 +10,12 @@ export async function generateContent(req, reply) {
     apiKey: `${process.env.GEMINI_API_KEY}`,
   });
 
-  const response = await ai.models.generateContent({
-    model: "gemini-2.5-flash",
-    contents: `${message}`,
-    config: {
-      systemInstruction: `
+  try {
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents: `${message}`,
+      config: {
+        systemInstruction: `
     You are an expert project manager. Your task is to break down the following user message into a structured set of lists and task cards suitable for a Kanban board.
 
     Analyze the message and generate a JSON object that contains an array of lists.
@@ -47,8 +48,11 @@ export async function generateContent(req, reply) {
 
     Also add a 'title' property which defines the summary of the message under 20 characters.
     `,
-    },
-  });
+      },
+    });
+  } catch (err) {
+    console.error(err);
+  }
 
   const AiGeneratedData = JSON.parse(response.text);
 
