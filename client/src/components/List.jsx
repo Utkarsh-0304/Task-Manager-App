@@ -13,6 +13,8 @@ export default function List({
   setLists,
   openCardListId,
   setOpenCardListId,
+  setIsModalOpen,
+  setCurrCard,
 }) {
   const [openMenuId, setOpenMenuId] = useState(null);
   const delRef = useRef(null);
@@ -89,6 +91,8 @@ export default function List({
             card={card}
             onDelete={handleDelete}
             listId={list._id}
+            setIsModalOpen={setIsModalOpen}
+            setCurrCard={setCurrCard}
           />
         ))}
       </div>

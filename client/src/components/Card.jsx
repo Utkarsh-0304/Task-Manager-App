@@ -1,9 +1,8 @@
-import React from "react";
 import DeleteButton from "./DeleteButton";
 import { useDraggable } from "@dnd-kit/core";
-import { RxDragHandleDots1, RxDragHandleDots2 } from "react-icons/rx";
+import { RxDragHandleDots2 } from "react-icons/rx";
 
-function Card({ card, onDelete, listId }) {
+function Card({ card, onDelete, listId, setIsModalOpen, setCurrCard }) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: card._id,
     data: {
@@ -25,7 +24,15 @@ function Card({ card, onDelete, listId }) {
       <div {...listeners} {...attributes} className="">
         <RxDragHandleDots2 />
       </div>
-      <p className="w-[80%]">{card.title}</p>
+      <p
+        className="w-[80%] cursor-pointer"
+        onClick={() => {
+          setIsModalOpen(true);
+          setCurrCard(card);
+        }}
+      >
+        {card.title}
+      </p>
 
       <DeleteButton card={card} onDelete={onDelete} />
     </div>

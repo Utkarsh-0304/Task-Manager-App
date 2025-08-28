@@ -27,4 +27,22 @@ const postCard = async (req, reply) => {
   }
 };
 
-module.exports = { getCards, postCard };
+const postDesc = async (req, reply) => {
+  const { cardId } = req.params;
+  const { description } = req.body;
+
+  const card = await Card.findById(cardId);
+  card.description = description;
+  await card.save();
+
+  reply.send("Description Added Succesfully");
+};
+
+const getDesc = async (req, reply) => {
+  const { cardId } = req.params;
+
+  const card = await Card.findById(cardId);
+  reply.send(card.description);
+};
+
+module.exports = { getCards, postCard, postDesc, getDesc };
