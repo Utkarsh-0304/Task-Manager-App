@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { FaPlus } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";
+import { toast } from "sonner";
 
 async function addCardToList(listId, cardTitle) {
   const response = await fetch(
@@ -34,6 +35,7 @@ function AddCard({ listId, onAdd, openCardListId, setOpenCardListId }) {
       const newCard = await addCardToList(listId, input);
       setInput("");
       onAdd(newCard);
+      toast.success("Card added succesfully")
     } catch (error) {
       console.error(error);
     }

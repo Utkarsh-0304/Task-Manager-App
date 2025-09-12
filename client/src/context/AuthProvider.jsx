@@ -1,5 +1,6 @@
 import { useState, createContext, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 export const AuthContext = createContext(null);
 
@@ -34,6 +35,7 @@ export function AuthProvider({ children }) {
         setUser({ username: res.username, userId: res.userId });
         setIsLoggedIn(true);
         navigate("/home");
+        toast.success("Logged In Succesfully")
         return true;
       } else {
         return res?.message || "Invalid username or password";
@@ -58,6 +60,7 @@ export function AuthProvider({ children }) {
     setUser(null);
     setIsLoggedIn(false);
     navigate("/login");
+    toast.success("Logged out successfully")
   };
 
   return (

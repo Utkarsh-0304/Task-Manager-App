@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { FaPlus } from "react-icons/fa";
 import { IoIosClose } from "react-icons/io";
+import { toast } from "sonner";
 
 async function addListToBoard(id, listTitle) {
   const response = await fetch(`${import.meta.env.VITE_API_URL}/lists/${id}`, {
@@ -14,7 +15,7 @@ async function addListToBoard(id, listTitle) {
   const data = await response.json();
 
   if (response.ok) {
-    console.log("List added:", data);
+    toast.success("List created succesfully")
     return data;
   } else {
     console.error("Error:", data.message);

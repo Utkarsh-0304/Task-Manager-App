@@ -4,6 +4,7 @@ import Card from "./Card";
 import Options from "./Options";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useDroppable } from "@dnd-kit/core";
+import { toast } from "sonner";
 
 export default function List({
   boardId,
@@ -45,20 +46,23 @@ export default function List({
   }
 
   async function handleDelete(cardId) {
-    console.log("Delete Card");
-    setLists((prevLists) =>
-      prevLists.map((l) =>
-        l._id === list._id
-          ? { ...l, cards: l.cards.filter((c) => c._id !== cardId) }
-          : l
-      )
-    );
+
 
     try {
       await fetch(
         `${import.meta.env.VITE_API_URL}/lists/${list._id}/cards/${cardId}`,
         { method: "DELETE" }
       );
+
+      setLists((prevLists) =>
+        prevLists.map((l) =>
+          l._id === list._id
+            ? { ...l, cards: l.cards.filter((c) => c._id !== cardId) }
+            : l
+        )
+      );
+
+      toast.success("Card Deleted successfully")
     } catch (err) {
       console.error("Failed to delete card:", err);
     }

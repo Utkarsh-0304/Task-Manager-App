@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { RxCross2 } from "react-icons/rx";
+import { toast } from "sonner";
 
 function LandingPage() {
   const navigate = useNavigate();

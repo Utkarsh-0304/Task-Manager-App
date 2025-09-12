@@ -6,6 +6,7 @@ import { MdChevronLeft } from "react-icons/md";
 import { DndContext } from "@dnd-kit/core";
 import Modal from "./Modal";
 import { IoMdClose } from "react-icons/io";
+import { toast } from "sonner";
 
 function Board({ board, setSelectedBoard }) {
   const [lists, setLists] = useState([]);
@@ -57,8 +58,8 @@ function Board({ board, setSelectedBoard }) {
       { method: "DELETE" }
     );
     if (response.ok) {
-      const updatedLists = await response.json();
       setLists(lists.filter((list) => list._id !== listId));
+      toast.success("List Deleted successfully")
     } else {
       console.error("Failed to delete list");
     }

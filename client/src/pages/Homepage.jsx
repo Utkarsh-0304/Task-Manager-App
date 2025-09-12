@@ -8,6 +8,7 @@ import { useAuth } from "../context/AuthProvider";
 import { RxCross1 } from "react-icons/rx";
 import { motion, AnimatePresence } from "framer-motion";
 import { BsSend } from "react-icons/bs";
+import { toast } from "sonner";
 
 function Homepage() {
   const [boards, setBoards] = useState([]);
@@ -67,16 +68,21 @@ function Homepage() {
   }
 
   const addBoard = async (title) => {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/boards`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ title, userId: auth.user.userId }),
-    });
-
-    const newBoard = await response.json();
-    setBoards([...boards, newBoard]);
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/boards`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ title, userId: auth.user.userId }),
+      });
+      const newBoard = await response.json();
+      setBoards([...boards, newBoard]);
+      toast.success("Board Added successfully")
+    }
+    catch (err) {
+      toast.error(err)
+    }
   };
 
   const handleSubmit = () => {
@@ -106,6 +112,7 @@ function Homepage() {
       setBoards((prevBoards) =>
         prevBoards.filter((board) => board._id !== boardId)
       );
+      toast.success("Board Deleted successfully")
     } catch (err) {
       console.error(err);
     }
