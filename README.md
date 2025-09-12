@@ -1,63 +1,86 @@
-# 📝 Full-Stack Task Manager Application 
+# TaskFlow - AI-Powered Task Management App
 
-A collaborative task management application designed to help teams and individuals organize projects efficiently. This application allows users to create boards, manage task lists, and organize tasks using a clean and intuitive interface.
+An intuitive, Trello-like task management application designed to enhance productivity by leveraging generative AI. TaskFlow enables users to manage complex projects through a clean and visual Kanban-style interface, allowing them to generate entire project boards from a single prompt.
+### Landing Page
+<img width="1890" height="894" src="https://github.com/user-attachments/assets/d2f270a1-6d59-4198-a7a5-e99c2abd5349" />
 
-![image](https://github.com/user-attachments/assets/698d0f85-89d9-4a67-b9ed-884ee4ec4af8)
+### Home Page
+<img width="1902" height="890" src="https://github.com/user-attachments/assets/cee4b980-c2ee-44dc-9c8e-5e4377a89630" />
 
-![image](https://github.com/user-attachments/assets/d114b8db-3c1e-4767-9bca-56be1ce8ae6d)
+### Board View 
 
-![image](https://github.com/user-attachments/assets/b0165fea-f9f2-4797-bec3-4ba9bd35a78e)
+<img width="1903" height="883" src="https://github.com/user-attachments/assets/fdca98bb-dc49-4fbc-94f3-20abe787fe55" />
 
-## 🚀 Features
+## Key-Features
 
-- Create, update, and delete task lists and cards
-- Fast and lightweight backend using Fastify
-- MongoDB Atlas integration with Mongoose schemas
-- Basic authentication
-- Responsive and clean UI using React
+- AI-Powered Board Generation: Integrated with the Google Gemini API to act as a project assistant. Users can input a high-level goal (e.g., "Launch a new marketing campaign") and automatically receive a fully structured board with relevant lists and actionable tasks.
+- Intuitive Kanban Interface: A clean, minimalist UI for managing projects with boards, lists, and cards.
+- Drag-and-Drop Functionality: Seamlessly move tasks between lists to update their status in real-time.
+- Full CRUD Operations: Complete functionality to Create, Read, Update, and Delete boards, lists, and cards.
+- Secure User Authentication: A secure authentication system for user registration and login, ensuring all user data and project boards remain private.
 
-## 🛠 Tech Stack
+## Tech Stack
 
-- **Frontend:** React, JavaScript, HTML, CSS
+- **Frontend:** ReactJS (with Vite), JavaScript, TailwindCSS
 - **Backend:** Node.js, Fastify
-- **Database:** MongoDB Atlas, Mongoose
-- **Others:** UUID (for generating unique IDs)
+- **Databases and ODMs:** MongoDB Atlas (with Mongoose)
+- **AI Integration:** Gemini API
+- **Others:** JWT (authentication), UUID (generating unique IDs), React-dnd (drag and drop functionality) 
 
-## ⚙️ Installation
+## Getting-Started
 
-### Clone the repository
+You can follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
 
+### Prerequisites
+You'll need to have the following installed on your machine:
+
+-Node.js (which includes npm)
+
+### Installation
+
+#### Clone the repository
 ```bash
 git clone https://github.com/Utkarsh-0304/Task-Manager-App.git
 cd Task-Manager-App
 ```
-### Frontend Setup
+#### Frontend Setup
 ```bash
-cd frontend 
+cd client 
 npm install
-npm start
 ```
 
-### Backend Setup
+#### Backend Setup
 ```bash
-cd backend 
+cd server 
 npm install
-npm run dev
 ```
 
-### Create a .env file
+#### Create a .env file
 Create a .env file in the backend directory and add your MongoDB connection URI:
 ```bash
+PORT=3001
 MONGO_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/your-db-name
+JWT_SECRET=your_jwt_secret_key
+GEMINI_API_KEY=your_google_gemini_api_key
 ```
-### Database Setup
-
-* Create a MongoDB Atlas account, and create a cluster.
+#### Database Setup
+* Create a MongoDB Atlas account and create a cluster.
 * Create a database and collection.
 * Copy the connection string and insert it into the .env file.
 
-## 🤝 Contributing
-Feel free to fork this repo and raise a PR if you’d like to contribute or suggest improvements.
+#### Run the application 
+- To start the backend server, run the following from the server directory:
+```bash
+npm run start
+```
+
+- To start the frontend development server, run the following from the client directory:
+```bash
+npm run dev 
+```
+
+Your application should now be running, with the frontend accessible at http://localhost:3000 and the backend at http://localhost:3001.
+
 
 
 
