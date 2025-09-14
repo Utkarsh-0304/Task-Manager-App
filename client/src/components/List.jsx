@@ -46,8 +46,6 @@ export default function List({
   }
 
   async function handleDelete(cardId) {
-
-
     try {
       await fetch(
         `${import.meta.env.VITE_API_URL}/lists/${list._id}/cards/${cardId}`,
@@ -62,7 +60,7 @@ export default function List({
         )
       );
 
-      toast.success("Card Deleted successfully")
+      toast.success("Card Deleted successfully");
     } catch (err) {
       console.error("Failed to delete card:", err);
     }

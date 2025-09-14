@@ -9,6 +9,7 @@ import { RxCross1 } from "react-icons/rx";
 import { motion, AnimatePresence } from "framer-motion";
 import { BsSend } from "react-icons/bs";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 function Homepage() {
   const [boards, setBoards] = useState([]);
@@ -20,6 +21,7 @@ function Homepage() {
   const [showInput, setShowInput] = useState(false);
   const auth = useAuth();
   const textareaRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -43,6 +45,7 @@ function Homepage() {
   }, []);
 
   async function handleAPIRequest(message, userId) {
+    if (message === "") return;
     setShowInput(false);
     setIsLoading(true);
     try {
@@ -78,10 +81,9 @@ function Homepage() {
       });
       const newBoard = await response.json();
       setBoards([...boards, newBoard]);
-      toast.success("Board Added successfully")
-    }
-    catch (err) {
-      toast.error(err)
+      toast.success("Board Added successfully");
+    } catch (err) {
+      toast.error(err);
     }
   };
 
@@ -112,14 +114,14 @@ function Homepage() {
       setBoards((prevBoards) =>
         prevBoards.filter((board) => board._id !== boardId)
       );
-      toast.success("Board Deleted successfully")
+      toast.success("Board Deleted successfully");
     } catch (err) {
       console.error(err);
     }
   };
 
   return (
-    <div className="app">
+    <div className="app h-screen">
       <NavBar />
       {selectedBoard ? (
         <Board board={selectedBoard} setSelectedBoard={setSelectedBoard} />
@@ -136,7 +138,8 @@ function Homepage() {
                   className="group last:hover:inline-block h-[10rem] text-white bg-blue-400 flex flex-row justify-center items-center rounded-md shadow-2xl hover:bg-blue-400 relative"
                 >
                   <button
-                    onClick={() => setSelectedBoard(board)}
+                    // onClick={() => setSelectedBoard(board)}
+                    onClick={() => navigate(`/board/${board._id}`)}
                     className="w-full h-full text-xl"
                   >
                     {board.title}

@@ -210,7 +210,7 @@ function LandingPage() {
         </section>
       </main>
 
-      <footer className="bg-white border-t border-slate-200">
+      <footer className="bg-blue-100 border-t border-slate-200">
         <div className="container mx-auto px-6 py-12">
           <div className="grid md:grid-cols-4 gap-8">
             <div>

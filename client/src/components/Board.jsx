@@ -7,8 +7,10 @@ import { DndContext } from "@dnd-kit/core";
 import Modal from "./Modal";
 import { IoMdClose } from "react-icons/io";
 import { toast } from "sonner";
+import { useNavigate, useParams } from "react-router-dom";
+import NavBar from "./NavBar";
 
-function Board({ board, setSelectedBoard }) {
+function Board() {
   const [lists, setLists] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [openCardListId, setOpenCardListId] = useState(null);
@@ -16,12 +18,14 @@ function Board({ board, setSelectedBoard }) {
   const [description, setDescription] = useState("");
   const [currCard, setCurrCard] = useState(null);
   const [adding, setAdding] = useState(false);
+  const navigate = useNavigate();
+  const { boardId } = useParams();
 
   async function fetchBoardData() {
     try {
       setIsLoading(true);
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/lists/${board._id}`
+        `${import.meta.env.VITE_API_URL}/lists/${boardId}`
       );
       const listsData = await response.json();
 
@@ -45,7 +49,7 @@ function Board({ board, setSelectedBoard }) {
 
   useEffect(() => {
     fetchBoardData();
-  }, [board._id]);
+  }, [boardId]);
 
   function addList(newList) {
     if (!newList) return;
@@ -59,7 +63,7 @@ function Board({ board, setSelectedBoard }) {
     );
     if (response.ok) {
       setLists(lists.filter((list) => list._id !== listId));
-      toast.success("List Deleted successfully")
+      toast.success("List Deleted successfully");
     } else {
       console.error("Failed to delete list");
     }
@@ -147,87 +151,90 @@ function Board({ board, setSelectedBoard }) {
   };
 
   return (
-    <div className="flex flex-col shrink-0 h-[90vh]">
-      <div
-        className="flex flex-row items-center w-60 text-[#ccc] cursor-pointer underline underline-offset-2"
-        onClick={() => setSelectedBoard(null)}
-      >
-        <MdChevronLeft color="gray" />
-        Back to Boards
-      </div>
-      <div className="w-full relative h-[90vh] flex flex-row">
-        <DndContext onDragEnd={handleDragEnd}>
-          <div className="m-[1rem] flex flex-row gap-[1.5rem]">
-            {isLoading ? (
-              <SkeletonList />
-            ) : lists.length === 0 ? (
-              <div className="italic text-[#bbb]">
-                Click here to add some lists
-              </div>
-            ) : (
-              lists.map((list) => (
-                <List
-                  key={list._id}
-                  boardId={board._id}
-                  list={list}
-                  cards={list.cards}
-                  deleteList={deleteList}
-                  setLists={setLists}
-                  openCardListId={openCardListId}
-                  setOpenCardListId={setOpenCardListId}
-                  setIsModalOpen={setIsModalOpen}
-                  setCurrCard={setCurrCard}
-                />
-              ))
-            )}
-            <AddList boardId={board._id} onAdd={addList} />
-          </div>
-        </DndContext>
-      </div>
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <div className="flex flex-col gap-[2rem] h-full">
-          <div className="text-2xl flex flex-row justify-between">
-            {currCard?.title}{" "}
-            <IoMdClose
-              className="cursor-pointer"
-              onClick={() => {
-                setIsModalOpen(false);
-                setCurrCard(null);
-                setDescription("");
-              }}
-            />
-          </div>
-
-          <div className="relative flex flex-col gap-4 items-start">
-            <h2>Description</h2>
-            <textarea
-              rows={3}
-              className="border p-2 w-full text-md resize-none focus:outline-none"
-              placeholder={currCard?.description}
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
-
-            {description && (
-              <div>
-                <button
-                  className="p-2 pl-2 pr-2 rounded text-white bg-blue-500 cursor-pointer"
-                  onClick={() => handleAddDescription(currCard?._id)}
-                >
-                  {adding ? "Adding" : "Add"}
-                </button>
-                <button
-                  className="p-2 rounded cursor-pointer"
-                  onClick={() => setDescription("")}
-                >
-                  Cancel
-                </button>
-              </div>
-            )}
-          </div>
+    <>
+      <NavBar />
+      <div className="flex flex-col shrink-0 h-[90vh]">
+        <div
+          className="flex flex-row items-center w-fit text-[#ccc] cursor-pointer underline underline-offset-2"
+          onClick={() => navigate("/home")}
+        >
+          <MdChevronLeft color="gray" />
+          Back to Boards
         </div>
-      </Modal>
-    </div>
+        <div className="w-full relative h-[90vh] flex flex-row">
+          <DndContext onDragEnd={handleDragEnd}>
+            <div className="m-[1rem] flex flex-row gap-[1.5rem]">
+              {isLoading ? (
+                <SkeletonList />
+              ) : lists.length === 0 ? (
+                <div className="italic text-[#bbb]">
+                  Click here to add some lists
+                </div>
+              ) : (
+                lists.map((list) => (
+                  <List
+                    key={list._id}
+                    boardId={boardId}
+                    list={list}
+                    cards={list.cards}
+                    deleteList={deleteList}
+                    setLists={setLists}
+                    openCardListId={openCardListId}
+                    setOpenCardListId={setOpenCardListId}
+                    setIsModalOpen={setIsModalOpen}
+                    setCurrCard={setCurrCard}
+                  />
+                ))
+              )}
+              <AddList boardId={boardId} onAdd={addList} />
+            </div>
+          </DndContext>
+        </div>
+        <Modal isOpen={isModalOpen} setIsModalOpen={setIsModalOpen}>
+          <div className="flex flex-col gap-[2rem] h-full">
+            <div className="text-2xl flex flex-row justify-between">
+              {currCard?.title}{" "}
+              <IoMdClose
+                className="cursor-pointer"
+                onClick={() => {
+                  setIsModalOpen(false);
+                  setCurrCard(null);
+                  setDescription("");
+                }}
+              />
+            </div>
+
+            <div className="relative flex flex-col gap-4 items-start">
+              <h2>Description</h2>
+              <textarea
+                rows={3}
+                className="border p-2 w-full text-md resize-none focus:outline-none"
+                placeholder={currCard?.description}
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+
+              {description && (
+                <div>
+                  <button
+                    className="p-2 pl-2 pr-2 rounded text-white bg-blue-500 cursor-pointer"
+                    onClick={() => handleAddDescription(currCard?._id)}
+                  >
+                    {adding ? "Adding" : "Add"}
+                  </button>
+                  <button
+                    className="p-2 rounded cursor-pointer"
+                    onClick={() => setDescription("")}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        </Modal>
+      </div>
+    </>
   );
 }
 
