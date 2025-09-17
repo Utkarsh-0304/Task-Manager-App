@@ -138,7 +138,6 @@ function Homepage() {
                   className="group last:hover:inline-block h-[10rem] text-white bg-blue-400 flex flex-row justify-center items-center rounded-md shadow-2xl hover:bg-blue-400 relative"
                 >
                   <button
-                    // onClick={() => setSelectedBoard(board)}
                     onClick={() => navigate(`/board/${board._id}`)}
                     className="w-full h-full text-xl"
                   >
@@ -180,7 +179,7 @@ function Homepage() {
                   <button
                     onClick={() => {
                       setIsOpen(false);
-                      setInputText(""); // Clear the input field on cancel
+                      setInputText("");
                     }}
                     className="rounded-md p-[0.5rem] ring-2 ring-red-500 bg-red-500/20 hover:bg-red-500/40 "
                   >
@@ -213,6 +212,7 @@ function Homepage() {
                   onChange={(e) => setMessage(e.target.value)}
                   ref={textareaRef}
                   className="relative flex items-center justify-center bg-white/90 w-[90%] rounded-full text-lg text-black outline-none p-[0.8rem] resize-none"
+                  placeholder="Type something here..."
                 />
                 <div
                   className="bg-white w-[2rem] h-[2rem] rounded-full flex justify-center items-center p-[0.5rem] cursor-pointer"

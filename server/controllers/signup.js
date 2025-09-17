@@ -2,7 +2,7 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 
 async function handleSignup(req, reply) {
-  const { username, password } = req.body;
+  const { name, username, password } = req.body;
   try {
     const existingUser = await User.findOne({ username });
     if (existingUser) {
@@ -12,6 +12,7 @@ async function handleSignup(req, reply) {
     const hash = await bcrypt.hash(password, 10);
 
     const user = new User({
+      name,
       username,
       password: hash,
     });

@@ -3,14 +3,15 @@ import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const navigate = useNavigate();
+  const [name, setNameInput] = useState("");
   const [username, setUserInput] = useState("");
   const [password, setPassInput] = useState("");
   const [error, setError] = useState("");
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if (!username.trim() || !password.trim()) {
-      setError("username or password fields cannot be empty");
+    if (!name.trim() || !username.trim() || !password.trim()) {
+      setError("field(s) cannot be empty");
       return;
     }
     try {
@@ -19,12 +20,11 @@ const Signup = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ name, username, password }),
         credentials: "include",
       });
 
       const data = await response.json();
-      console.log(data.message);
 
       if (response.ok) {
         navigate("/login");
@@ -44,6 +44,21 @@ const Signup = () => {
             onSubmit={handleSubmit}
           >
             <h2 className="text-4xl font-bold text-blue-600 mb-6">Signup</h2>
+            <div className="w-full mb-6">
+              <label
+                htmlFor="name"
+                className="block text-md font-semibold mb-2"
+              >
+                Name
+              </label>
+              <input
+                className="w-full bg-gray-100 border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                value={name}
+                type="text"
+                name="name"
+                onChange={(e) => setNameInput(e.target.value)}
+              />
+            </div>
             <div className="w-full mb-6">
               <label
                 htmlFor="uname"

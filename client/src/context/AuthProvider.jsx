@@ -12,6 +12,7 @@ const getInitialState = () => {
 export function AuthProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(getInitialState);
+  const [hasProfileAnimated, setHasProfileAnimated] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,10 +33,10 @@ export function AuthProvider({ children }) {
       const res = await response.json();
 
       if (response.ok) {
-        setUser({ username: res.username, userId: res.userId });
+        setUser({ name: res.name, username: res.username, userId: res.userId });
         setIsLoggedIn(true);
         navigate("/home");
-        toast.success("Logged In Succesfully")
+        toast.success("Logged In Succesfully");
         return true;
       } else {
         return res?.message || "Invalid username or password";
@@ -59,12 +60,22 @@ export function AuthProvider({ children }) {
     }
     setUser(null);
     setIsLoggedIn(false);
+    setHasProfileAnimated(false);
     navigate("/login");
-    toast.success("Logged out successfully")
+    toast.success("Logged out successfully");
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, user, loginAction, logOut }}>
+    <AuthContext.Provider
+      value={{
+        isLoggedIn,
+        user,
+        loginAction,
+        logOut,
+        hasProfileAnimated,
+        setHasProfileAnimated,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

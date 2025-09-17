@@ -20,9 +20,12 @@ async function handleLogin(req, reply) {
         maxAge: 3600, // Cookie expires in 1 hour
         sameSite: "None", // Prevents CSRF attacks
       });
-      return reply
-        .status(201)
-        .send({ userId: user._id, username, message: "Login successful" });
+      return reply.status(201).send({
+        userId: user._id,
+        name: user.name,
+        username: user.username,
+        message: "Login successful",
+      });
     } else {
       return reply
         .status(401)
