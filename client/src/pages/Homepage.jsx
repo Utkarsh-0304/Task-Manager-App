@@ -9,7 +9,8 @@ import { RxCross1 } from "react-icons/rx";
 import { motion, AnimatePresence } from "framer-motion";
 import { BsSend } from "react-icons/bs";
 import { toast } from "sonner";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import Modal from "../components/Modal";
 
 function Homepage() {
   const [boards, setBoards] = useState([]);
@@ -22,6 +23,9 @@ function Homepage() {
   const auth = useAuth();
   const textareaRef = useRef(null);
   const navigate = useNavigate();
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -106,17 +110,22 @@ function Homepage() {
       );
 
       if (!response.ok) {
-        throw new Error("Failed to delete board");
+        toast.error("Failed to delete board");
+        return;
       }
-
-      const data = await response.json();
 
       setBoards((prevBoards) =>
         prevBoards.filter((board) => board._id !== boardId)
       );
+      setIsDeleteModalOpen(false);
+      setIsDeleting(false);
       toast.success("Board Deleted successfully");
     } catch (err) {
-      console.error(err);
+      toast.error("Error Deleting Board");
+      setIsDeleting(false);
+      setTimeout(() => {
+        setIsDeleteModalOpen(false);
+      }, 2000);
     }
   };
 
@@ -138,13 +147,22 @@ function Homepage() {
                   className="group last:hover:inline-block h-[10rem] text-white bg-blue-400 flex flex-row justify-center items-center rounded-md shadow-2xl hover:bg-blue-400 relative"
                 >
                   <button
-                    onClick={() => navigate(`/board/${board._id}`)}
+                    onClick={() => {
+                      auth?.setHasProfileAnimated(true);
+                      navigate(`/board/${board._id}`);
+                    }}
                     className="w-full h-full text-xl"
                   >
                     {board.title}
                   </button>
                   <button
-                    onClick={() => handleDelete(board._id)}
+                    onClick={() => {
+                      setSearchParams({
+                        board_id: board._id,
+                        boardName: board.title,
+                      });
+                      setIsDeleteModalOpen(true);
+                    }}
                     className="group-hover:flex hidden text-2xl items-center justify-center absolute top-[80%] left-[90%] bottom-[0]"
                   >
                     <MdOutlineDelete color="white" />
@@ -242,6 +260,49 @@ function Homepage() {
           )}
         </div>
       )}
+      <Modal setIsModalOpen={setIsDeleteModalOpen} isOpen={isDeleteModalOpen}>
+        <h2 className="text-xl font-bold text-gray-900">Delete Board</h2>
+
+        <p className="text-gray-600">
+          Are you sure you want to delete the board
+          {searchParams.get("boardName") && (
+            <strong className="font-semibold text-gray-800">
+              {" "}
+              "{searchParams.get("boardName").trim()}"
+            </strong>
+          )}
+          ?
+          <br />
+          <strong className="font-bold text-red-600">
+            This action cannot be undone.
+          </strong>
+        </p>
+
+        <div className="flex justify-end gap-3 mt-4">
+          <button
+            type="button"
+            onClick={() => {
+              setSearchParams({});
+              setIsDeleteModalOpen(false);
+            }}
+            className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none"
+            disabled={isDeleting}
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setIsDeleting(true);
+              handleDelete(searchParams.get("board_id"));
+            }}
+            className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:bg-red-400 disabled:cursor-not-allowed"
+            disabled={isDeleting}
+          >
+            {isDeleting ? "Deleting" : "Delete"}
+          </button>
+        </div>
+      </Modal>
     </div>
   );
 }

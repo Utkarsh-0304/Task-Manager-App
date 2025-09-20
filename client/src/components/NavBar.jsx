@@ -39,7 +39,7 @@ export default function NavBar() {
 
       return () => clearTimeout(timer);
     }
-  }, []);
+  }, [auth?.hasProfileAnimated, auth?.setHasProfileAnimated]);
 
   return (
     <div className="w-auto h-[10vh] p-[1rem] flex justify-between items-center ">
