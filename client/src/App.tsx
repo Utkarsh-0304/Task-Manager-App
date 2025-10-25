@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Login from "./pages/Login";
 import Homepage from "./pages/Homepage";
 import Signup from "./pages/Signup";
-import ShadCn from "./pages/MUI";
 import {
   BrowserRouter,
   Routes,
@@ -15,7 +14,7 @@ import LandingPage from "./pages/LandingPage";
 import Board from "./components/Board";
 
 const PrivateRoute = () => {
-  const [isVerified, setVerified] = useState(null);
+  const [isVerified, setVerified] = useState<boolean | null>(null);
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/verify`, {

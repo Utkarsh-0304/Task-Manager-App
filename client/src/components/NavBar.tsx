@@ -7,16 +7,16 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function NavBar() {
   const auth = useAuth();
-  let url = window.location.href;
+  let url: string = window.location.href;
   url = url.substring(url.lastIndexOf("/"), url.length);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [visible, setVisible] = useState(!auth?.hasProfileAnimated);
 
-  const dropdownRef = useRef(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    function handleClickOutside(event) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsOpen(false);
       }
     }
@@ -70,7 +70,7 @@ export default function NavBar() {
                 transition={{ duration: 0.4 }}
                 style={{ whiteSpace: "nowrap" }}
               >
-                Hi, {auth.user?.name}
+                Hi, {auth?.user?.name}
               </motion.div>
             )}
           </AnimatePresence>
@@ -86,7 +86,7 @@ export default function NavBar() {
           <div className="bg-[#EFF2F5] dropdown absolute top-full right-0 mt-2 w-40 shadow-lg rounded p-2 z-10">
             <div
               className="py-2 px-4 hover:bg-gray-100 cursor-pointer"
-              onClick={auth.logOut}
+              onClick={auth?.logOut}
             >
               Logout
             </div>

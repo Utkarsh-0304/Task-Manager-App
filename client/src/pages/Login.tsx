@@ -1,64 +1,39 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthProvider";
 
-const Signup = () => {
+function Login() {
   const navigate = useNavigate();
-  const [name, setNameInput] = useState("");
-  const [username, setUserInput] = useState("");
-  const [password, setPassInput] = useState("");
-  const [error, setError] = useState("");
-
-  async function handleSubmit(e) {
+  const auth = useAuth();
+  const [username, setUserInput] = useState<string>("");
+  const [password, setPassInput] = useState<string>("");
+  const [error, setError] = useState<string | boolean>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!name.trim() || !username.trim() || !password.trim()) {
-      setError("field(s) cannot be empty");
+    setLoading(true);
+    if (!username.trim() || !password.trim()) {
+      setError("username or password fields cannot be empty");
+      setLoading(false);
       return;
     }
-    try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/signup`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name, username, password }),
-        credentials: "include",
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        navigate("/login");
-      } else {
-        setError(data.message);
-      }
-    } catch (err) {
-      console.log("Error occured", err);
+    const state = await auth?.loginAction({ username, password });
+    if (state !== true) {
+      setLoading(false);
+      setError("Something went wrong");
     }
   }
+
   return (
     <>
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex items-center justify-center h-screen">
         <div className="w-full md:w-1/2 flex justify-center items-center py-8">
           <form
             className="bg-white/90 flex flex-col items-center justify-center w-4/5 max-w-md shadow-2xl rounded-lg p-8"
             onSubmit={handleSubmit}
           >
-            <h2 className="text-4xl font-bold text-blue-600 mb-6">Signup</h2>
-            <div className="w-full mb-6">
-              <label
-                htmlFor="name"
-                className="block text-md font-semibold mb-2"
-              >
-                Name
-              </label>
-              <input
-                className="w-full bg-gray-100 border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-                value={name}
-                type="text"
-                name="name"
-                onChange={(e) => setNameInput(e.target.value)}
-              />
-            </div>
+            <h2 className="text-4xl font-bold text-blue-600 mb-6">Login</h2>
+
             <div className="w-full mb-6">
               <label
                 htmlFor="uname"
@@ -67,13 +42,14 @@ const Signup = () => {
                 Username
               </label>
               <input
-                className="w-full bg-gray-100 border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                className="w-full bg-gray-100 border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition "
                 value={username}
                 type="text"
                 name="uname"
                 onChange={(e) => setUserInput(e.target.value)}
               />
             </div>
+
             <div className="w-full mb-6">
               <label
                 htmlFor="pass"
@@ -95,17 +71,19 @@ const Signup = () => {
             <button
               type="submit"
               className="w-full bg-blue-500 hover:bg-blue-400 text-white py-2 rounded-md cursor-pointer"
+              disabled={loading}
             >
-              Signup
+              {loading ? "Logging in..." : "Login"}
             </button>
+
             <div className="text-center text-gray-500 mt-6">
-              Already have an account?{" "}
+              Don't have an account?{" "}
               <button
                 className="text-blue-400 hover:underline transition cursor-pointer"
                 type="button"
-                onClick={() => navigate("/login")}
+                onClick={() => navigate("/signup")}
               >
-                Login
+                Signup
               </button>{" "}
               here
             </div>
@@ -114,6 +92,6 @@ const Signup = () => {
       </div>
     </>
   );
-};
+}
 
-export default Signup;
+export default Login;

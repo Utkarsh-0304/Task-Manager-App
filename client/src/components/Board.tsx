@@ -3,20 +3,34 @@ import List from "./List";
 import AddList from "./AddList";
 import { SkeletonList } from "./SkeletonList";
 import { MdChevronLeft } from "react-icons/md";
-import { DndContext } from "@dnd-kit/core";
+import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import Modal from "./Modal";
 import { IoMdClose } from "react-icons/io";
 import { toast } from "sonner";
 import { useNavigate, useParams } from "react-router-dom";
 import NavBar from "./NavBar";
 
+interface List {
+  _id: string;
+  title: string;
+  cards: Card[];
+  __v: number;
+}
+
+interface Card {
+  _id: string;
+  title: string;
+  description: string;
+  __v: number;
+}
+
 function Board() {
-  const [lists, setLists] = useState([]);
+  const [lists, setLists] = useState<List[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [openCardListId, setOpenCardListId] = useState(null);
+  const [openCardListId, setOpenCardListId] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [description, setDescription] = useState("");
-  const [currCard, setCurrCard] = useState(null);
+  const [currCard, setCurrCard] = useState<Card | null>(null);
   const [adding, setAdding] = useState(false);
   const navigate = useNavigate();
   const { boardId } = useParams();
@@ -30,7 +44,7 @@ function Board() {
       const listsData = await response.json();
 
       const listsWithCards = await Promise.all(
-        listsData.map(async (list) => {
+        listsData.map(async (list: List) => {
           const cardsResponse = await fetch(
             `${import.meta.env.VITE_API_URL}/cards/${list._id}`
           );
@@ -51,12 +65,12 @@ function Board() {
     fetchBoardData();
   }, [boardId]);
 
-  function addList(newList) {
+  function addList(newList: List) {
     if (!newList) return;
     setLists([...lists, { ...newList, cards: [] }]);
   }
 
-  async function deleteList(boardId, listId) {
+  async function deleteList(boardId: string, listId: string) {
     const response = await fetch(
       `${import.meta.env.VITE_API_URL}/lists/${boardId}/${listId}`,
       { method: "DELETE" }
@@ -69,7 +83,7 @@ function Board() {
     }
   }
 
-  async function handleDragEnd(event) {
+  async function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
 
     if (!over || !active.data.current) return;
@@ -84,7 +98,7 @@ function Board() {
       let cardToMove;
       const sourceList = prevLists.find((list) => list._id === sourceListId);
       if (sourceList) {
-        cardToMove = sourceList.cards.find((card) => card._id === cardId);
+        cardToMove = sourceList.cards.find((card: Card) => card._id === cardId);
       }
 
       if (!cardToMove) return prevLists;
@@ -93,7 +107,7 @@ function Board() {
         if (list._id === sourceListId) {
           return {
             ...list,
-            cards: list.cards.filter((card) => card._id !== cardId),
+            cards: list.cards.filter((card: Card) => card._id !== cardId),
           };
         }
         if (list._id === destinationListId) {
@@ -124,7 +138,7 @@ function Board() {
     }
   }
 
-  const handleAddDescription = async (cardId) => {
+  const handleAddDescription = async (cardId: string | undefined) => {
     setAdding(true);
     try {
       if (cardId == null) return;
@@ -171,29 +185,32 @@ function Board() {
                   Click here to add some lists
                 </div>
               ) : (
-                lists.map((list) => (
-                  <List
-                    key={list._id}
-                    boardId={boardId}
-                    list={list}
-                    cards={list.cards}
-                    deleteList={deleteList}
-                    setLists={setLists}
-                    openCardListId={openCardListId}
-                    setOpenCardListId={setOpenCardListId}
-                    setIsModalOpen={setIsModalOpen}
-                    setCurrCard={setCurrCard}
-                  />
-                ))
+                <>
+                  {boardId &&
+                    lists.map((list: List) => (
+                      <List
+                        key={list._id}
+                        boardId={boardId}
+                        list={list}
+                        cards={list.cards}
+                        deleteList={deleteList}
+                        setLists={setLists}
+                        openCardListId={openCardListId}
+                        setOpenCardListId={setOpenCardListId}
+                        setIsModalOpen={setIsModalOpen}
+                        setCurrCard={setCurrCard}
+                      />
+                    ))}
+                </>
               )}
-              <AddList boardId={boardId} onAdd={addList} />
+              {boardId && <AddList boardId={boardId} onAdd={addList} />}
             </div>
           </DndContext>
         </div>
         <Modal isOpen={isModalOpen} setIsModalOpen={setIsModalOpen}>
           <div className="flex flex-col gap-[2rem] h-full">
             <div className="text-2xl flex flex-row justify-between">
-              {currCard?.title}{" "}
+              {currCard?.title}
               <IoMdClose
                 className="cursor-pointer"
                 onClick={() => {

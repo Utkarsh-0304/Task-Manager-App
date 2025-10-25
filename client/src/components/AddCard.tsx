@@ -3,7 +3,14 @@ import { FaPlus } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";
 import { toast } from "sonner";
 
-async function addCardToList(listId, cardTitle) {
+interface Card {
+  _id: string;
+  title: string;
+  description: string;
+  __v: number;
+}
+
+async function addCardToList(listId: string, cardTitle: string) {
   const response = await fetch(
     `${import.meta.env.VITE_API_URL}/cards/${listId}`,
     {
@@ -24,13 +31,19 @@ async function addCardToList(listId, cardTitle) {
   }
 }
 
-function AddCard({ listId, onAdd, openCardListId, setOpenCardListId }) {
-  const [input, setInput] = useState("");
-  const inputRef = useRef(null);
+interface AddCardProps {
+  listId: string;
+  onAdd: (card: Card) => void;
+  openCardListId: string | null;
+  setOpenCardListId: React.Dispatch<React.SetStateAction<string | null>>;
+}
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (input.trim() === "") return;
+function AddCard({ listId, onAdd, openCardListId, setOpenCardListId }: AddCardProps) {
+  const [input, setInput] = useState("");
+  const inputRef = useRef<HTMLTextAreaElement | null>(null);
+
+  const submit = async () => {
+    if (input.trim() === "") return
     try {
       const newCard = await addCardToList(listId, input);
       setInput("");
@@ -39,20 +52,27 @@ function AddCard({ listId, onAdd, openCardListId, setOpenCardListId }) {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    await submit();
   };
 
-  const onEnterPress = (e) => {
-    if (e.keyCode == 13 && e.shiftKey == false) {
-      handleSubmit(e);
+  const onEnterPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && e.shiftKey === false) {
+      e.preventDefault();
+      submit();
     }
   };
 
   const handleClick = () => {
     setOpenCardListId(listId);
-    setTimeout(() => inputRef.current.focus(), 0);
+    setTimeout(() => inputRef.current?.focus(), 0);
   };
 
   const handleInput = () => {
+    if (!inputRef.current) return;
     inputRef.current.style.height = "auto";
     inputRef.current.style.height = `${inputRef.current.scrollHeight}px`;
   };

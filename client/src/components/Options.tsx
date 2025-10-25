@@ -1,6 +1,12 @@
 import React from "react";
 
-const Options = React.forwardRef(function Options(props, ref) {
+interface OptionsProps {
+  board_id: string;
+  list_id: string;
+  deleteList: (boardId: string, listId: string) => void;
+}
+
+const Options = React.forwardRef<HTMLDivElement, OptionsProps>(function Options(props, ref) {
   const { board_id, list_id, deleteList } = props;
   return (
     <div

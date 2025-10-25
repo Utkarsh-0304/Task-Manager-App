@@ -1,10 +1,37 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { SetStateAction, useEffect, useRef, useState } from "react";
 import AddCard from "./AddCard";
 import Card from "./Card";
 import Options from "./Options";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useDroppable } from "@dnd-kit/core";
 import { toast } from "sonner";
+
+interface List {
+  _id: string;
+  title: string;
+  cards: Card[];
+  __v: number;
+}
+
+
+interface Card {
+  _id: string;
+  title: string;
+  description: string;
+  __v: number;
+}
+
+interface ListProps {
+  boardId: string;
+  list: List;
+  cards: Card[];
+  deleteList: (boardId: string, listId: string) => void;
+  setLists: React.Dispatch<SetStateAction<List[]>>;
+  openCardListId: string | null;
+  setOpenCardListId: React.Dispatch<SetStateAction<string | null>>;
+  setIsModalOpen: React.Dispatch<SetStateAction<boolean>>;
+  setCurrCard: React.Dispatch<SetStateAction<Card | null>>
+}
 
 export default function List({
   boardId,
@@ -16,20 +43,20 @@ export default function List({
   setOpenCardListId,
   setIsModalOpen,
   setCurrCard,
-}) {
-  const [openMenuId, setOpenMenuId] = useState(null);
-  const delRef = useRef(null);
+}: ListProps) {
+  const [openMenuId, setOpenMenuId] = useState<string | null>(null);
+  const delRef = useRef<HTMLDivElement>(null);
   const { setNodeRef } = useDroppable({
     id: list._id,
   });
 
-  const toggleMenu = (id) => {
+  const toggleMenu = (id: string) => {
     setOpenMenuId(openMenuId === id ? null : id);
   };
 
   useEffect(() => {
-    function handleClickOutside(event) {
-      if (delRef.current && !delRef.current.contains(event.target)) {
+    function handleClickOutside(event: MouseEvent) {
+      if (delRef.current && !delRef.current.contains(event.target as Node)) {
         setOpenMenuId(null);
       }
     }
@@ -37,7 +64,7 @@ export default function List({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [openMenuId]);
 
-  function addCard(newCard) {
+  function addCard(newCard: Card) {
     setLists((prevLists) =>
       prevLists.map((l) =>
         l._id === list._id ? { ...l, cards: [...l.cards, newCard] } : l
@@ -45,7 +72,7 @@ export default function List({
     );
   }
 
-  async function handleDelete(cardId) {
+  async function handleDelete(cardId: string) {
     try {
       await fetch(
         `${import.meta.env.VITE_API_URL}/lists/${list._id}/cards/${cardId}`,

@@ -3,7 +3,21 @@ import { FaPlus } from "react-icons/fa";
 import { IoIosClose } from "react-icons/io";
 import { toast } from "sonner";
 
-async function addListToBoard(id, listTitle) {
+interface List {
+  _id: string;
+  title: string;
+  cards: Card[];
+  __v: number;
+}
+
+interface Card {
+  _id: string;
+  title: string;
+  description: string;
+  __v: number;
+}
+
+async function addListToBoard(id: string, listTitle: string) {
   const response = await fetch(`${import.meta.env.VITE_API_URL}/lists/${id}`, {
     method: "POST",
     headers: {
@@ -15,43 +29,55 @@ async function addListToBoard(id, listTitle) {
   const data = await response.json();
 
   if (response.ok) {
-    toast.success("List created succesfully")
+    toast.success("List created succesfully");
     return data;
   } else {
     console.error("Error:", data.message);
   }
 }
 
-export default function AddList({ boardId, onAdd }) {
+export default function AddList({
+  boardId,
+  onAdd,
+}: {
+  boardId: string;
+  onAdd: (list: List) => void;
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLTextAreaElement | null>(null);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const submit = async () => {
     if (input.trim() === "") return;
     try {
       const newList = await addListToBoard(boardId, input);
       setInput("");
-      onAdd(newList);
+      if (newList) onAdd(newList);
       setIsOpen(false);
     } catch (err) {
       console.error("Failed to add a list");
     }
   };
 
-  const onEnterPress = (e) => {
-    if (e.keyCode == 13 && e.shiftKey == false) {
-      handleSubmit(e);
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    await submit();
+  };
+
+  const onEnterPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && e.shiftKey === false) {
+      e.preventDefault();
+      submit();
     }
   };
 
   const handleClick = () => {
     setIsOpen(true);
-    setTimeout(() => inputRef.current.focus(), 0);
+    setTimeout(() => inputRef.current?.focus(), 0);
   };
 
   const handleInput = () => {
+    if (!inputRef.current) return;
     inputRef.current.style.height = "auto";
     inputRef.current.style.height = `${inputRef.current.scrollHeight}px`;
   };

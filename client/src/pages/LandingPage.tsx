@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { RxCross2 } from "react-icons/rx";
-import { toast } from "sonner";
 
 function LandingPage() {
   const navigate = useNavigate();
@@ -40,7 +39,7 @@ function LandingPage() {
           <div className="container mx-auto px-6 text-center">
             <h1 className="text-4xl md:text-6xl font-extrabold text-slate-900 leading-tight mb-6">
               Your tasks,{" "}
-              <span className="gradient-text">supercharged by AI.</span>
+              <span className="text-blue-500">supercharged by AI.</span>
             </h1>
             <p className="max-w-2xl mx-auto text-lg text-slate-600 mb-10">
               TaskFlow is a powerful, collaborative, and intelligent task

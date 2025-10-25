@@ -1,15 +1,30 @@
-import { useState, createContext, useContext, useEffect } from "react";
+import { useState, createContext, useContext, useEffect, ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
-export const AuthContext = createContext(null);
+interface User {
+  name: string;
+  username: string;
+  userId: number;
+}
+
+export interface AuthContextType {
+  isLoggedIn: boolean;
+  user: User | null;
+  loginAction: (data: { username: string, password: string }) => Promise<string | boolean>;
+  logOut: () => void;
+  hasProfileAnimated: boolean;
+  setHasProfileAnimated: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const AuthContext = createContext<AuthContextType | null>(null);
 
 const getInitialState = () => {
   const user = sessionStorage.getItem("user");
   return user ? JSON.parse(user) : null;
 };
 
-export function AuthProvider({ children }) {
+export function AuthProvider({ children }: { children: ReactNode }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(getInitialState);
   const [hasProfileAnimated, setHasProfileAnimated] = useState(false);
@@ -19,7 +34,7 @@ export function AuthProvider({ children }) {
     sessionStorage.setItem("user", JSON.stringify(user));
   }, [user]);
 
-  const loginAction = async (data) => {
+  const loginAction = async (data: { username: string, password: string }) => {
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/login`, {
         method: "POST",
