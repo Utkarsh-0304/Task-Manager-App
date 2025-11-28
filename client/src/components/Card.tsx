@@ -39,7 +39,7 @@ function Card({ card, onDelete, listId, setIsModalOpen, setCurrCard }: CardProps
         <RxDragHandleDots2 />
       </div>
       <p
-        className="w-[80%] cursor-pointer"
+        className="w-[80%] cursor-pointer select-none"
         onClick={() => {
           setIsModalOpen(true);
           setCurrCard(card);

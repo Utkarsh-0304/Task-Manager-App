@@ -8,7 +8,7 @@ import Modal from "./Modal";
 import { IoMdClose } from "react-icons/io";
 import { toast } from "sonner";
 import { useNavigate, useParams } from "react-router-dom";
-import NavBar from "./NavBar";
+
 
 interface List {
   _id: string;
@@ -166,24 +166,19 @@ function Board() {
 
   return (
     <>
-      <NavBar />
-      <div className="flex flex-col shrink-0 h-[90vh]">
+      <div className="flex flex-col h-screen">
         <div
           className="flex flex-row items-center w-fit text-[#ccc] cursor-pointer underline underline-offset-2"
           onClick={() => navigate("/home")}
         >
           <MdChevronLeft color="gray" />
           Back to Boards
-        </div>
-        <div className="w-full relative h-[90vh] flex flex-row">
+        </div >
+        <div className="w-full relative h-full flex flex-row overflow-y-auto">
           <DndContext onDragEnd={handleDragEnd}>
-            <div className="m-[1rem] flex flex-row gap-[1.5rem]">
+            <div className="m-[1rem] grid grid-cols-3 gap-[1rem]">
               {isLoading ? (
                 <SkeletonList />
-              ) : lists.length === 0 ? (
-                <div className="italic text-[#bbb]">
-                  Click here to add some lists
-                </div>
               ) : (
                 <>
                   {boardId &&
@@ -203,7 +198,6 @@ function Board() {
                     ))}
                 </>
               )}
-              {boardId && <AddList boardId={boardId} onAdd={addList} />}
             </div>
           </DndContext>
         </div>
@@ -250,7 +244,7 @@ function Board() {
             </div>
           </div>
         </Modal>
-      </div>
+      </div >
     </>
   );
 }

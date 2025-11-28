@@ -11,7 +11,7 @@ const Options = React.forwardRef<HTMLDivElement, OptionsProps>(function Options(
   return (
     <div
       ref={ref}
-      className="absolute top-[40px] -right-[60px] z-[10] rounded-[4px] p-[0.5rem] text-white bg-black shadow-md"
+      className="absolute top-[40px] right-[10px] z-[10] rounded-[4px] p-[0.5rem] text-white bg-black shadow-md"
     >
       <ul>
         <li>

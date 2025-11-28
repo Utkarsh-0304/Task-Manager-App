@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Login from "./pages/Login";
 import Homepage from "./pages/Homepage";
 import Signup from "./pages/Signup";
+import Issue from './pages/Issue';
 import {
   BrowserRouter,
   Routes,
@@ -12,6 +13,8 @@ import {
 import { AuthProvider } from "./context/AuthProvider";
 import LandingPage from "./pages/LandingPage";
 import Board from "./components/Board";
+import DashboardLayout from "./layouts/DashboardLayout";
+import Project from "./pages/Project";
 
 const PrivateRoute = () => {
   const [isVerified, setVerified] = useState<boolean | null>(null);
@@ -48,8 +51,12 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           <Route element={<PrivateRoute />}>
-            <Route path="/home" element={<Homepage />} />
-            <Route path="/board/:boardId" element={<Board />} />
+            <Route element={<DashboardLayout />}>
+              <Route path="/home" element={<Homepage />} />
+              <Route path="/board/:boardId" element={<Board />} />
+              <Route path="/issue" element={<Issue />} />
+              <Route path="/project" element={<Project />} />
+            </Route>
           </Route>
           <Route path="/signup" element={<Signup />} />
           <Route path="*" element={<Navigate to="/" />} />

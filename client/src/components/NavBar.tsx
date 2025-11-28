@@ -42,8 +42,8 @@ export default function NavBar() {
   }, [auth?.hasProfileAnimated, auth?.setHasProfileAnimated]);
 
   return (
-    <div className="w-auto h-[10vh] p-[1rem] flex justify-between items-center ">
-      <div className="w-80 font-bold flex items-center justify-left gap-[0.5rem] text-[1.5rem] ">
+    <div className="w-auto h-[10vh] p-[1rem] flex justify-between items-center border-b">
+      <div className="w-80 font-bold flex items-center justify-left gap-[0.5rem] text-[1.5rem] select-none">
         <img src={trelloLogo} alt="Logo" className="h-auto w-[30px]" />
         TaskFlow
       </div>

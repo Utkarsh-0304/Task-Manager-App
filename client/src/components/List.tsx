@@ -96,9 +96,9 @@ export default function List({
   return (
     <div
       ref={setNodeRef}
-      className="p-[1rem] min-w-[300px] shadow-2xl rounded-[5px] bg-white h-fit"
+      className="p-[1rem] min-w-[300px] shadow-xl rounded-[5px] bg-white h-fit"
     >
-      <div className="h-[2rem] w-full text-[1.5rem] text-[#343A40] font-semibold flex justify-between relative">
+      <div className="h-[2rem] w-full text-[1.5rem] text-[#343A40] font-semibold flex justify-between relative select-none">
         {list.title}
         <button onClick={() => toggleMenu(list._id)}>
           <BsThreeDotsVertical color="#ADB5BD" />
